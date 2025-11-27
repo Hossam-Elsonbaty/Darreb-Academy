@@ -1,1 +1,11 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+@theme {
+  --color-main: #309255;
+  --color-lightGreen: #eefbf3;
+  --color-gray: #d0d0d0;
+  --color-dark: #1d2733;
+}
+
+body {
+  font-family: 'Montserrat Variable';
+}
