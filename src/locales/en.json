@@ -1,6 +1,34 @@
 {
   "navbar": {
     "logo": "Darrbe Accedmy",
-    "links": ["Home", "All Courses", "Pages", "Blogs", "Contact", "Register", "About", "Login"]
-  }
+    "links": [
+      "Home",
+      "All Courses",
+      "Pages",
+      "Blogs",
+      "Contact",
+      "Register",
+      "About",
+      "Login"
+    ]
+  },
+
+  "hero": [
+    {
+      "title": "Now learning from anywhere, and build your bright career.",
+      "desc": "It has survived not only five centuries but also the leap into electronic typesetting.",
+      "btn": "Start A Course"
+    },
+
+    {
+      "title": "Learn to Budget and Calculate Your Net Worth.",
+      "desc": "It has survived not only five centuries but also the leap into electronic typesetting.",
+      "btn": "Enroll Now"
+    },
+    {
+      "title": "You can join with Edule and upgrade your skill for your bright future.",
+      "desc": "It has survived not only five centuries but also the leap into electronic typesetting.",
+      "btn": "Start A Course"
+    }
+  ]
 }
