@@ -1,4 +1,5 @@
 import { Suspense, lazy } from "react";
+import "./i18n";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LottieLoading from "./common/dynamic-components/LottieLoading";
 const RootLayout = lazy(() => import("./layouts/RootLayout"));

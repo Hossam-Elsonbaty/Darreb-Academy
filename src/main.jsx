@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import "@fontsource-variable/montserrat";
+import "@fontsource/cairo";
 import './index.css'
 import App from './App.jsx'
 
