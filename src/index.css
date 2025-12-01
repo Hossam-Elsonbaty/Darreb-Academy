@@ -2,18 +2,16 @@
 @theme {
   --color-main: #309255;
   --color-lightGreen: #eefbf3;
-  --color-gray: #d0d0d0;
+  --color-gray: #495057;
   --color-dark: #1d2733;
-
-  --breakpoint-xs: 30rem;
-  --breakpoint-2xl: 80rem;
-  --breakpoint-3xl: 80rem;
 }
 
 body {
   font-family: "Montserrat Variable";
 }
-.swiper-slide-shadow-left,
-.swiper-slide-shadow-right {
-  display: none !important;
+
+@layer {
+  .btn1 {
+    @apply z-1 py-4 px-8 bg-main text-white text-lg rounded cursor-pointer duration-300 w-max relative flex justify-center items-center before:absolute  before:content-[''] before:-z-1 before:w-10 before:h-10 before:opacity-0 before:bg-dark before:rounded-full hover:before:scale-100 hover:before:opacity-100  hover:before:rounded-none before:duration-400 overflow-hidden hover:before:w-full hover:before:h-[250%];
+  }
 }

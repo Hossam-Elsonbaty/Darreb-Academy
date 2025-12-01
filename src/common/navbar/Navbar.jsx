@@ -1,162 +1,294 @@
-import { useTranslation } from "react-i18next";
 import { Link, NavLink } from "react-router-dom";
-import logoImg from "../../assets/images/logo.png";
-import LanguageSwitcher from "../../components/LanguageSwitcher";
-import { useRef, useState } from "react";
 import "./navbar.css";
-import { FaBarsStaggered } from "react-icons/fa6";
-import { IoClose } from "react-icons/io5";
-import { useLanguage } from "../../hooks/useLanguage";
+
+import logoImg from "../../assets/images/logo.webp";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "../../components/LanguageSwitcher";
+import { useEffect, useState } from "react";
+import { FiMenu, FiX } from "react-icons/fi";
 
 const Navbar = () => {
   const { t } = useTranslation();
-  const { lang } = useLanguage();
-  const links = t("navbar.links", { returnObjects: true });
-  const [home, courses, pages, blogs, contact, register, about, login] = links;
-  const [open, setOpen] = useState(false);
-  const courseRef = useRef();
-  const pagesRef = useRef();
+  const navLinks = t("links", { returnObjects: true });
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [dropdown1, setDropdown1] = useState(false);
+  const [dropdown2, setDropdown2] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const handleDropDown = (status) => {
-    if (status === "courses") {
-      courseRef.current.classList.toggle("scale-y-0");
-      pagesRef.current.classList.add("scale-y-0");
-    } else {
-      pagesRef.current.classList.toggle("scale-y-0");
-      courseRef.current.classList.add("scale-y-0");
-    }
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) setIsScrolled(true);
+      else setIsScrolled(false);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <nav className="bg-lightGreen sticky top-0">
-      <div className="px-5 md:px-20 py-2 flex justify-between items-center">
-        <Link to="/">
-          <div className="flex items-center gap-2">
-            <img src={logoImg} alt="logo" width="40" />
-            <span className="md:text-2xl text-dark font-semibold">
-              {t("navbar.logo")}
-            </span>
-          </div>
-        </Link>
+    <div
+      className={`
+    py-7 px-4 z-50 transition-all duration-300
+    ${
+      isScrolled
+        ? "fixed top-0 left-0 w-full shadow-md bg-white border-0 rounded-none"
+        : "border border-main rounded-md sticky top-8 bg-lightGreen"
+    }
+  `}
+    >
+      <div className="flex justify-between items-center">
+        {/* left side */}
+        <div>
+          <Link to="/">
+            <img src={logoImg} alt="logo" />
+          </Link>
+        </div>
 
-        <ul className="hidden md:flex items-center gap-5 activeLinks">
-          <li>
-            <NavLink to="/">{home}</NavLink>
-          </li>
-          <li className="relative">
-            <Link
-              className="px-3 py-1"
-              onClick={() => handleDropDown("courses")}
-            >
-              {courses}
-            </Link>
+        {/* center side links */}
+        <div className="hidden lg:flex gap-5 items-center text-lg activeLink">
+          <NavLink to="/" className="relative  hover:text-main duration-400">
+            {t(navLinks[0])}
+          </NavLink>
+          <Link className="relative duration-400 group">
+            {t(navLinks[1])}
 
             <div
-              ref={courseRef}
-              className="origin-top scale-y-0   shadow-sm p-3 flex flex-col w-[180px] absolute text-start start-0 top-10 gap-1 duration-500 overflow-hidden z-30"
+              className="
+      absolute 
+      top-20 
+      opacity-0 
+      group-hover:opacity-100
+      group-hover:top-11
+      transition-all 
+      duration-300
+      w-[170px] 
+      start-0 
+      flex 
+      flex-col 
+      bg-white 
+      shadow 
+      p-3 
+      border-t-2 
+      gap-2
+  "
             >
-              <Link
+              <NavLink
                 to="/courses"
-                className="text-dark duration-500 py-1 hover:bg-dark hover:text-white cursor-pointer rounded"
+                className="hover:text-main hover:ps-1 duration-300"
               >
-                {lang === "ar" ? "الكورسات" : "Courses"}
-              </Link>
-              <Link
-                to="/coursesDetails"
-                className="text-dark duration-500 py-1 hover:bg-dark hover:text-white cursor-pointer rounded"
-              >
-                {lang === "ar" ? "تفاصيل الكورسات" : "Courses Details"}
-              </Link>
-            </div>
-          </li>
-          <li className="relative">
-            <Link className="px-3 py-1" onClick={handleDropDown}>
-              {pages}
-            </Link>
-            <div
-              ref={pagesRef}
-              className="origin-top scale-y-0  shadow-sm p-3 flex flex-col w-[180px] absolute text-start start-0 top-10 gap-1 duration-500 overflow-hidden z-30"
-            >
-              <Link
-                to="/about"
-                className="text-dark duration-500 py-1 hover:bg-dark hover:text-white cursor-pointer rounded"
-              >
-                {about}
-              </Link>
-              <Link
-                to="/login"
-                className="text-dark duration-500 py-1 hover:bg-dark hover:text-white cursor-pointer rounded"
-              >
-                {login}
-              </Link>
-              <Link
-                to="/register"
-                className="text-dark duration-500 py-1 hover:bg-dark hover:text-white cursor-pointer rounded"
-              >
-                {register}
-              </Link>
-            </div>
-          </li>
-          <li>
-            <NavLink to="/blogs">{blogs}</NavLink>
-          </li>
-          <li>
-            <NavLink to="/contact">{contact}</NavLink>
-          </li>
-        </ul>
+                {t(navLinks[7])}
+              </NavLink>
 
-        <div className="flex items-center gap-2">
-          <LanguageSwitcher />
-          <div
-            onClick={() => setOpen((prev) => !prev)}
-            className="block md:hidden"
+              <NavLink
+                to="/details"
+                className="hover:text-main hover:ps-1 duration-300"
+              >
+                {t(navLinks[8])}
+              </NavLink>
+            </div>
+          </Link>
+          <Link className="relative duration-400 group">
+            {t(navLinks[2])}
+
+            <div
+              className="
+      absolute 
+      top-20 
+      opacity-0 
+      group-hover:opacity-100
+      group-hover:top-11
+      transition-all 
+      duration-300
+      w-[170px] 
+      start-0 
+      flex 
+      flex-col 
+      bg-white 
+      shadow 
+      p-3 
+      border-t-2 
+      gap-2
+  "
+            >
+              <NavLink
+                to="/courses"
+                className="hover:text-main hover:ps-1 duration-300"
+              >
+                {t(navLinks[9])}
+              </NavLink>
+
+              <NavLink
+                to="/details"
+                className="hover:text-main hover:ps-1 duration-300"
+              >
+                {t(navLinks[10])}
+              </NavLink>
+
+              <NavLink
+                to="/details"
+                className="hover:text-main hover:ps-1 duration-300"
+              >
+                {t(navLinks[11])}
+              </NavLink>
+
+              <NavLink
+                to="/details"
+                className="hover:text-main hover:ps-1 duration-300"
+              >
+                {t(navLinks[12])}
+              </NavLink>
+
+              <NavLink
+                to="/details"
+                className="hover:text-main hover:ps-1 duration-300"
+              >
+                {t(navLinks[13])}
+              </NavLink>
+            </div>
+          </Link>
+
+          <NavLink
+            to="/blogs"
+            className="relative  hover:text-main duration-400"
           >
-            {!open ? (
-              <FaBarsStaggered className="text-xl text-main cursor-pointer" />
-            ) : (
-              <IoClose className="text-2xl text-main cursor-pointer" />
-            )}
+            {t(navLinks[3])}
+          </NavLink>
+
+          <NavLink
+            to="/contact"
+            className="relative  hover:text-main duration-400"
+          >
+            {t(navLinks[4])}
+          </NavLink>
+        </div>
+
+        {/* right side login buttons*/}
+        <div className="flex gap-4 items-center">
+          <div className="hidden lg:flex gap-3 items-center text-lg">
+            <NavLink
+              to="/signin"
+              className="relative  hover:text-main duration-400"
+            >
+              {t(navLinks[5])}
+            </NavLink>
+
+            <Link
+              to="/signup"
+              className="py-3 px-7 bg-white rounded text-dark border-1 border-main hover:bg-main hover:text-white duration-400"
+            >
+              {t(navLinks[6])}
+            </Link>
           </div>
+          <LanguageSwitcher />
+          {/* MOBILE MENU ICON */}
+          <button
+            className="lg:hidden text-3xl cursor-pointer text-main"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            {mobileOpen ? <FiX /> : <FiMenu />}
+          </button>
         </div>
       </div>
 
-      {/* responsive */}
-      {open && (
-        <ul className="md:hidden absolute bg-white shadow text-dark w-full py-5 px-4 z-10 flex flex-col gap-3">
-          <li>
-            <NavLink to="/">{home}</NavLink>
-          </li>
+      {/* Responsive and mobile Menu */}
+      {mobileOpen && (
+        <div className="lg:hidden mt-6 flex flex-col gap-4 text-lg">
+          <NavLink
+            to="/"
+            className="hover:text-main duration-300"
+            onClick={() => setMobileOpen(false)}
+          >
+            {t(navLinks[0])}
+          </NavLink>
 
-          <li>
-            <details>
-              <summary>{courses}</summary>
-              <div className="ps-10 flex flex-col gap-2">
-                <Link to="/courses">
-                  {lang === "ar" ? "الكورسات" : "Courses"}
-                </Link>
-                <Link to="/coursesDetails">
-                  {lang === "ar" ? "تفاصيل الكورسات" : "Courses Details"}
-                </Link>
+          {/* Mobile Dropdown 1 */}
+          <div>
+            <button
+              onClick={() => setDropdown1(!dropdown1)}
+              className="w-full text-start hover:text-main duration-300"
+            >
+              {t(navLinks[1])}
+            </button>
+            {dropdown1 && (
+              <div className="flex flex-col ps-3 mt-2 gap-2">
+                <NavLink
+                  to="/courses"
+                  className="ps-3 hover:text-main duration-400"
+                >
+                  {t(navLinks[7])}
+                </NavLink>
+                <NavLink
+                  to="/details"
+                  className="ps-3 hover:text-main duration-400"
+                >
+                  {t(navLinks[8])}
+                </NavLink>
               </div>
-            </details>
-          </li>
+            )}
+          </div>
 
-          <li>
-            <details>
-              <summary>{pages}</summary>
-              <div className="ps-10 flex flex-col">
-                <Link to="/about">{about}</Link>
-                <Link to="/login">{login}</Link>
-                <Link to="/register">{register}</Link>
+          {/* Mobile Dropdown 2 */}
+          <div>
+            <button
+              onClick={() => setDropdown2(!dropdown2)}
+              className="w-full text-start hover:text-main duration-300"
+            >
+              {t(navLinks[2])}
+            </button>
+            {dropdown2 && (
+              <div className="flex flex-col ps-3 mt-2 gap-2">
+                <NavLink
+                  to="/courses"
+                  className="hover:text-main ps-3 duration-300"
+                >
+                  {t(navLinks[9])}
+                </NavLink>
+
+                <NavLink
+                  to="/details"
+                  className="hover:text-main ps-3 duration-300"
+                >
+                  {t(navLinks[10])}
+                </NavLink>
+
+                <NavLink
+                  to="/details"
+                  className="hover:text-main ps-3 duration-300"
+                >
+                  {t(navLinks[11])}
+                </NavLink>
+
+                <NavLink
+                  to="/details"
+                  className="hover:text-main ps-3 duration-300"
+                >
+                  {t(navLinks[12])}
+                </NavLink>
+
+                <NavLink
+                  to="/details"
+                  className="hover:text-main ps-3 duration-300"
+                >
+                  {t(navLinks[13])}
+                </NavLink>
               </div>
-            </details>
-          </li>
+            )}
+          </div>
 
-          <NavLink to="/blogs">{blogs}</NavLink>
-          <NavLink to="/contact">{contact}</NavLink>
-        </ul>
+          <NavLink to="/blogs">{t(navLinks[3])}</NavLink>
+          <NavLink to="/contact">{t(navLinks[4])}</NavLink>
+
+          <NavLink to="/signin">{t(navLinks[5])}</NavLink>
+
+          <Link
+            to="/signup"
+            className="py-3 px-7 border border-main rounded hover:bg-main hover:text-white duration-300"
+          >
+            {t(navLinks[6])}
+          </Link>
+        </div>
       )}
-    </nav>
+    </div>
   );
 };
 
