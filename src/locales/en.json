@@ -1,6 +1,24 @@
 {
-  "navbar": {
-    "logo": "Darrbe Accedmy",
-    "links": ["Home", "All Courses", "Pages", "Blogs", "Contact", "Register", "About", "Login"]
+  "links": [
+    "Home",
+    "All Courses",
+    "Pages",
+    "Blogs",
+    "Contact",
+    "Sign In",
+    "Sign Up",
+    "Courses",
+    "Courses Details",
+    "About",
+    "Register",
+    "login",
+    "FAQ",
+    "404 Error"
+  ],
+
+  "hero": {
+    "subTitle": "Start your favorite course",
+    "desc": "It has survived not only five centuries but also the leap into electronic typesetting.",
+    "btn": "Start A Course"
   }
 }
