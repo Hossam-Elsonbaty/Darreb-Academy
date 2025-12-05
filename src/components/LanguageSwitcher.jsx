@@ -25,7 +25,7 @@ function LanguageSwitcher() {
 
       <div
         ref={dropDownRef}
-        className="origin-top scale-y-0 shadow-sm p-3 flex flex-col w-[120px] absolute -start-12 top-8 gap-1 duration-500 overflow-hidden z-30"
+        className="origin-top scale-y-0 shadow-sm p-3 flex flex-col w-[120px] absolute -start-25 top-8 gap-1 duration-500 overflow-hidden z-30"
       >
         <button
           className="text-dark duration-500 py-1 hover:bg-dark hover:text-white cursor-pointer rounded"

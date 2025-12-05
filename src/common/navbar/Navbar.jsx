@@ -28,7 +28,7 @@ const Navbar = () => {
   return (
     <div
       className={`
-    py-7 px-4 z-50 transition-all duration-300
+    py-7 px-4 z-50 transition-all duration-300 w-[90%] mx-auto
     ${
       isScrolled
         ? "fixed top-0 left-0 w-full shadow-md bg-white border-0 rounded-none"
@@ -49,15 +49,19 @@ const Navbar = () => {
           <NavLink to="/" className="relative  hover:text-main duration-400">
             {t(navLinks[0])}
           </NavLink>
-          <Link className="relative duration-400 group">
-            {t(navLinks[1])}
+          <div className="relative group">
+            <Link className="hover:text-main duration-400 cursor-pointer py-5">
+              {t(navLinks[1])}
+            </Link>
 
             <div
               className="
       absolute 
       top-20 
       opacity-0 
+      invisible
       group-hover:opacity-100
+      group-hover:visible
       group-hover:top-11
       transition-all 
       duration-300
@@ -70,6 +74,8 @@ const Navbar = () => {
       p-3 
       border-t-2 
       gap-2
+      pointer-events-none
+      group-hover:pointer-events-auto
   "
             >
               <NavLink
@@ -86,16 +92,20 @@ const Navbar = () => {
                 {t(navLinks[8])}
               </NavLink>
             </div>
-          </Link>
-          <Link className="relative duration-400 group">
-            {t(navLinks[2])}
+          </div>
+          <div className="relative group">
+            <Link className="hover:text-main duration-400 cursor-pointer py-5">
+              {t(navLinks[2])}
+            </Link>
 
             <div
               className="
       absolute 
       top-20 
       opacity-0 
+      invisible
       group-hover:opacity-100
+      group-hover:visible
       group-hover:top-11
       transition-all 
       duration-300
@@ -108,6 +118,8 @@ const Navbar = () => {
       p-3 
       border-t-2 
       gap-2
+      pointer-events-none
+      group-hover:pointer-events-auto
   "
             >
               <NavLink
@@ -145,7 +157,7 @@ const Navbar = () => {
                 {t(navLinks[13])}
               </NavLink>
             </div>
-          </Link>
+          </div>
 
           <NavLink
             to="/blogs"
@@ -214,12 +226,14 @@ const Navbar = () => {
                 <NavLink
                   to="/courses"
                   className="ps-3 hover:text-main duration-400"
+                  onClick={() => setMobileOpen(false)}
                 >
                   {t(navLinks[7])}
                 </NavLink>
                 <NavLink
                   to="/details"
                   className="ps-3 hover:text-main duration-400"
+                  onClick={() => setMobileOpen(false)}
                 >
                   {t(navLinks[8])}
                 </NavLink>
@@ -240,6 +254,7 @@ const Navbar = () => {
                 <NavLink
                   to="/courses"
                   className="hover:text-main ps-3 duration-300"
+                  onClick={() => setMobileOpen(false)}
                 >
                   {t(navLinks[9])}
                 </NavLink>
@@ -247,6 +262,7 @@ const Navbar = () => {
                 <NavLink
                   to="/details"
                   className="hover:text-main ps-3 duration-300"
+                  onClick={() => setMobileOpen(false)}
                 >
                   {t(navLinks[10])}
                 </NavLink>
@@ -254,6 +270,7 @@ const Navbar = () => {
                 <NavLink
                   to="/details"
                   className="hover:text-main ps-3 duration-300"
+                  onClick={() => setMobileOpen(false)}
                 >
                   {t(navLinks[11])}
                 </NavLink>
@@ -261,6 +278,7 @@ const Navbar = () => {
                 <NavLink
                   to="/details"
                   className="hover:text-main ps-3 duration-300"
+                  onClick={() => setMobileOpen(false)}
                 >
                   {t(navLinks[12])}
                 </NavLink>
@@ -268,6 +286,7 @@ const Navbar = () => {
                 <NavLink
                   to="/details"
                   className="hover:text-main ps-3 duration-300"
+                  onClick={() => setMobileOpen(false)}
                 >
                   {t(navLinks[13])}
                 </NavLink>
@@ -275,14 +294,21 @@ const Navbar = () => {
             )}
           </div>
 
-          <NavLink to="/blogs">{t(navLinks[3])}</NavLink>
-          <NavLink to="/contact">{t(navLinks[4])}</NavLink>
+          <NavLink to="/blogs" onClick={() => setMobileOpen(false)}>
+            {t(navLinks[3])}
+          </NavLink>
+          <NavLink to="/contact" onClick={() => setMobileOpen(false)}>
+            {t(navLinks[4])}
+          </NavLink>
 
-          <NavLink to="/signin">{t(navLinks[5])}</NavLink>
+          <NavLink to="/signin" onClick={() => setMobileOpen(false)}>
+            {t(navLinks[5])}
+          </NavLink>
 
           <Link
             to="/signup"
             className="py-3 px-7 border border-main rounded hover:bg-main hover:text-white duration-300"
+            onClick={() => setMobileOpen(false)}
           >
             {t(navLinks[6])}
           </Link>

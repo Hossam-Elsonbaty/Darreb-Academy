@@ -6,8 +6,8 @@ const Hero = () => {
   const hero = t("hero", { returnObjects: true });
 
   return (
-    <section className="relative w-full">
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 lg:py-20">
+    <section className="relative">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 pt-10 lg:pt-15">
         {/* GRID */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">
           {/* TEXT SIDE */}
@@ -16,7 +16,7 @@ const Hero = () => {
               {hero.subTitle}
             </span>
 
-            <h1 className="text-3xl md:text-5xl font-semibold leading-17">
+            <h1 className="text-3xl md:text-5xl font-semibold leading-12 lg:leading-17">
               {i18n.language === "ar" ? (
                 <>
                   تعلم الان من <br />
