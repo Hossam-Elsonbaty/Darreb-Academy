@@ -30,7 +30,7 @@ const Categories = () => {
   });
 
   return (
-    <div className="bg-white container py-20 px-4 md:px-15 lg:px-30 xl:px-40">
+    <div className="bg-white py-20 px-4 md:px-15 lg:px-30 xl:px-40">
       {/* Header */}
       <div className="grid grid-cols-1 md:grid-cols-2 justify-between items-center">
         <SectionTitle
@@ -90,7 +90,7 @@ const Categories = () => {
           {title.map((cat) => (
             <SwiperSlide key={cat}>
               <div
-                className={`p-3 rounded w-full bg-white text-xl text-center duration-300 cursor-pointer hover:text-main hover:border-main border-lightGreen border ${
+                className={`p-3 rounded w-full bg-white text-lg text-center duration-300 cursor-pointer hover:text-main hover:border-main border-lightGreen border ${
                   cate === cat.toLowerCase() && "text-main border-main"
                 }`}
                 onClick={() => setCate(cat.toLowerCase())}
