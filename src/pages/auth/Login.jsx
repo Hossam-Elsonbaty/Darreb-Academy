@@ -2,15 +2,34 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import loginshape from "../../assets/images/shape-3.png";
 import loginimg from "../../assets/images/login.png"
+import SectionTitle from "../../common/dynamic-components/SectionTitle";
+import { useLanguage } from "../../hooks/useLanguage";
 
 export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = (data) => console.log(data);
-
+  const {lang} = useLanguage();
   return (
     <div className="w-full min-h-screen bg-white py-20 px-6 flex justify-center items-center">
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-6xl items-center relative">
+
+
+ <SectionTitle
+          title={
+            lang === "en" ? (
+              <h2 className="text-4xl font-medium capitalize">
+                login <span className="text-main">now</span>
+              </h2>
+            ) : (
+              <h2 className="text-4xl font-medium">
+                سجل <span className="text-main">الان</span> 
+              </h2>
+            )
+          }
+        />
+
+
 
 
         <div className="relative flex justify-center items-center">
