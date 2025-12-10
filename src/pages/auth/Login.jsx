@@ -15,7 +15,7 @@ export default function Login() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-6xl items-center relative">
 
 
- <SectionTitle
+ {/* <SectionTitle
           title={
             lang === "en" ? (
               <h2 className="text-4xl font-medium capitalize">
@@ -27,7 +27,7 @@ export default function Login() {
               </h2>
             )
           }
-        />
+        /> */}
 
 
 
