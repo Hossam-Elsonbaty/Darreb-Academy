@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import loginimg from "../../assets/images/login.png";
-import SectionTitle from "../../common/dynamic-components/SectionTitle";
+import titleLine from "../../assets/images/shape-11.png";
 import { useLanguage } from "../../hooks/useLanguage";
 
 export default function Login() {
@@ -27,33 +27,55 @@ export default function Login() {
         <div className="w-full max-w-md mx-auto">
 
           {/* TITLE */}
-          <SectionTitle
-            title={
-              lang === "en" ? (
-                <h2
+          {lang === "en" ? (
+            <h2
+              className="
+                text-[30px] font-medium 
+                mb-0 leading-[1.4] pb-2.5
+                capitalize relative
+                -translate-y-4 inline-block
+              "
+            >
+              Login{" "}
+              <span className="text-main relative inline-block">
+                Now
+                <img
+                  src={titleLine}
+                  alt="underline"
                   className="
-                    text-[30px] font-medium 
-                    mb-0 leading-[1.4] pb-2.5
-                    capitalize relative
-                    -translate-y-4
+                    absolute 
+                    left-1/2 -translate-x-1/2
+                    -bottom-2
+                    w-[120px]
                   "
-                >
-                  Login <span className="text-main">Now</span>
-                </h2>
-              ) : (
-                <h2
+                />
+              </span>
+            </h2>
+          ) : (
+            <h2
+              className="
+                text-[30px] font-medium 
+                mb-0 leading-[1.4] pb-2.5
+                capitalize relative
+                -translate-y-4 inline-block
+              "
+            >
+              سجل{" "}
+              <span className="text-main relative inline-block">
+                الان
+                <img
+                  src={titleLine}
+                  alt="underline"
                   className="
-                    text-[30px] font-medium 
-                    mb-0 leading-[1.4] pb-2.5
-                    capitalize relative
-                    -translate-y-4
+                    absolute 
+                    left-1/2 -translate-x-1/2
+                    -bottom-2
+                    w-[120px]
                   "
-                >
-                  سجل <span className="text-main">الان</span>
-                </h2>
-              )
-            }
-          />
+                />
+              </span>
+            </h2>
+          )}
 
           {/* FORM */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
