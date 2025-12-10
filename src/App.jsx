@@ -2,6 +2,9 @@ import { Suspense, lazy } from "react";
 import "./i18n";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LottieLoading from "./common/dynamic-components/LottieLoading";
+const NotFound = lazy(() => import("./pages/notFound/NotFound"));
+const Faq = lazy(() => import("./pages/faq/Faq"));
+const Contact = lazy(() => import("./pages/contact/Contact"));
 const RootLayout = lazy(() => import("./layouts/RootLayout"));
 const Home = lazy(() => import("./pages/home/Home"));
 const About = lazy(() => import("./pages/about/About"));
@@ -19,7 +22,7 @@ const router = createBrowserRouter([
         <RootLayout />
       </Suspense>
     ),
-    errorElement: <LottieLoading status="notFound" />,
+    errorElement: <LottieLoading status="error" />,
     children: [
       {
         index: true,
@@ -57,7 +60,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/login",
+        path: "/signin",
         element: (
           <Suspense fallback={<LottieLoading status="page" />}>
             <Login />
@@ -65,7 +68,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/register",
+        path: "/signup",
         element: (
           <Suspense fallback={<LottieLoading status="page" />}>
             <Register />
@@ -73,10 +76,44 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/faq",
+        element: (
+          <Suspense fallback={<LottieLoading status="page" />}>
+            <Faq />
+          </Suspense>
+        ),
+      },
+
+      {
         path: "/blogs",
         element: (
           <Suspense fallback={<LottieLoading status="page" />}>
             <Blogs />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/contact",
+        element: (
+          <Suspense fallback={<LottieLoading status="page" />}>
+            <Contact />
+          </Suspense>
+        ),
+      },
+
+      {
+        path: "/404",
+        element: (
+          <Suspense fallback={<LottieLoading status="notFound" />}>
+            <NotFound />
+          </Suspense>
+        ),
+      },
+      {
+        path: "*",
+        element: (
+          <Suspense fallback={<LottieLoading status="notFound" />}>
+            <NotFound />
           </Suspense>
         ),
       },
