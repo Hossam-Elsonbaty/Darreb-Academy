@@ -1,60 +1,59 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import loginshape from "../../assets/images/shape-3.png";
-import loginimg from "../../assets/images/login.png"
+import loginimg from "../../assets/images/login.png";
 import SectionTitle from "../../common/dynamic-components/SectionTitle";
 import { useLanguage } from "../../hooks/useLanguage";
 
 export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = (data) => console.log(data);
-  const {lang} = useLanguage();
+  const { lang } = useLanguage();
+
   return (
     <div className="w-full min-h-screen bg-white py-20 px-6 flex justify-center items-center">
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-6xl items-center relative">
 
-
- {/* <SectionTitle
-          title={
-            lang === "en" ? (
-              <h2 className="text-4xl font-medium capitalize">
-                login <span className="text-main">now</span>
-              </h2>
-            ) : (
-              <h2 className="text-4xl font-medium">
-                سجل <span className="text-main">الان</span> 
-              </h2>
-            )
-          }
-        /> */}
-
-
-
-
+        {/* IMAGE SIDE */}
         <div className="relative flex justify-center items-center">
-
           <img
             src={loginimg}
             alt="login"
             className="max-w-xs md:max-w-sm relative z-10"
           />
-
         </div>
 
+        {/* FORM SIDE */}
         <div className="w-full max-w-md mx-auto">
 
-          <h2 className="relative text-4xl font-semibold mb-6 leading-tight">
-
-            Login Now <span className="text-main relative">
-
-              {/* underline shape */}
-              <span className="absolute left-1/2 -bottom-2 -translate-x-1/2 
-                bg-cover bg-center w-[120px] h-3 hidden sm:block"
-                style={{ backgroundImage: `url(${loginshape})` }}
-              ></span>
-            </span>
-          </h2>
+          {/* TITLE */}
+          <SectionTitle
+            title={
+              lang === "en" ? (
+                <h2
+                  className="
+                    text-[30px] font-medium 
+                    mb-0 leading-[1.4] pb-2.5
+                    capitalize relative
+                    -translate-y-4
+                  "
+                >
+                  Login <span className="text-main">Now</span>
+                </h2>
+              ) : (
+                <h2
+                  className="
+                    text-[30px] font-medium 
+                    mb-0 leading-[1.4] pb-2.5
+                    capitalize relative
+                    -translate-y-4
+                  "
+                >
+                  سجل <span className="text-main">الان</span>
+                </h2>
+              )
+            }
+          />
 
           {/* FORM */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -64,7 +63,14 @@ export default function Login() {
               <input
                 type="email"
                 placeholder="Email"
-                className="border border-gray-300 px-4 py-3 w-full rounded focus:ring-2 focus:ring-main"
+                className="
+                  w-full h-[60px] px-6 
+                  text-[15px] text-[#52565b] 
+                  border border-[rgba(48,146,85,0.2)] 
+                  rounded-[10px] bg-white 
+                  transition-all duration-300 
+                  focus:border-main focus:outline-none
+                "
                 {...register("Email", {
                   required: "Email is required",
                   pattern: {
@@ -83,7 +89,14 @@ export default function Login() {
               <input
                 type="password"
                 placeholder="Password"
-                className="border border-gray-300 px-4 py-3 w-full rounded focus:ring-2 focus:ring-main"
+                className="
+                  w-full h-[60px] px-6 
+                  text-[15px] text-[#52565b] 
+                  border border-[rgba(48,146,85,0.2)] 
+                  rounded-[10px] bg-white 
+                  transition-all duration-300 
+                  focus:border-main focus:outline-none
+                "
                 {...register("password", {
                   required: "Password is required",
                   minLength: {
@@ -97,16 +110,32 @@ export default function Login() {
               )}
             </div>
 
+            {/* LOGIN BUTTON */}
             <button
               type="submit"
-              className="w-full bg-main text-white py-3 rounded text-lg font-medium hover:bg-[#267846] transition cursor-pointer"
+              className="
+                w-full bg-main text-white py-3 rounded-lg 
+                text-lg font-medium hover:bg-[#2a7f49] 
+                transition-all duration-300 cursor-pointer
+              "
             >
               Login
             </button>
 
+            {/* GOOGLE BUTTON */}
             <button
               type="button"
-              className="w-full border border-main text-main py-3 rounded text-lg font-medium hover:bg-main hover:text-white transition cursor-pointer"
+              className="
+                w-full 
+                bg-[#e7f8ee] 
+                text-main 
+                border border-[rgba(48,146,85,0.2)]
+                py-3 
+                rounded-lg 
+                text-lg font-medium
+                hover:bg-main hover:text-white 
+                transition-all duration-300 cursor-pointer
+              "
             >
               Login with Google
             </button>
