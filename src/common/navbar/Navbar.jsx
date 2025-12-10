@@ -86,7 +86,7 @@ const Navbar = () => {
               </NavLink>
 
               <NavLink
-                to="/details"
+                to="/coursesDetails"
                 className="hover:text-main hover:ps-1 duration-300"
               >
                 {t(navLinks[8])}
@@ -123,35 +123,35 @@ const Navbar = () => {
   "
             >
               <NavLink
-                to="/courses"
+                to="/about"
                 className="hover:text-main hover:ps-1 duration-300"
               >
                 {t(navLinks[9])}
               </NavLink>
 
               <NavLink
-                to="/details"
+                to="/signup"
                 className="hover:text-main hover:ps-1 duration-300"
               >
                 {t(navLinks[10])}
               </NavLink>
 
               <NavLink
-                to="/details"
+                to="/signin"
                 className="hover:text-main hover:ps-1 duration-300"
               >
                 {t(navLinks[11])}
               </NavLink>
 
               <NavLink
-                to="/details"
+                to="/faq"
                 className="hover:text-main hover:ps-1 duration-300"
               >
                 {t(navLinks[12])}
               </NavLink>
 
               <NavLink
-                to="/details"
+                to="/404"
                 className="hover:text-main hover:ps-1 duration-300"
               >
                 {t(navLinks[13])}
@@ -233,7 +233,7 @@ const Navbar = () => {
                   {t(navLinks[7])}
                 </NavLink>
                 <NavLink
-                  to="/details"
+                  to="/coursesdetails"
                   className="ps-3 hover:text-main duration-400"
                   onClick={() => setMobileOpen(false)}
                 >
@@ -254,7 +254,7 @@ const Navbar = () => {
             {dropdown2 && (
               <div className="flex flex-col ps-3 mt-2 gap-2">
                 <NavLink
-                  to="/courses"
+                  to="/about"
                   className="hover:text-main ps-3 duration-300"
                   onClick={() => setMobileOpen(false)}
                 >
@@ -262,7 +262,7 @@ const Navbar = () => {
                 </NavLink>
 
                 <NavLink
-                  to="/details"
+                  to="/signup"
                   className="hover:text-main ps-3 duration-300"
                   onClick={() => setMobileOpen(false)}
                 >
@@ -270,7 +270,7 @@ const Navbar = () => {
                 </NavLink>
 
                 <NavLink
-                  to="/details"
+                  to="/signin"
                   className="hover:text-main ps-3 duration-300"
                   onClick={() => setMobileOpen(false)}
                 >
@@ -278,7 +278,7 @@ const Navbar = () => {
                 </NavLink>
 
                 <NavLink
-                  to="/details"
+                  to="/faq"
                   className="hover:text-main ps-3 duration-300"
                   onClick={() => setMobileOpen(false)}
                 >
@@ -286,7 +286,7 @@ const Navbar = () => {
                 </NavLink>
 
                 <NavLink
-                  to="/details"
+                  to="/404"
                   className="hover:text-main ps-3 duration-300"
                   onClick={() => setMobileOpen(false)}
                 >

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import mainLoader from "../../assets/lottiFiles/main-loader.json";
 import pageLoader from "../../assets/lottiFiles/page.json";
 import notFoundLoader from "../../assets/lottiFiles/notFound.json";
-
+import errorLoader from "../../assets/lottiFiles/error.json";
 const LottieLoading = ({ status }) => {
   return (
     <div className="h-screen flex items-center justify-center">
@@ -14,19 +14,17 @@ const LottieLoading = ({ status }) => {
               ? mainLoader
               : status === "page"
               ? pageLoader
+              : status === "error"
+              ? errorLoader
               : notFoundLoader
           }
         />
 
-        {status === "notFound" ? (
+        {status === "notFound" && (
           <Link to="/" className="text-lg text-main underline">
             Go Back to Home
           </Link>
-        ) : (
-          <p className="text-4xl text-main font-bold">
-            Loading your website ... plz wait!
-          </p>
-        )}
+        ) }
       </div>
     </div>
   );
