@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "../hooks/useLanguage";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -29,6 +29,9 @@ const Categories = () => {
     return matchesCategory && matchesSearch;
   });
 
+  useEffect(() => {
+    setCate(lang === "en" ? "UX/UI Design" : "تصميم UX/UI");
+  }, [lang]);
   return (
     <div className="bg-white py-20 px-4 md:px-15 lg:px-30 xl:px-40">
       {/* Header */}

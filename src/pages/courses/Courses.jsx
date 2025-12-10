@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+
 
 const Courses = () => {
-  return (
-    <div>Courses</div>
-  )
-}
+  // const {data} = useFetch("https://api.example.com/courses");\
 
-export default Courses
+
+  
+
+
+  return <div>Courses</div>;
+};
+
+export default Courses;

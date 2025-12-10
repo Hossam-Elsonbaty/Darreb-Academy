@@ -1,6 +1,6 @@
 import React from "react";
 import titleLine from "../../assets/images/shape-11.png";
-const SectionTitle = ({ title }) => {
+const SectionTitle = ({ title, status }) => {
   return (
     <div className="relative">
       {title}
@@ -8,7 +8,7 @@ const SectionTitle = ({ title }) => {
       <img
         src={titleLine}
         alt="line"
-        className="absolute start-[50px] top-12"
+        className={`${status ? "start-1/2" : "start-[50px]"} absolute  top-12 `}
       />
     </div>
   );

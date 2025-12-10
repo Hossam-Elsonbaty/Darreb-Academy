@@ -12,6 +12,7 @@ const Register = lazy(() => import("./pages/auth/Register"));
 const Blogs = lazy(() => import("./pages/blogs/Blogs"));
 
 const router = createBrowserRouter([
+
   {
     path: "/",
     element: (
@@ -49,13 +50,14 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "/coursesDetails",
+        path: "/details",
         element: (
           <Suspense fallback={<LottieLoading status="page" />}>
             <CoursesDetails />
           </Suspense>
         ),
       },
+      
       {
         path: "/login",
         element: (
@@ -82,6 +84,8 @@ const router = createBrowserRouter([
       },
     ],
   },
+
+
 ]);
 
 const App = () => {

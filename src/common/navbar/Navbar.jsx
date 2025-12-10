@@ -172,7 +172,9 @@ const Navbar = () => {
           >
             {t(navLinks[4])}
           </NavLink>
+
         </div>
+
 
         {/* right side login buttons*/}
         <div className="flex gap-4 items-center">
