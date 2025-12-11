@@ -1,5 +1,5 @@
 import React from "react";
-import titleLine from "../../assets/images/shape-11.png";
+import titleLine from "../../assets/images/shape11.png";
 const SectionTitle = ({ title }) => {
   return (
     <div className="relative">
