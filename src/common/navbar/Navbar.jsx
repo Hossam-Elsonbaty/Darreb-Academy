@@ -79,7 +79,7 @@ const Navbar = () => {
   "
             >
               <NavLink
-                to="/courses"
+                to="/about"
                 className="hover:text-main hover:ps-1 duration-300"
               >
                 {t(navLinks[7])}
@@ -226,7 +226,7 @@ const Navbar = () => {
             {dropdown1 && (
               <div className="flex flex-col ps-3 mt-2 gap-2">
                 <NavLink
-                  to="/courses"
+                  to="/about"
                   className="ps-3 hover:text-main duration-400"
                   onClick={() => setMobileOpen(false)}
                 >

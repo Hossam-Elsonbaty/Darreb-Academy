@@ -4,7 +4,10 @@
   --color-lightGreen: #eefbf3;
   --color-gray: #495057;
   --color-dark: #1d2733;
+  --color-dark: #1d2733;  
 }
+
+
 
 body {
   font-family: "Montserrat Variable";
@@ -14,4 +17,121 @@ body {
   .btn1 {
     @apply z-1  bg-main text-white text-lg rounded cursor-pointer duration-300 w-max relative flex justify-center items-center before:absolute  before:content-[''] before:-z-1 before:w-10 before:h-10 before:opacity-0 before:bg-dark before:rounded-full hover:before:scale-100 hover:before:opacity-100  hover:before:rounded-none before:duration-400 overflow-hidden hover:before:w-full hover:before:h-[250%];
   }
+}
+/* .shape-icon-box .icon-shape-1 {
+    position: absolute;
+    top: -15px;
+    right: -130px;
+}
+.animation-left {
+    -webkit-animation: left 5s 
+linear 0s infinite normal forwards;
+    animation: left 5s 
+linear 0s infinite normal forwards;
+} */
+
+@keyframes float-horizontal {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(40px);
+  } 
+}
+
+.animate-float-horizontal {
+  animation: float-horizontal 3s ease-in-out infinite;
+}
+
+@keyframes float-vertical {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(40px);
+  } 
+}
+
+.animate-float-vertical {
+  animation: float-vertical 3s ease-in-out infinite;
+}
+.rotate-360 {
+  animation: rotate360 6s linear infinite;
+}
+
+@keyframes rotate360 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.app-shape-1 {
+  width: 300px; 
+  height: 300px;
+  border: 2px solid rgba(255, 255, 255, 0.3); 
+  border-radius: 50%;
+  left: 20px;
+  bottom: 20px;
+  position: absolute;
+}
+
+@media (min-width: 768px) {
+  .app-shape-1 {
+    width: 560px;
+    height: 560px;
+    left: 70px;
+    bottom: 85px;
+    border: 2px solid rgba(255,255,255,0.15);
+  }
+}
+.app-shape-2 { 
+  width: 200px; 
+  height: 200px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  z-index: 0; 
+}
+
+@media (min-width: 768px) {
+  .app-shape-2 {
+    width: 360px;
+    height: 360px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+  }
+}
+
+.app-shape-3 {
+  width: 300px; 
+  height: 300px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  position: absolute;
+  right: 20px; 
+  top: 20px; 
+  z-index: 0;
+}
+
+@media (min-width: 768px) {
+  .app-shape-3 {
+    width: 360px;
+    height: 360px;
+    right: 70px;
+    top:85px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+  }
+}
+.li p :hover{
+  color: var(--color-main)
+}
+.ul li:hover{
+  color: var(--color-main)
 }

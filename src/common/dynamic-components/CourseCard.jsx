@@ -11,7 +11,7 @@ import courseImg5 from "../../assets/images/courses-05.jpg";
 import courseImg6 from "../../assets/images/courses-06.jpg";
 import profile1 from "../../assets/images/author-01.jpg";
 import profile2 from "../../assets/images/author-02.jpg";
-import profile3 from "../../assets/images/author-03.jpg";
+import profile3 from "../../assets/images/author03.jpg";
 import profile4 from "../../assets/images/author-04.jpg";
 import profile5 from "../../assets/images/author-05.jpg";
 import profile6 from "../../assets/images/author-06.jpg";
