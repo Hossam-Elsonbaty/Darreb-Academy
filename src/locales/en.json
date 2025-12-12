@@ -451,5 +451,28 @@
       "name": "Sara Alexander",
       "job": "Product Designer"
     }
+  ],
+
+  "news": [
+    {
+      "id": 1,
+      "category": "Development",
+      "title": "Data Science and Machine Learning with Python - Hands On!",
+      "instructor": "John Doe"
+    },
+
+    {
+      "id": 2,
+      "title": "Create Amazing Color Schemes for Your UX Design Projects",
+      "category": "UX/UI Design",
+      "instructor": "John Doe"
+    },
+    {
+      "id": 3,
+      "title": "Culture & Leadership: Strategies for a Successful Business",
+      "category": "UX/UI Design",
+
+      "instructor": "John Doe"
+    }
   ]
 }
