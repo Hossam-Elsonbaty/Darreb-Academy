@@ -11,7 +11,7 @@ const DynamicHero = ({ links, authorImg }) => {
 console.log(links);
 
   return (
-    <div className="h-[70vh] flex flex-col justify-center relative">
+    <div className="h-[40vh] flex flex-col justify-center relative px-4 md:px-15 lg:px-30 xl:px-40">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-4">
         <div className="flex flex-col gap-4 items-center lg:items-start ">
           <Breadcrumbs aria-label="breadcrumb">
@@ -59,7 +59,7 @@ console.log(links);
         <img
           src={doubleCurveImg}
           alt="double-curve"
-          className="absolute -top-17 -end-40"
+          className="absolute -top-28 end-0"
         />
       </div>
     </div>

@@ -12,7 +12,7 @@ export default function Login() {
   const { lang } = useLanguage();
 
   return (
-    <div className="px-4 md:px-15 lg:px-30 xl:px-40">
+    <div>
       <DynamicHero
         links={{
           en: ["Home", "Login"],
@@ -24,8 +24,6 @@ export default function Login() {
       <div className="w-full min-h-screen bg-white py-20 px-6 flex justify-center items-center">
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-6xl items-center relative">
-
-          {/* IMAGE SIDE */}
           <div className="relative flex justify-center items-center">
             <img
               src={loginimg}
@@ -34,10 +32,8 @@ export default function Login() {
             />
           </div>
 
-          {/* FORM SIDE */}
           <div className="w-full max-w-md mx-auto">
 
-            {/* TITLE */}
             {lang === "en" ? (
               <h2
                 className="
@@ -88,10 +84,8 @@ export default function Login() {
               </h2>
             )}
 
-            {/* FORM */}
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
-              {/* EMAIL */}
               <div>
                 <input
                   type="email"
@@ -117,7 +111,6 @@ export default function Login() {
                 )}
               </div>
 
-              {/* PASSWORD */}
               <div>
                 <input
                   type="password"
@@ -143,7 +136,6 @@ export default function Login() {
                 )}
               </div>
 
-              {/* LOGIN BUTTON */}
               <button
                 type="submit"
                 className="
@@ -155,7 +147,6 @@ export default function Login() {
                 Login
               </button>
 
-              {/* GOOGLE BUTTON */}
               <button
                 type="button"
                 className="
