@@ -13,7 +13,6 @@ import shape20 from "../../assets/images/shape-20.webp";
 // import shape23 from "../../assets/images/shape23.webp";
 import shape8 from "../../assets/images/shape8.webp";
 import about from "../../assets/images/about.webp";
-import logo from "../../assets/images/logo.webp";
 // import shape11 from "../../assets/images/shape11.png";
 import shape3 from "../../assets/images/shape3.png";
 import shape14 from "../../assets/images/shape14.webp";
@@ -31,13 +30,14 @@ import brand2 from "../../assets/images/brand-02.png";
 import brand3 from "../../assets/images/brand-03.png";
 import brand4 from "../../assets/images/brand-04.png";
 import brand5 from "../../assets/images/brand-05.png";
-import { MdOutlineMail } from "react-icons/md";
 import brand6 from "../../assets/images/brand-06.png";
+import { MdOutlineMail } from "react-icons/md";
 import { BsTelephone } from "react-icons/bs";
 import { SlSocialFacebook } from "react-icons/sl";
 import { TfiTwitter } from "react-icons/tfi";
 import { SlSocialSkype } from "react-icons/sl";
 import { FaInstagram } from "react-icons/fa";
+import Footer from "../../common/footer/Footer";
 
 const About = () => {
   const { i18n } = useTranslation();
@@ -701,7 +701,7 @@ const About = () => {
         </div>
       </section>
       {/*================= End Best Supporter Section ==================*/}
-      <section className=" grid lg:grid-cols-4 grid-cols-1 p-20 bg-lightGreen">
+      {/* <section className=" grid lg:grid-cols-4 grid-cols-1 p-20 bg-lightGreen">
         <div className="relative">
           <img
             src={shape8}
@@ -753,8 +753,6 @@ const About = () => {
             </li>
           </ul>
         </div>
-
-        {/* -------- Category -------- */}
         <div>
           <ul className="space-y-5 ul">
             <li className="font-medium text-2xl">
@@ -783,8 +781,6 @@ const About = () => {
             </li>
           </ul>
         </div>
-
-        {/* -------- Quick Links -------- */}
         <div>
           <ul className="space-y-5 ul">
             <li className="font-medium text-2xl">
@@ -812,8 +808,6 @@ const About = () => {
             </li>
           </ul>
         </div>
-
-        {/* -------- Subscribe -------- */}
         <div>
           <ul className="space-y-5">
             <li className="font-medium text-2xl">
@@ -841,11 +835,8 @@ const About = () => {
           </ul>
         </div>
       </section>
-      {/* ================ End Last Section ==================== */}
-      {/* ================ Start Footer Section ==================== */}
       <footer className="bg-dark text-gray-300 py-4">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-3">
-          {/* Left Text */}
           <p className="text-sm text-center md:text-left">
             © {new Date().getFullYear()}
             <span className="text-main font-medium"> Edule </span>
@@ -853,8 +844,6 @@ const About = () => {
               ? "جميع الحقوق محفوظة."
               : "All Rights Reserved."}
           </p>
-
-          {/* Footer Links */}
           <ul className="flex gap-5 text-sm">
             <li className="hover:text-main cursor-pointer">
               {i18n.language === "ar" ? "الخصوصية" : "Privacy"}
@@ -867,7 +856,8 @@ const About = () => {
             </li>
           </ul>
         </div>
-      </footer>
+      </footer> */}
+      <Footer/>
     </div>
   );
 };
