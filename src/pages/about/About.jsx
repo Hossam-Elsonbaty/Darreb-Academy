@@ -1,21 +1,20 @@
-
 import DynamicHero from "../../common/dynamic-components/DynamicHero";
 import authorImg from "../../assets/images/author-11.jpg";
 import { useTranslation } from "react-i18next";
-import shape5 from "../../assets/images/shape5.webp";
+// import shape5 from "../../assets/images/shape5.webp";
 import author03 from "../../assets/images/author03.jpg";
 import author05 from "../../assets/images/author-05.jpg";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import author06 from "../../assets/images/author-06.jpg";
 import author07 from "../../assets/images/author-07.jpg";
-import shape24 from "../../assets/images/shape24.webp";
+// import shape24 from "../../assets/images/shape24.webp";
 import shape19 from "../../assets/images/shape-19.webp";
 import shape20 from "../../assets/images/shape-20.webp";
-import shape23 from "../../assets/images/shape23.webp";
+// import shape23 from "../../assets/images/shape23.webp";
 import shape8 from "../../assets/images/shape8.webp";
 import about from "../../assets/images/about.webp";
 import logo from "../../assets/images/logo.webp";
-import shape11 from "../../assets/images/shape11.png";
+// import shape11 from "../../assets/images/shape11.png";
 import shape3 from "../../assets/images/shape3.png";
 import shape14 from "../../assets/images/shape14.webp";
 import googlePlay from "../../assets/images/google-play.webp";
@@ -41,7 +40,7 @@ import { SlSocialSkype } from "react-icons/sl";
 import { FaInstagram } from "react-icons/fa";
 
 const About = () => {
-    const { i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const cards = [
     {
       name: { en: "Sara Hassan", ar: "سارة حسن" },
@@ -153,94 +152,6 @@ const About = () => {
         }}
         authorImg={authorImg}
       />
-            <section className="relative bg-lightGreen py-20">
-        {/* Container */}
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
-            {/* Text Side */}
-            <div className="flex flex-col gap-6 justify-center text-center lg:text-start">
-              <img
-                src={shape8}
-                alt="Shape"
-                className="absolute top-10 w-16 md:w-20 z-20 rotate-360"
-              />
-              <h1 className=" font-bold leading-snug">
-                {i18n.language === "ar" ? (
-                  <div className="text-xl md:text-2xl">
-                    <div>
-                      الرئيسية // <span className="text-main">عنا</span>
-                    </div>
-
-                    <div className="mt-4 md:mt-6">
-                      <span className="text-3xl md:text-5xl">عن </span>
-                      <span className="text-main text-3xl md:text-5xl">
-                        درب أكاديمي{" "}
-                      </span>
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                    <div>
-                      Home // <span className="text-main">About</span>
-                    </div>
-
-                    <div className="mt-4 md:mt-6">
-                      <span className="text-3xl md:text-5xl">About </span>
-                      <div className="inline-flex flex-col items-center">
-                        <span className="text-main text-3xl md:text-5xl">
-                          Edule.
-                        </span>
-                        <img src={shape3} alt="Shape" className=" mt-2" />
-                      </div>
-                    </div>
-                    <img
-                      src={shape23}
-                      alt="Shape"
-                      className=" absolute md:top-60 top-96 w-40 md:w-54  left-2 "
-                    />
-                  </>
-                )}
-              </h1>
-            </div>
-
-            {/* Image Side */}
-            <img
-              src={shape24}
-              alt="Shape"
-              className=" absolute -top-4 right-3.5 w-36 h-80 md:w-96 z-0 "
-            />
-            <div className="relative flex justify-center lg:justify-end items-center">
-              {/* Decorative Shape */}
-              <img
-                src={shape5}
-                alt="Shape"
-                className="animate-float-horizontal absolute -top-1 mr-0 md:mr-40 "
-              />
-              <div className="gap-20 flex">
-                <div>
-                  {/* Certificate Icon */}
-                  <div className="relative top-10 w-28 h-28 md:w-36 md:h-36 rounded-full border-2 gap-4 border-emerald-700 flex items-center justify-center">
-                    <div className="bg-main w-24 h-24 md:w-32 md:h-32 rounded-full flex items-center justify-center">
-                      <LiaCertificateSolid className="text-white text-8xl" />
-                    </div>
-                  </div>
-                  <img
-                    src={shape11}
-                    alt="Shape"
-                    className="absolute top-40 left-10  lg:top-44 lg:left-40 rotate-180"
-                  />
-                </div>
-                {/* Main Image */}
-                <img
-                  src={author03}
-                  alt="about"
-                  className="relative rounded-full w-48 h-48 md:w-50 md:h-52 object-cover shadow-lg"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
       {/*================= Page Banner End ==================*/}
       <section className="relative py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -957,10 +868,92 @@ const About = () => {
           </ul>
         </div>
       </footer>
-
     </div>
-
   );
 };
 
 export default About;
+/*
+      <section className="relative bg-lightGreen py-20">
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+            <div className="flex flex-col gap-6 justify-center text-center lg:text-start">
+              <img
+                src={shape8}
+                alt="Shape"
+                className="absolute top-10 w-16 md:w-20 z-20 rotate-360"
+              />
+              <h1 className=" font-bold leading-snug">
+                {i18n.language === "ar" ? (
+                  <div className="text-xl md:text-2xl">
+                    <div>
+                      الرئيسية // <span className="text-main">عنا</span>
+                    </div>
+
+                    <div className="mt-4 md:mt-6">
+                      <span className="text-3xl md:text-5xl">عن </span>
+                      <span className="text-main text-3xl md:text-5xl">
+                        درب أكاديمي{" "}
+                      </span>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <div>
+                      Home // <span className="text-main">About</span>
+                    </div>
+
+                    <div className="mt-4 md:mt-6">
+                      <span className="text-3xl md:text-5xl">About </span>
+                      <div className="inline-flex flex-col items-center">
+                        <span className="text-main text-3xl md:text-5xl">
+                          Edule.
+                        </span>
+                        <img src={shape3} alt="Shape" className=" mt-2" />
+                      </div>
+                    </div>
+                    <img
+                      src={shape23}
+                      alt="Shape"
+                      className=" absolute md:top-60 top-96 w-40 md:w-54  left-2 "
+                    />
+                  </>
+                )}
+              </h1>
+            </div>
+            <img
+              src={shape24}
+              alt="Shape"
+              className=" absolute -top-4 right-3.5 w-36 h-80 md:w-96 z-0 "
+            />
+            <div className="relative flex justify-center lg:justify-end items-center">
+              <img
+                src={shape5}
+                alt="Shape"
+                className="animate-float-horizontal absolute -top-1 mr-0 md:mr-40 "
+              />
+              <div className="gap-20 flex">
+                <div>
+                  <div className="relative top-10 w-28 h-28 md:w-36 md:h-36 rounded-full border-2 gap-4 border-emerald-700 flex items-center justify-center">
+                    <div className="bg-main w-24 h-24 md:w-32 md:h-32 rounded-full flex items-center justify-center">
+                      <LiaCertificateSolid className="text-white text-8xl" />
+                    </div>
+                  </div>
+                  <img
+                    src={shape11}
+                    alt="Shape"
+                    className="absolute top-40 left-10  lg:top-44 lg:left-40 rotate-180"
+                  />
+                </div>
+                <img
+                  src={author03}
+                  alt="about"
+                  className="relative rounded-full w-48 h-48 md:w-50 md:h-52 object-cover shadow-lg"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+*/
