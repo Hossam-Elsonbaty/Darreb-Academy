@@ -2,7 +2,7 @@ import React from "react";
 import titleLine from "../../assets/images/shape-11.png";
 const SectionTitle = ({ title, status }) => {
   return (
-    <div className="relative">
+    <div className="relative inline-block">
       {title}
 
       <img
