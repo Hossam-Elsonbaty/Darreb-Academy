@@ -8,6 +8,7 @@ import doubleCurveImg from "../../assets/images/shape-24.png";
 
 const DynamicHero = ({ links, authorImg }) => {
   const { lang } = useLanguage();
+console.log(links);
 
   return (
     <div className="h-[70vh] flex flex-col justify-center relative">
@@ -23,11 +24,11 @@ const DynamicHero = ({ links, authorImg }) => {
             title={
               lang === "en" ? (
                 <h2 className="text-4xl font-medium capitalize">
-                  Our <span className="text-main">Blogs</span>
+                  Our <span className="text-main">{links[lang][1]}</span>
                 </h2>
               ) : (
                 <h2 className="text-4xl font-medium">
-                  <span className="text-main">المدونة</span>
+                  <span className="text-main">{links[lang][1]}</span>
                 </h2>
               )
             }
@@ -55,7 +56,11 @@ const DynamicHero = ({ links, authorImg }) => {
           }`}
         />
 
-        <img src={doubleCurveImg} alt="double-curve" className="absolute -top-17 -end-40" />
+        <img
+          src={doubleCurveImg}
+          alt="double-curve"
+          className="absolute -top-17 -end-40"
+        />
       </div>
     </div>
   );

@@ -1,14 +1,20 @@
-import React from "react";
 
+import DynamicHero from "../../common/dynamic-components/DynamicHero";
+import authorImg from "../../assets/images/author-11.jpg";
 
 const Courses = () => {
-  // const {data} = useFetch("https://api.example.com/courses");\
+  return (
+    <div className="px-4 md:px-15 lg:px-30 xl:px-40">
+      <DynamicHero
+        links={{
+          en: ["Home", "Courses"],
 
-
-  
-
-
-  return <div>Courses</div>;
+          ar: ["الرئيسية", " الكورسات"],
+        }}
+        authorImg={authorImg}
+      />
+    </div>
+  );
 };
 
 export default Courses;

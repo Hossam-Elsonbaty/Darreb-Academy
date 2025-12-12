@@ -180,14 +180,14 @@ const Navbar = () => {
         <div className="flex gap-4 items-center">
           <div className="hidden lg:flex gap-3 items-center text-lg">
             <NavLink
-              to="/signin"
+              to="/signup"
               className="relative  hover:text-main duration-400"
             >
               {t(navLinks[5])}
             </NavLink>
 
             <Link
-              to="/signup"
+              to="/signin"
               className="py-3 px-7 bg-white rounded text-dark border-1 border-main hover:bg-main hover:text-white duration-400"
             >
               {t(navLinks[6])}

@@ -53,7 +53,7 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "/details",
+        path: "/coursesDetails",
         element: (
           <Suspense fallback={<LottieLoading status="page" />}>
             <CoursesDetails />
