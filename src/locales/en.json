@@ -401,6 +401,11 @@
       "title": "Get Certificate",
       "desc": "It has survived not only centurie also leap into electronic."
     }
-  ]
+  ],
+
+  "banner": {
+    "desc": "Ready to start?",
+    "title": "Download our mobile app. for easy to start your course."
+  }
 
 }
