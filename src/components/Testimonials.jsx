@@ -52,7 +52,7 @@ const Testimonials = () => {
       {/* Slider - Conditional Coverflow */}
       <div
         className="mt-12"
-        style={{ paddingTop: "20px", paddingBottom: "50px" }}
+        style={{ paddingTop: "20px" }}
       >
         <Swiper
           key={`${lang}-${windowWidth}`}

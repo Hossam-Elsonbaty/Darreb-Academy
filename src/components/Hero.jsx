@@ -37,7 +37,7 @@ const Hero = () => {
             </p>
 
             <div className="flex justify-center lg:justify-start">
-              <button className="btn1">{hero.btn}</button>
+              <button className="btn1 py-4 px-8">{hero.btn}</button>
             </div>
           </div>
 

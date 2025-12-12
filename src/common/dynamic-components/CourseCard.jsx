@@ -1,6 +1,6 @@
 import React from "react";
 
-import { CiClock1 } from "react-icons/ci";
+import { CiCalendar, CiClock1, CiHeart } from "react-icons/ci";
 import { IoBookOutline } from "react-icons/io5";
 import { Rating } from "@mui/material";
 import courseImg1 from "../../assets/images/courses-01.jpg";
@@ -15,6 +15,7 @@ import profile3 from "../../assets/images/author-03.jpg";
 import profile4 from "../../assets/images/author-04.jpg";
 import profile5 from "../../assets/images/author-05.jpg";
 import profile6 from "../../assets/images/author-06.jpg";
+import { useLanguage } from "../../hooks/useLanguage";
 
 const coursesImages = [
   courseImg1,
@@ -33,7 +34,8 @@ const profileImages = [
   profile6,
 ];
 
-const CourseCard = ({ c }) => {
+const CourseCard = ({ c, status }) => {
+  const { lang } = useLanguage();
   return (
     <div
       className=" bg-white border border-green-300 rounded-2xl p-5 shadow-sm 
@@ -70,32 +72,57 @@ const CourseCard = ({ c }) => {
 
       <div className="flex items-center justify-between mt-4 text-sm text-gray-600">
         <div className="flex items-center gap-2">
-          <CiClock1 className="text-main text-lg" />
-          {c.time}
+          {status === "news" ? (
+            <div className="flex gap-1">
+              <CiCalendar className="text-main text-lg" />
+              <span>21 March, 2021</span>
+            </div>
+          ) : (
+            <div className="flex gap-1">
+              <CiClock1 className="text-main text-lg" />
+              <span>{c.time}</span>
+            </div>
+          )}
         </div>
         <div className="flex items-center gap-2">
-          <IoBookOutline className="text-main text-lg" />
-
-          {c.lectures}
+          {status === "news" ? (
+            <div className="flex gap-1">
+              <CiHeart className="text-main text-lg" />
+              <span>2,568+</span>
+            </div>
+          ) : (
+            <div className="flex gap-1">
+              <IoBookOutline className="text-main text-lg" />
+              <span>{c.lectures}</span>
+            </div>
+          )}
         </div>
       </div>
 
-      <div className="bg-green-50 mt-6 p-4 rounded-xl flex items-center justify-between group-hover:bg-green-100">
-        <div>
-          <span className="text-green-700 font-bold text-xl">$385.00</span>
-          <span className="line-through text-gray-400 ml-2">$440.00</span>
-        </div>
+      {status !== "news" && (
+        <div className="bg-green-50 mt-6 p-4 rounded-xl flex items-center justify-between group-hover:bg-green-100">
+          <div>
+            <span className="text-green-700 font-bold text-xl">$385.00</span>
+            <span className="line-through text-gray-400 ml-2">$440.00</span>
+          </div>
 
-        <div className="flex items-center gap-1">
-          <span className="font-medium text-gray-700">4.9</span>
-          <Rating
-            value={Number(c.rating)}
-            precision={0.1}
-            readOnly
-            size="small"
-          />
+          <div className="flex items-center gap-1">
+            <span className="font-medium text-gray-700">4.9</span>
+            <Rating
+              value={Number(c.rating)}
+              precision={0.1}
+              readOnly
+              size="small"
+            />
+          </div>
         </div>
-      </div>
+      )}
+
+      {status === "news" && (
+        <button className="btn1 mt-3 px-2 py-1">
+          {lang === "en" ? "Read More" : "قراءة المزيد"}
+        </button>
+      )}
     </div>
   );
 };
