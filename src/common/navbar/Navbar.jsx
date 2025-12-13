@@ -79,7 +79,7 @@ const Navbar = () => {
   "
             >
               <NavLink
-                to="/about"
+                to="/courses"
                 className="hover:text-main hover:ps-1 duration-300"
               >
                 {t(navLinks[7])}
