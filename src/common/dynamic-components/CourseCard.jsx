@@ -16,6 +16,7 @@ import profile4 from "../../assets/images/author-04.jpg";
 import profile5 from "../../assets/images/author-05.jpg";
 import profile6 from "../../assets/images/author-06.jpg";
 import { useLanguage } from "../../hooks/useLanguage";
+import { useNavigate } from "react-router-dom";
 
 const coursesImages = [
   courseImg1,
@@ -36,7 +37,12 @@ const profileImages = [
 
 const CourseCard = ({ c, status }) => {
   const { lang } = useLanguage();
+  const navigate = useNavigate();
   return (
+     <div
+      onClick={() => navigate(`/courses/${c.id}`)}
+      className="cursor-pointer"
+    >
     <div
       className=" bg-white border border-green-300 rounded-2xl p-5 shadow-sm 
   transition-all duration-500 
@@ -123,6 +129,8 @@ const CourseCard = ({ c, status }) => {
           {lang === "en" ? "Read More" : "قراءة المزيد"}
         </button>
       )}
+    </div>
+
     </div>
   );
 };
