@@ -5,7 +5,7 @@ import React from 'react'
 import { useForm } from "react-hook-form"
 import { useLanguage } from "../../hooks/useLanguage";
 import loginimg from "../../assets/images/login.png";
-import titleLine from "../../assets/images/shape-11.png";
+import titleLine from "../../assets/images/shape11.png";
 export default function Register (){
   const onSubmit = (data) => console.log(data)
   const { register, handleSubmit, formState: { errors } } = useForm();
