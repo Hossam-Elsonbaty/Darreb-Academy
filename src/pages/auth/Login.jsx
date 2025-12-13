@@ -3,7 +3,7 @@ import authorImg from "../../assets/images/author-11.jpg";
 import React from "react";
 import { useForm } from "react-hook-form";
 import loginimg from "../../assets/images/login.png";
-import titleLine from "../../assets/images/shape-11.png";
+import titleLine from "../../assets/images/shape11.png";
 import { useLanguage } from "../../hooks/useLanguage";
 
 export default function Login() {
