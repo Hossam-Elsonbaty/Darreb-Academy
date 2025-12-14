@@ -1,11 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import "./navbar.css";
-
 import logoImg from "../../assets/images/logo.webp";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "../../components/LanguageSwitcher";
 import { useEffect, useState } from "react";
-import { FiMenu, FiX } from "react-icons/fi";
+import { FiMenu, FiX , FiShoppingCart } from "react-icons/fi";
 
 const Navbar = () => {
   const { t } = useTranslation();
@@ -172,10 +171,17 @@ const Navbar = () => {
           >
             {t(navLinks[4])}
           </NavLink>
-
+          <NavLink
+            to="/cart"
+            className="relative hover:text-main duration-400 flex items-center gap-1"
+          >
+            <FiShoppingCart className="text-xl" />
+            {/* <span>Cart</span> */}
+            {/* <span className="absolute -top-2 -end-3 bg-main text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+              0
+            </span> */}
+          </NavLink>
         </div>
-
-
         {/* right side login buttons*/}
         <div className="flex gap-4 items-center">
           <div className="hidden lg:flex gap-3 items-center text-lg">
@@ -301,6 +307,14 @@ const Navbar = () => {
           </NavLink>
           <NavLink to="/contact" onClick={() => setMobileOpen(false)}>
             {t(navLinks[4])}
+          </NavLink>
+          <NavLink
+            to="/cart"
+            className="flex items-center gap-2 hover:text-main"
+            onClick={() => setMobileOpen(false)}
+          >
+            <FiShoppingCart />
+            Cart
           </NavLink>
 
           <NavLink to="/signin" onClick={() => setMobileOpen(false)}>
