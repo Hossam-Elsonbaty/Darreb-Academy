@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import "./i18n";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LottieLoading from "./common/dynamic-components/LottieLoading";
+const Enroll = lazy(() => import("./pages/enroll/Enroll"));
 const NotFound = lazy(() => import("./pages/notFound/NotFound"));
 const Faq = lazy(() => import("./pages/faq/Faq"));
 const Contact = lazy(() => import("./pages/contact/Contact"));
@@ -15,7 +16,6 @@ const Register = lazy(() => import("./pages/auth/Register"));
 const Blogs = lazy(() => import("./pages/blogs/Blogs"));
 
 const router = createBrowserRouter([
-
   {
     path: "/",
     element: (
@@ -60,7 +60,16 @@ const router = createBrowserRouter([
           </Suspense>
         ),
       },
-      
+
+      {
+        path: "/enroll",
+        element: (
+          <Suspense fallback={<LottieLoading status="page" />}>
+            <Enroll />
+          </Suspense>
+        ),
+      },
+
       {
         path: "/signin",
         element: (
@@ -121,8 +130,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-
-
 ]);
 
 const App = () => {

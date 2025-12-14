@@ -13,7 +13,8 @@
     "Register",
     "login",
     "FAQ",
-    "404 Error"
+    "404 Error",
+    "After Enroll"
   ],
 
   "hero": {
@@ -474,5 +475,27 @@
 
       "instructor": "John Doe"
     }
-  ]
+  ],
+
+  "enroll": {
+    "links": ["Overview", "Description", "Certificates", "Instructor"],
+    "content": [
+      {
+        "role": "Overview",
+        "title": "content of overview"
+      },
+      {
+        "role": "Description",
+        "title": "content of description"
+      },
+      {
+        "role": "Certificates",
+        "title": "content of Certificates"
+      },
+      {
+        "role": "Instructor",
+        "title": "content of Instructor"
+      }
+    ]
+  }
 }

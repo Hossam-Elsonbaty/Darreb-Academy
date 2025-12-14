@@ -8,7 +8,7 @@ const News = () => {
   const { lang } = useLanguage();
   const news = t("news", { returnObjects: true });
   return (
-    <div className="py-20 px-4 md:px-15 lg:px-30 xl:px-40">
+    <div className="py-20 px-4 md:px-15 lg:px-30 xl:px-40 bg-white">
       <p className="text-main mb-5 text-center font-medium text-2xl">
         {lang === "en" ? "Latest News" : "اخر الاخبار"}
       </p>

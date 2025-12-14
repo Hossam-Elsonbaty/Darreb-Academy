@@ -130,6 +130,13 @@ const Navbar = () => {
               </NavLink>
 
               <NavLink
+                to="/enroll"
+                className="hover:text-main hover:ps-1 duration-300"
+              >
+                {t(navLinks[14])}
+              </NavLink>
+
+              <NavLink
                 to="/signup"
                 className="hover:text-main hover:ps-1 duration-300"
               >
@@ -172,9 +179,7 @@ const Navbar = () => {
           >
             {t(navLinks[4])}
           </NavLink>
-
         </div>
-
 
         {/* right side login buttons*/}
         <div className="flex gap-4 items-center">
