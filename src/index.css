@@ -13,11 +13,39 @@ body {
   font-family: "Montserrat Variable";
 }
 
-@layer {
+/* @layer {
   .btn1 {
     @apply z-1 px-4 py-3 bg-main text-white text-lg rounded cursor-pointer duration-300 w-max relative flex justify-center items-center before:absolute  before:content-[''] before:-z-1 before:w-10 before:h-10 before:opacity-0 before:bg-dark before:rounded-full hover:before:scale-100 hover:before:opacity-100  hover:before:rounded-none before:duration-400 overflow-hidden hover:before:w-full hover:before:h-[250%];
   }
+} */
+ @layer components {
+  .btn1 {
+    @apply z-10 px-6 py-3 bg-main text-white text-lg rounded cursor-pointer relative flex justify-center items-center overflow-hidden;
+    position: relative;
+  }
+
+  .btn1::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px; /* initial size */
+    height: 40px;
+    background-color: var(--dark-color); /* assuming 'dark' is a defined color */
+    border-radius: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: all 0.4s ease;
+  }
+
+  .btn1:hover::before {
+    width: 200%; /* expand width */
+    height: 250%; /* expand height */
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
+
 /* .shape-icon-box .icon-shape-1 {
     position: absolute;
     top: -15px;
