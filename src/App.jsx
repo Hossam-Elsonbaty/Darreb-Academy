@@ -13,6 +13,13 @@ const CoursesDetails = lazy(() => import("./pages/courses/CoursesDetails"));
 const Login = lazy(() => import("./pages/auth/Login"));
 const Register = lazy(() => import("./pages/auth/Register"));
 const Blogs = lazy(() => import("./pages/blogs/Blogs"));
+import AccountLayout from "./layouts/AccountLayout";
+import Profile from "./pages/user-dash/Profile/Profile";
+import Photo from "./pages/user-dash/Photo/Photo";
+import Security from "./pages/user-dash/Security/Security";
+import DeleteAccount from "./pages/user-dash/delete/DeleteAccount";
+
+
 
 const router = createBrowserRouter([
 
@@ -120,7 +127,33 @@ const router = createBrowserRouter([
         ),
       },
     ],
-  },
+  },{
+  path: "/",
+  element: <AccountLayout />,
+  children: [
+    {
+      index: true,
+      element: <Profile />,
+    },
+    {
+      path: "profile",
+      element: <Profile />,
+    },
+    {
+      path: "photo",
+      element: <Photo />,
+    },
+    {
+      path: "security",
+      element: <Security />,
+    },
+    {
+      path: "DeleteAccount",
+      element: <DeleteAccount />,
+    }
+  ],
+},
+  
 
 
 ]);
