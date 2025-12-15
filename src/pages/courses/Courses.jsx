@@ -1,10 +1,10 @@
 import { FiSearch } from "react-icons/fi";
 import DynamicHero from "../../common/dynamic-components/DynamicHero";
 import authorImg from "../../assets/images/author-11.jpg";
-import i18n from "../../i18n";
-import shape14 from "../../assets/images/shape14.webp";
-import googlePlay from "../../assets/images/google-play.webp";
-import appstore from "../../assets/images/app-store.webp";
+// import i18n from "../../i18n";
+// import shape14 from "../../assets/images/shape14.webp";
+// import googlePlay from "../../assets/images/google-play.webp";
+// import appstore from "../../assets/images/app-store.webp";
 
 import { useLanguage } from "../../hooks/useLanguage";
 import { useTranslation } from "react-i18next";
