@@ -14,7 +14,8 @@ const CoursesDetails = lazy(() => import("./pages/courses/CoursesDetails"));
 const Login = lazy(() => import("./pages/auth/Login"));
 const Register = lazy(() => import("./pages/auth/Register"));
 const Blogs = lazy(() => import("./pages/blogs/Blogs"));
-
+const Cart = lazy(() => import("./pages/cart/cart"));
+const WishlistPage = lazy(() => import("./pages/wishlist/wishlist"));
 const router = createBrowserRouter([
   {
     path: "/",
@@ -70,6 +71,23 @@ const router = createBrowserRouter([
         ),
       },
 
+      {
+        path: "/cart",
+        element: (
+          <Suspense fallback={<LottieLoading status="page" />}>
+           <Cart />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/wishlist",
+        element: (
+          <Suspense fallback={<LottieLoading status="page" />}>
+           <WishlistPage />
+          </Suspense>
+        ),
+      },
+      
       {
         path: "/signin",
         element: (

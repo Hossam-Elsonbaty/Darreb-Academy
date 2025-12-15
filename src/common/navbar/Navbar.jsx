@@ -1,11 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import "./navbar.css";
-
 import logoImg from "../../assets/images/logo.webp";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "../../components/LanguageSwitcher";
 import { useEffect, useState } from "react";
-import { FiMenu, FiX } from "react-icons/fi";
+import { FiMenu, FiX, FiShoppingCart } from "react-icons/fi";
 
 const Navbar = () => {
   const { t } = useTranslation();
@@ -179,148 +178,165 @@ const Navbar = () => {
           >
             {t(navLinks[4])}
           </NavLink>
+          <NavLink
+            to="/cart"
+            className="relative hover:text-main duration-400 flex items-center gap-1"
+          >
+            <FiShoppingCart className="text-xl" />
+            {/* <span>Cart</span> */}
+            {/* <span className="absolute -top-2 -end-3 bg-main text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+              0
+            </span> */}
+          </NavLink>
+          {/* right side login buttons*/}
+          <div className="flex gap-4 items-center">
+            <div className="hidden lg:flex gap-3 items-center text-lg">
+              <NavLink
+                to="/signup"
+                className="relative  hover:text-main duration-400"
+              >
+                {t(navLinks[5])}
+              </NavLink>
+
+              <Link
+                to="/signin"
+                className="py-3 px-7 bg-white rounded text-dark border-1 border-main hover:bg-main hover:text-white duration-400"
+              >
+                {t(navLinks[6])}
+              </Link>
+            </div>
+            <LanguageSwitcher />
+            {/* MOBILE MENU ICON */}
+            <button
+              className="lg:hidden text-3xl cursor-pointer text-main"
+              onClick={() => setMobileOpen(!mobileOpen)}
+            >
+              {mobileOpen ? <FiX /> : <FiMenu />}
+            </button>
+          </div>
         </div>
 
-        {/* right side login buttons*/}
-        <div className="flex gap-4 items-center">
-          <div className="hidden lg:flex gap-3 items-center text-lg">
+        {/* Responsive and mobile Menu */}
+        {mobileOpen && (
+          <div className="lg:hidden mt-6 flex flex-col gap-4 text-lg">
             <NavLink
-              to="/signup"
-              className="relative  hover:text-main duration-400"
+              to="/"
+              className="hover:text-main duration-300"
+              onClick={() => setMobileOpen(false)}
             >
+              {t(navLinks[0])}
+            </NavLink>
+
+            {/* Mobile Dropdown 1 */}
+            <div>
+              <button
+                onClick={() => setDropdown1(!dropdown1)}
+                className="w-full text-start hover:text-main duration-300"
+              >
+                {t(navLinks[1])}
+              </button>
+              {dropdown1 && (
+                <div className="flex flex-col ps-3 mt-2 gap-2">
+                  <NavLink
+                    to="/about"
+                    className="ps-3 hover:text-main duration-400"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {t(navLinks[7])}
+                  </NavLink>
+                  <NavLink
+                    to="/coursesdetails"
+                    className="ps-3 hover:text-main duration-400"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {t(navLinks[8])}
+                  </NavLink>
+                </div>
+              )}
+            </div>
+
+            {/* Mobile Dropdown 2 */}
+            <div>
+              <button
+                onClick={() => setDropdown2(!dropdown2)}
+                className="w-full text-start hover:text-main duration-300"
+              >
+                {t(navLinks[2])}
+              </button>
+              {dropdown2 && (
+                <div className="flex flex-col ps-3 mt-2 gap-2">
+                  <NavLink
+                    to="/about"
+                    className="hover:text-main ps-3 duration-300"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {t(navLinks[9])}
+                  </NavLink>
+
+                  <NavLink
+                    to="/signup"
+                    className="hover:text-main ps-3 duration-300"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {t(navLinks[10])}
+                  </NavLink>
+
+                  <NavLink
+                    to="/signin"
+                    className="hover:text-main ps-3 duration-300"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {t(navLinks[11])}
+                  </NavLink>
+
+                  <NavLink
+                    to="/faq"
+                    className="hover:text-main ps-3 duration-300"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {t(navLinks[12])}
+                  </NavLink>
+
+                  <NavLink
+                    to="/404"
+                    className="hover:text-main ps-3 duration-300"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {t(navLinks[13])}
+                  </NavLink>
+                </div>
+              )}
+            </div>
+
+            <NavLink to="/blogs" onClick={() => setMobileOpen(false)}>
+              {t(navLinks[3])}
+            </NavLink>
+            <NavLink to="/contact" onClick={() => setMobileOpen(false)}>
+              {t(navLinks[4])}
+            </NavLink>
+            <NavLink
+              to="/cart"
+              className="flex items-center gap-2 hover:text-main"
+              onClick={() => setMobileOpen(false)}
+            >
+              <FiShoppingCart />
+              Cart
+            </NavLink>
+
+            <NavLink to="/signin" onClick={() => setMobileOpen(false)}>
               {t(navLinks[5])}
             </NavLink>
 
             <Link
-              to="/signin"
-              className="py-3 px-7 bg-white rounded text-dark border-1 border-main hover:bg-main hover:text-white duration-400"
+              to="/signup"
+              className="py-3 px-7 border border-main rounded hover:bg-main hover:text-white duration-300"
+              onClick={() => setMobileOpen(false)}
             >
               {t(navLinks[6])}
             </Link>
           </div>
-          <LanguageSwitcher />
-          {/* MOBILE MENU ICON */}
-          <button
-            className="lg:hidden text-3xl cursor-pointer text-main"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            {mobileOpen ? <FiX /> : <FiMenu />}
-          </button>
-        </div>
+        )}
       </div>
-
-      {/* Responsive and mobile Menu */}
-      {mobileOpen && (
-        <div className="lg:hidden mt-6 flex flex-col gap-4 text-lg">
-          <NavLink
-            to="/"
-            className="hover:text-main duration-300"
-            onClick={() => setMobileOpen(false)}
-          >
-            {t(navLinks[0])}
-          </NavLink>
-
-          {/* Mobile Dropdown 1 */}
-          <div>
-            <button
-              onClick={() => setDropdown1(!dropdown1)}
-              className="w-full text-start hover:text-main duration-300"
-            >
-              {t(navLinks[1])}
-            </button>
-            {dropdown1 && (
-              <div className="flex flex-col ps-3 mt-2 gap-2">
-                <NavLink
-                  to="/about"
-                  className="ps-3 hover:text-main duration-400"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {t(navLinks[7])}
-                </NavLink>
-                <NavLink
-                  to="/coursesdetails"
-                  className="ps-3 hover:text-main duration-400"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {t(navLinks[8])}
-                </NavLink>
-              </div>
-            )}
-          </div>
-
-          {/* Mobile Dropdown 2 */}
-          <div>
-            <button
-              onClick={() => setDropdown2(!dropdown2)}
-              className="w-full text-start hover:text-main duration-300"
-            >
-              {t(navLinks[2])}
-            </button>
-            {dropdown2 && (
-              <div className="flex flex-col ps-3 mt-2 gap-2">
-                <NavLink
-                  to="/about"
-                  className="hover:text-main ps-3 duration-300"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {t(navLinks[9])}
-                </NavLink>
-
-                <NavLink
-                  to="/signup"
-                  className="hover:text-main ps-3 duration-300"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {t(navLinks[10])}
-                </NavLink>
-
-                <NavLink
-                  to="/signin"
-                  className="hover:text-main ps-3 duration-300"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {t(navLinks[11])}
-                </NavLink>
-
-                <NavLink
-                  to="/faq"
-                  className="hover:text-main ps-3 duration-300"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {t(navLinks[12])}
-                </NavLink>
-
-                <NavLink
-                  to="/404"
-                  className="hover:text-main ps-3 duration-300"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {t(navLinks[13])}
-                </NavLink>
-              </div>
-            )}
-          </div>
-
-          <NavLink to="/blogs" onClick={() => setMobileOpen(false)}>
-            {t(navLinks[3])}
-          </NavLink>
-          <NavLink to="/contact" onClick={() => setMobileOpen(false)}>
-            {t(navLinks[4])}
-          </NavLink>
-
-          <NavLink to="/signin" onClick={() => setMobileOpen(false)}>
-            {t(navLinks[5])}
-          </NavLink>
-
-          <Link
-            to="/signup"
-            className="py-3 px-7 border border-main rounded hover:bg-main hover:text-white duration-300"
-            onClick={() => setMobileOpen(false)}
-          >
-            {t(navLinks[6])}
-          </Link>
-        </div>
-      )}
     </div>
   );
 };
