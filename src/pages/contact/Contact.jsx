@@ -6,7 +6,7 @@ import titleLine from "../../assets/images/shape11.png";
 import { IoCallOutline } from "react-icons/io5";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { PiMapPinLight } from "react-icons/pi";
-import Banner from "../../components/Banner";
+import Banner from "../../common/Banner";
 
 const Contact = () => {
   const {
