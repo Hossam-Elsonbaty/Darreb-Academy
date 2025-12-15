@@ -45,11 +45,11 @@ const Navbar = () => {
 
         {/* center side links */}
         <div className="hidden lg:flex gap-5 items-center text-lg activeLink">
-          <NavLink to="/" className="relative  hover:text-main duration-400">
+          <NavLink to="/" className="relative  hover:text-[#309255] duration-400">
             {t(navLinks[0])}
           </NavLink>
           <div className="relative group">
-            <Link className="hover:text-main duration-400 cursor-pointer py-5">
+            <Link className="hover:text-[#309255] duration-400 cursor-pointer py-5">
               {t(navLinks[1])}
             </Link>
 
@@ -79,21 +79,21 @@ const Navbar = () => {
             >
               <NavLink
                 to="/courses"
-                className="hover:text-main hover:ps-1 duration-300"
+                className="hover:text-[#309255] hover:ps-1 duration-300"
               >
                 {t(navLinks[7])}
               </NavLink>
 
               <NavLink
                 to="/coursesDetails"
-                className="hover:text-main hover:ps-1 duration-300"
+                className="hover:text-[#309255] hover:ps-1 duration-300"
               >
                 {t(navLinks[8])}
               </NavLink>
             </div>
           </div>
           <div className="relative group">
-            <Link className="hover:text-main duration-400 cursor-pointer py-5">
+            <Link className="hover:text-[#309255] duration-400 cursor-pointer py-5">
               {t(navLinks[2])}
             </Link>
 
@@ -123,42 +123,42 @@ const Navbar = () => {
             >
               <NavLink
                 to="/about"
-                className="hover:text-main hover:ps-1 duration-300"
+                className="hover:text-[#309255] hover:ps-1 duration-300"
               >
                 {t(navLinks[9])}
               </NavLink>
 
               <NavLink
                 to="/enroll"
-                className="hover:text-main hover:ps-1 duration-300"
+                className="hover:text-[#309255] hover:ps-1 duration-300"
               >
                 {t(navLinks[14])}
               </NavLink>
 
               <NavLink
                 to="/signup"
-                className="hover:text-main hover:ps-1 duration-300"
+                className="hover:text-[#309255] hover:ps-1 duration-300"
               >
                 {t(navLinks[10])}
               </NavLink>
 
               <NavLink
                 to="/signin"
-                className="hover:text-main hover:ps-1 duration-300"
+                className="hover:text-[#309255] hover:ps-1 duration-300"
               >
                 {t(navLinks[11])}
               </NavLink>
 
               <NavLink
                 to="/faq"
-                className="hover:text-main hover:ps-1 duration-300"
+                className="hover:text-[#309255] hover:ps-1 duration-300"
               >
                 {t(navLinks[12])}
               </NavLink>
 
               <NavLink
                 to="/404"
-                className="hover:text-main hover:ps-1 duration-300"
+                className="hover:text-[#309255] hover:ps-1 duration-300"
               >
                 {t(navLinks[13])}
               </NavLink>
@@ -167,24 +167,24 @@ const Navbar = () => {
 
           <NavLink
             to="/blogs"
-            className="relative  hover:text-main duration-400"
+            className="relative  hover:text-[#309255] duration-400"
           >
             {t(navLinks[3])}
           </NavLink>
 
           <NavLink
             to="/contact"
-            className="relative  hover:text-main duration-400"
+            className="relative  hover:text-[#309255] duration-400"
           >
             {t(navLinks[4])}
           </NavLink>
           <NavLink
             to="/cart"
-            className="relative hover:text-main duration-400 flex items-center gap-1"
+            className="relative hover:text-[#309255] duration-400 flex items-center gap-1"
           >
             <FiShoppingCart className="text-xl" />
             {/* <span>Cart</span> */}
-            {/* <span className="absolute -top-2 -end-3 bg-main text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+            {/* <span className="absolute -top-2 -end-3 bg-[#309255] text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
               0
             </span> */}
           </NavLink>
@@ -193,14 +193,14 @@ const Navbar = () => {
             <div className="hidden lg:flex gap-3 items-center text-lg">
               <NavLink
                 to="/signup"
-                className="relative  hover:text-main duration-400"
+                className="relative  hover:text-[#309255] duration-400"
               >
                 {t(navLinks[5])}
               </NavLink>
 
               <Link
                 to="/signin"
-                className="py-3 px-7 bg-white rounded text-dark border-1 border-main hover:bg-main hover:text-white duration-400"
+                className="py-3 px-7 bg-white rounded text-dark border-1 border-main hover:bg-[#309255] hover:text-white duration-400"
               >
                 {t(navLinks[6])}
               </Link>
@@ -208,7 +208,7 @@ const Navbar = () => {
             <LanguageSwitcher />
             {/* MOBILE MENU ICON */}
             <button
-              className="lg:hidden text-3xl cursor-pointer text-main"
+              className="lg:hidden text-3xl cursor-pointer text-[#309255]"
               onClick={() => setMobileOpen(!mobileOpen)}
             >
               {mobileOpen ? <FiX /> : <FiMenu />}
@@ -221,7 +221,7 @@ const Navbar = () => {
           <div className="lg:hidden mt-6 flex flex-col gap-4 text-lg">
             <NavLink
               to="/"
-              className="hover:text-main duration-300"
+              className="hover:text-[#309255] duration-300"
               onClick={() => setMobileOpen(false)}
             >
               {t(navLinks[0])}
@@ -231,7 +231,7 @@ const Navbar = () => {
             <div>
               <button
                 onClick={() => setDropdown1(!dropdown1)}
-                className="w-full text-start hover:text-main duration-300"
+                className="w-full text-start hover:text-[#309255] duration-300"
               >
                 {t(navLinks[1])}
               </button>
@@ -239,14 +239,14 @@ const Navbar = () => {
                 <div className="flex flex-col ps-3 mt-2 gap-2">
                   <NavLink
                     to="/about"
-                    className="ps-3 hover:text-main duration-400"
+                    className="ps-3 hover:text-[#309255] duration-400"
                     onClick={() => setMobileOpen(false)}
                   >
                     {t(navLinks[7])}
                   </NavLink>
                   <NavLink
                     to="/coursesdetails"
-                    className="ps-3 hover:text-main duration-400"
+                    className="ps-3 hover:text-[#309255] duration-400"
                     onClick={() => setMobileOpen(false)}
                   >
                     {t(navLinks[8])}
@@ -259,7 +259,7 @@ const Navbar = () => {
             <div>
               <button
                 onClick={() => setDropdown2(!dropdown2)}
-                className="w-full text-start hover:text-main duration-300"
+                className="w-full text-start hover:text-[#309255] duration-300"
               >
                 {t(navLinks[2])}
               </button>
@@ -267,7 +267,7 @@ const Navbar = () => {
                 <div className="flex flex-col ps-3 mt-2 gap-2">
                   <NavLink
                     to="/about"
-                    className="hover:text-main ps-3 duration-300"
+                    className="hover:text-[#309255] ps-3 duration-300"
                     onClick={() => setMobileOpen(false)}
                   >
                     {t(navLinks[9])}
@@ -275,7 +275,7 @@ const Navbar = () => {
 
                   <NavLink
                     to="/signup"
-                    className="hover:text-main ps-3 duration-300"
+                    className="hover:text-[#309255] ps-3 duration-300"
                     onClick={() => setMobileOpen(false)}
                   >
                     {t(navLinks[10])}
@@ -283,7 +283,7 @@ const Navbar = () => {
 
                   <NavLink
                     to="/signin"
-                    className="hover:text-main ps-3 duration-300"
+                    className="hover:text-[#309255] ps-3 duration-300"
                     onClick={() => setMobileOpen(false)}
                   >
                     {t(navLinks[11])}
@@ -291,7 +291,7 @@ const Navbar = () => {
 
                   <NavLink
                     to="/faq"
-                    className="hover:text-main ps-3 duration-300"
+                    className="hover:text-[#309255] ps-3 duration-300"
                     onClick={() => setMobileOpen(false)}
                   >
                     {t(navLinks[12])}
@@ -299,7 +299,7 @@ const Navbar = () => {
 
                   <NavLink
                     to="/404"
-                    className="hover:text-main ps-3 duration-300"
+                    className="hover:text-[#309255] ps-3 duration-300"
                     onClick={() => setMobileOpen(false)}
                   >
                     {t(navLinks[13])}
@@ -316,7 +316,7 @@ const Navbar = () => {
             </NavLink>
             <NavLink
               to="/cart"
-              className="flex items-center gap-2 hover:text-main"
+              className="flex items-center gap-2 hover:text-[#309255]"
               onClick={() => setMobileOpen(false)}
             >
               <FiShoppingCart />
@@ -329,7 +329,7 @@ const Navbar = () => {
 
             <Link
               to="/signup"
-              className="py-3 px-7 border border-main rounded hover:bg-main hover:text-white duration-300"
+              className="py-3 px-7 border border-main rounded hover:bg-[#309255] hover:text-white duration-300"
               onClick={() => setMobileOpen(false)}
             >
               {t(navLinks[6])}

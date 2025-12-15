@@ -22,7 +22,7 @@ const NotFound = () => {
             <div className="flex gap-4 justify-center flex-wrap mt-4">
               <Link
                 to="/"
-                className="py-3 px-8 bg-main text-white rounded-lg hover:bg-opacity-90 duration-300 inline-block"
+                className="py-3 px-8 bg-[#309255] text-white rounded-lg hover:bg-opacity-90 duration-300 inline-block"
               >
                 {lang === "en" ? "Go Home" : "العودة للصفحة الرئيسية"}
               </Link>

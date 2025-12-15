@@ -19,11 +19,11 @@ const Works = () => {
         title={
           lang === "en" ? (
             <h2 className="text-4xl font-medium capitalize text-center">
-              how it <span className="text-main">work ?</span>
+              how it <span className="text-[#309255]">work ?</span>
             </h2>
           ) : (
             <h2 className="text-4xl font-medium text-center">
-              كيف <span className="text-main">تعمل ؟</span>
+              كيف <span className="text-[#309255]">تعمل ؟</span>
             </h2>
           )
         }
@@ -33,7 +33,7 @@ const Works = () => {
         {work.map((w) => (
           <div className="bg-lightGreen p-4  rounded flex flex-col gap-5 hover:-translate-y-3  shadow-md border-t-0 duration-400 hover:border-t-2 border-main" key={w.id}>
             <img src={workImgs[w.id - 1]} alt="icon" width={50} />
-            <h3 className="text-main text-2xl font-medium">{w.title}</h3>
+            <h3 className="text-[#309255] text-2xl font-medium">{w.title}</h3>
             <p className="text-dark">{w.desc}</p>
           </div>
         ))}

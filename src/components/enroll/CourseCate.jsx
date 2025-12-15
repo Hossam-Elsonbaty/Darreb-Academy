@@ -42,8 +42,8 @@ const CourseCate = () => {
               relative overflow-hidden
               ${
                 active === link
-                  ? "bg-main text-white shadow-lg transform scale-105"
-                  : "bg-white text-gray-700 border-2 border-gray-200 hover:border-main hover:text-main hover:shadow-md"
+                  ? "bg-[#309255] text-white shadow-lg transform scale-105"
+                  : "bg-white text-gray-700 border-2 border-gray-200 hover:border-main hover:text-[#309255] hover:shadow-md"
               }
             `}
             style={{
@@ -70,7 +70,7 @@ const CourseCate = () => {
           {currentContent ? (
             <div>
               {/* Title */}
-              <h3 className="text-2xl font-bold text-main mb-4 pb-3 border-b-2 border-gray-100">
+              <h3 className="text-2xl font-bold text-[#309255] mb-4 pb-3 border-b-2 border-gray-100">
                 {active}
               </h3>
               

@@ -6,7 +6,7 @@ import shape14 from "../assets/images/shape14.webp";
 const Banner = () => {
   const {  i18n } = useTranslation();
   return (
-        <section className="bg-main text-white py-20 px-10 flex lg:flex-row flex-col relative overflow-hidden">
+        <section className="bg-[#309255] text-white py-20 px-10 flex lg:flex-row flex-col relative overflow-hidden">
           <div className="app-shape-1 z-0"></div>
           <div className="app-shape-2 z-1"></div>
           <div className="app-shape-3 z-2"></div>

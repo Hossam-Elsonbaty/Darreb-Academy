@@ -47,7 +47,7 @@ export default function Register (){
               "
             >
               Registration{" "}
-              <span className="text-main relative inline-block">
+              <span className="text-[#309255] relative inline-block">
                 Now
                 <img
                   src={titleLine}
@@ -71,7 +71,7 @@ export default function Register (){
               "
             >
               سجل{" "}
-              <span className="text-main relative inline-block">
+              <span className="text-[#309255] relative inline-block">
                 الان
                 <img
                   src={titleLine}
@@ -188,7 +188,7 @@ export default function Register (){
             <button
               type="submit"
               className="
-                w-full bg-main text-white py-3 rounded-lg 
+                w-full bg-[#309255] text-white py-3 rounded-lg 
                 text-lg font-medium hover:bg-[#2a7f49] 
                 transition-all duration-300 cursor-pointer
               "
@@ -202,12 +202,12 @@ export default function Register (){
               className="
                 w-full 
                 bg-[#e7f8ee] 
-                text-main 
+                text-[#309255] 
                 border border-[rgba(48,146,85,0.2)]
                 py-3 
                 rounded-lg 
                 text-lg font-medium
-                hover:bg-main hover:text-white 
+                hover:bg-[#309255] hover:text-white 
                 transition-all duration-300 cursor-pointer
               "
             >

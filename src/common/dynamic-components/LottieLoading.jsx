@@ -21,7 +21,7 @@ const LottieLoading = ({ status }) => {
         />
 
         {status === "notFound" && (
-          <Link to="/" className="text-lg text-main underline">
+          <Link to="/" className="text-lg text-[#309255] underline">
             Go Back to Home
           </Link>
         ) }

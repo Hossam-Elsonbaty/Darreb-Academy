@@ -20,7 +20,7 @@ function LanguageSwitcher() {
   return (
     <div className="relative">
       <button onClick={toggleDropdown}>
-        <FaGlobe className="cursor-pointer text-main text-xl mt-1.5 me-2" />
+        <FaGlobe className="cursor-pointer text-[#309255] text-xl mt-1.5 me-2" />
       </button>
 
       <div

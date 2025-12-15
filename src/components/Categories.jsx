@@ -40,11 +40,11 @@ const Categories = () => {
           title={
             lang === "en" ? (
               <h2 className="text-4xl font-medium capitalize">
-                all <span className="text-main">courses</span> of edule
+                all <span className="text-[#309255]">courses</span> of edule
               </h2>
             ) : (
               <h2 className="text-4xl font-medium">
-                جميع <span className="text-main">كورسات</span> داررب اكاديمي
+                جميع <span className="text-[#309255]">كورسات</span> داررب اكاديمي
               </h2>
             )
           }
@@ -60,7 +60,7 @@ const Categories = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             type="search"
           />
-          <span className="bg-main inline-flex items-center justify-center rounded p-3">
+          <span className="bg-[#309255] inline-flex items-center justify-center rounded p-3">
             <FiSearch className="text-white" size={20} />
           </span>
         </div>
@@ -68,10 +68,10 @@ const Categories = () => {
       {/* Swiper Categories */}
       <div className="relative mt-16 bg-lightGreen py-10 px-15">
         {/* Custom arrows */}
-        <button className="custom-prev absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-main text-white ms-2 me-2  rounded-full shadow cursor-pointer w-[30px] h-[30px] hidden md:block">
+        <button className="custom-prev absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-[#309255] text-white ms-2 me-2  rounded-full shadow cursor-pointer w-[30px] h-[30px] hidden md:block">
           ‹
         </button>
-        <button className="custom-next absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-main text-white  rounded-full shadow cursor-pointer  ms-2 me-2 w-[30px] h-[30px] hidden md:block">
+        <button className="custom-next absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-[#309255] text-white  rounded-full shadow cursor-pointer  ms-2 me-2 w-[30px] h-[30px] hidden md:block">
           ›
         </button>
 
@@ -93,8 +93,8 @@ const Categories = () => {
           {title.map((cat) => (
             <SwiperSlide key={cat}>
               <div
-                className={`p-3 rounded w-full bg-white text-lg text-center duration-300 cursor-pointer hover:text-main hover:border-main border-lightGreen border ${
-                  cate === cat.toLowerCase() && "text-main border-main"
+                className={`p-3 rounded w-full bg-white text-lg text-center duration-300 cursor-pointer hover:text-[#309255] hover:border-main border-lightGreen border ${
+                  cate === cat.toLowerCase() && "text-[#309255] border-main"
                 }`}
                 onClick={() => setCate(cat.toLowerCase())}
               >

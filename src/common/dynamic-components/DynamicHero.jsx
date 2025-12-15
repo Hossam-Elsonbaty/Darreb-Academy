@@ -16,7 +16,7 @@ console.log(links);
         <div className="flex flex-col gap-4 items-center lg:items-start ">
           <Breadcrumbs aria-label="breadcrumb">
             <NavLink to="/">{links[lang][0]}</NavLink>
-            <Typography className="text-main">{links[lang][1]}</Typography>
+            <Typography className="text-[#309255]">{links[lang][1]}</Typography>
           </Breadcrumbs>
 
           {/* title */}
@@ -24,11 +24,11 @@ console.log(links);
             title={
               lang === "en" ? (
                 <h2 className="text-4xl font-medium capitalize">
-                  Our <span className="text-main">{links[lang][1]}</span>
+                  Our <span className="text-[#309255]">{links[lang][1]}</span>
                 </h2>
               ) : (
                 <h2 className="text-4xl font-medium">
-                  <span className="text-main">{links[lang][1]}</span>
+                  <span className="text-[#309255]">{links[lang][1]}</span>
                 </h2>
               )
             }

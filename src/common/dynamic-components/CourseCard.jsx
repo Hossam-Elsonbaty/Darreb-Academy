@@ -80,12 +80,12 @@ const CourseCard = ({ c, status }) => {
         <div className="flex items-center gap-2">
           {status === "news" ? (
             <div className="flex gap-1">
-              <CiCalendar className="text-main text-lg" />
+              <CiCalendar className="text-[#309255] text-lg" />
               <span>21 March, 2021</span>
             </div>
           ) : (
             <div className="flex gap-1">
-              <CiClock1 className="text-main text-lg" />
+              <CiClock1 className="text-[#309255] text-lg" />
               <span>{c.time}</span>
             </div>
           )}
@@ -93,12 +93,12 @@ const CourseCard = ({ c, status }) => {
         <div className="flex items-center gap-2">
           {status === "news" ? (
             <div className="flex gap-1">
-              <CiHeart className="text-main text-lg" />
+              <CiHeart className="text-[#309255] text-lg" />
               <span>2,568+</span>
             </div>
           ) : (
             <div className="flex gap-1">
-              <IoBookOutline className="text-main text-lg" />
+              <IoBookOutline className="text-[#309255] text-lg" />
               <span>{c.lectures}</span>
             </div>
           )}

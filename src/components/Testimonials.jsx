@@ -31,7 +31,7 @@ const Testimonials = () => {
 
   return (
     <div className="py-20 px-4 md:px-15 lg:px-30 xl:px-40">
-      <p className="text-main mb-5 text-center font-medium text-2xl">
+      <p className="text-[#309255] mb-5 text-center font-medium text-2xl">
         {lang === "en" ? "Student Testimonial" : "راى الطالب"}
       </p>
       <SectionTitle
@@ -39,11 +39,11 @@ const Testimonials = () => {
         title={
           lang === "en" ? (
             <h2 className="text-4xl font-medium capitalize text-center">
-              Feedback From <span className="text-main">Students</span>
+              Feedback From <span className="text-[#309255]">Students</span>
             </h2>
           ) : (
             <h2 className="text-4xl font-medium text-center">
-              اراء <span className="text-main">الطلاب</span>
+              اراء <span className="text-[#309255]">الطلاب</span>
             </h2>
           )
         }

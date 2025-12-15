@@ -46,8 +46,8 @@ const Contact = () => {
 
                 {/* Item 1 */}
                 <div className="flex items-center gap-6">
-                  <div className="w-16 h-16 rounded-full border border-[#bde5cc] bg-white flex items-center justify-center group hover:bg-main transition">
-                    <IoCallOutline className="text-main text-2xl group-hover:text-white transition" />
+                  <div className="w-16 h-16 rounded-full border border-[#bde5cc] bg-white flex items-center justify-center group hover:bg-[#309255] transition">
+                    <IoCallOutline className="text-[#309255] text-2xl group-hover:text-white transition" />
                   </div>
                   <div>
                     <p className="text-sm text-gray-500 mb-1">Phone No.</p>
@@ -61,8 +61,8 @@ const Contact = () => {
 
                 {/* Item 2 */}
                 <div className="flex items-center gap-6">
-                  <div className="w-16 h-16 rounded-full border border-[#bde5cc] bg-white flex items-center justify-center group hover:bg-main transition">
-                    <MdOutlineMailOutline className="text-main text-2xl group-hover:text-white transition" />
+                  <div className="w-16 h-16 rounded-full border border-[#bde5cc] bg-white flex items-center justify-center group hover:bg-[#309255] transition">
+                    <MdOutlineMailOutline className="text-[#309255] text-2xl group-hover:text-white transition" />
                   </div>
                   <div>
                     <p className="text-sm text-gray-500 mb-1">
@@ -78,8 +78,8 @@ const Contact = () => {
 
                 {/* Item 3 */}
                 <div className="flex items-center gap-6">
-                  <div className="w-16 h-16 rounded-full border border-[#bde5cc] bg-white flex items-center justify-center group hover:bg-main transition">
-                    <PiMapPinLight className="text-main text-2xl group-hover:text-white transition" />
+                  <div className="w-16 h-16 rounded-full border border-[#bde5cc] bg-white flex items-center justify-center group hover:bg-[#309255] transition">
+                    <PiMapPinLight className="text-[#309255] text-2xl group-hover:text-white transition" />
                   </div>
                   <div>
                     <p className="text-sm text-gray-500 mb-1">
@@ -99,7 +99,7 @@ const Contact = () => {
                 <div className="text-center mb-10">
                   <h2 className="text-[28px] font-medium leading-[1.4] inline-block relative">
                     {lang === "en" ? "Get in Touch " : "تواصل "}
-                    <span className="text-main relative inline-block">
+                    <span className="text-[#309255] relative inline-block">
                       {lang === "en" ? "With Us" : "معنا"}
                       <img
                         src={titleLine}
@@ -222,7 +222,7 @@ const Contact = () => {
 
                   <button
                     type="submit"
-                    className="w-full bg-main text-white py-4 rounded-lg text-lg font-medium hover:bg-[#2a7f49] transition cursor-pointer"
+                    className="w-full bg-[#309255] text-white py-4 rounded-lg text-lg font-medium hover:bg-[#2a7f49] transition cursor-pointer"
                   >
                     {lang === "en" ? "Send Message" : "إرسال الرسالة"}
                   </button>

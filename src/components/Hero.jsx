@@ -12,7 +12,7 @@ const Hero = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">
           {/* TEXT SIDE */}
           <div className="flex flex-col gap-6 lg:gap-10  lg:order-1 text-center lg:text-start">
-            <span className="text-main text-lg md:text-xl font-medium">
+            <span className="text-[#309255] text-lg md:text-xl font-medium">
               {hero.subTitle}
             </span>
 
@@ -21,13 +21,13 @@ const Hero = () => {
                 <>
                   تعلم الان من <br />
                   اى مكان وابنى <br />
-                  <span className="text-main">مستقبلك المشرق</span>
+                  <span className="text-[#309255]">مستقبلك المشرق</span>
                 </>
               ) : (
                 <>
                   Now learning from <br />
                   anywhere, and <br />
-                  build your <span className="text-main">bright career.</span>
+                  build your <span className="text-[#309255]">bright career.</span>
                 </>
               )}
             </h1>

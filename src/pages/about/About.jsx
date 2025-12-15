@@ -166,7 +166,7 @@ const About = () => {
             </div>
             {/* TEXT SIDE */}
             <div className="flex flex-col gap-5 lg:order-1 text-center lg:text-start">
-              <span className="text-main text-lg md:text-xl font-medium">
+              <span className="text-[#309255] text-lg md:text-xl font-medium">
                 {i18n.language === "ar" ? (
                   <>مرحبًا بكم في إيدول</>
                 ) : (
@@ -180,13 +180,13 @@ const About = () => {
                     يمكنك الانضمام إلى
                     <br />
                     إيدول وتطوير مهاراتك <br />
-                    <span className="text-main">لمستقبل مشرق </span>
+                    <span className="text-[#309255]">لمستقبل مشرق </span>
                   </>
                 ) : (
                   <>
                     You Can Join With Edule and upgrade your skill for your{" "}
                     <div className="relative inline-block">
-                      <span className="text-main">bright future.</span>
+                      <span className="text-[#309255]">bright future.</span>
 
                       <img
                         src={shape3}
@@ -236,8 +236,8 @@ const About = () => {
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-4">
                   <div
-                    className="circle bg-main/10 w-16 h-16 rounded-full flex items-center justify-center
-                      transition group-hover:bg-main"
+                    className="circle bg-[#309255]/10 w-16 h-16 rounded-full flex items-center justify-center
+                      transition group-hover:bg-[#309255]"
                   >
                     <LiaChalkboardTeacherSolid className="icon text-emerald-700 text-3xl transition group-hover:text-white" />
                   </div>
@@ -292,8 +292,8 @@ const About = () => {
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-4">
                   <div
-                    className="circle bg-main/10 w-16 h-16 rounded-full flex items-center justify-center
-                      transition group-hover:bg-main"
+                    className="circle bg-[#309255]/10 w-16 h-16 rounded-full flex items-center justify-center
+                      transition group-hover:bg-[#309255]"
                   >
                     <LiaCalendar className="icon text-emerald-700 text-3xl transition group-hover:text-white" />
                   </div>
@@ -347,8 +347,8 @@ const About = () => {
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-4">
                   <div
-                    className="circle bg-main/10 w-16 h-16 rounded-full flex items-center justify-center
-                      transition group-hover:bg-main"
+                    className="circle bg-[#309255]/10 w-16 h-16 rounded-full flex items-center justify-center
+                      transition group-hover:bg-[#309255]"
                   >
                     <IoMdTrendingUp className="icon text-emerald-700 text-3xl transition group-hover:text-white" />
                   </div>
@@ -413,10 +413,10 @@ const About = () => {
             <div className="flex flex-col justify-center ">
               {i18n.language === "ar" ? (
                 <>
-                  <p className="text-main mb-5 font-medium">كن مدرباً</p>
+                  <p className="text-[#309255] mb-5 font-medium">كن مدرباً</p>
                   <h1 className="text-3xl font-medium">
                     يمكنك الانضمام إلى Edule لتصبح مدرباً وتشارك خبرتك{" "}
-                    <span className="text-main relative">
+                    <span className="text-[#309255] relative">
                       مع المتعلمين؟
                       <img
                         src={shape3}
@@ -428,12 +428,12 @@ const About = () => {
                 </>
               ) : (
                 <>
-                  <p className="text-main mb-5 font-medium">
+                  <p className="text-[#309255] mb-5 font-medium">
                     Become A Instructor
                   </p>
                   <h1 className="text-3xl font-medium">
                     You Can Join With Edule as{" "}
-                    <span className="text-main relative">
+                    <span className="text-[#309255] relative">
                       a instructor?
                       <img
                         src={shape3}
@@ -482,7 +482,7 @@ const About = () => {
       {/*================= End Becoma A instructor Section ==================*/}
       <TeamSection />
       {/*================= End Team Section ==================*/}
-      <section className="bg-main text-white p-10 flex lg:flex-row flex-col relative overflow-hidden">
+      <section className="bg-[#309255] text-white p-10 flex lg:flex-row flex-col relative overflow-hidden">
         <div className="app-shape-1 z-0"></div>
         <div className="app-shape-2 z-1"></div>
         <div className="app-shape-3 z-2"></div>
@@ -527,12 +527,12 @@ const About = () => {
           {i18n.language === "ar" ? (
             <>
               {" "}
-              <h2 className="text-xl text-center mb-8 text-main">
+              <h2 className="text-xl text-center mb-8 text-[#309255]">
                 آراء الطلاب
               </h2>
               <h1 className="text-3xl mb-8 font-bold text-center">
                 تقييم من{" "}
-                <span className="relative inline-block  text-main">
+                <span className="relative inline-block  text-[#309255]">
                   الطلاب
                   <img
                     src={shape3}
@@ -544,12 +544,12 @@ const About = () => {
             </>
           ) : (
             <>
-              <h2 className="text-xl text-center mb-8 text-main">
+              <h2 className="text-xl text-center mb-8 text-[#309255]">
                 Student Testimonial
               </h2>
               <h1 className="text-3xl mb-8 font-bold text-center">
                 Feedback From{" "}
-                <span className="relative inline-block  text-main">
+                <span className="relative inline-block  text-[#309255]">
                   Student
                   <img
                     src={shape3}
@@ -589,13 +589,13 @@ const About = () => {
                 <>
                   <p>{card.text.ar}</p>
                   <h3 className="text-xl font-semibold">{card.name.ar}</h3>
-                  <p className="text-main">{card.role.ar}</p>
+                  <p className="text-[#309255]">{card.role.ar}</p>
                 </>
               ) : (
                 <>
                   <p className="text-gray text-center">{card.text.en}</p>
                   <h3 className="text-xl font-semibold">{card.name.en}</h3>
-                  <p className="text-main">{card.role.en}</p>
+                  <p className="text-[#309255]">{card.role.en}</p>
                 </>
               )}
             </div>
@@ -658,7 +658,7 @@ const About = () => {
                 <>
                   <h1 className="text-3xl font-medium">
                     أفضل داعم{" "}
-                    <span className="text-main relative">
+                    <span className="text-[#309255] relative">
                       لإيدول
                       <img
                         src={shape3}
@@ -672,7 +672,7 @@ const About = () => {
                 <>
                   <h1 className="text-2xl font-medium">
                     Best Supporter Of{" "}
-                    <span className="text-main relative">
+                    <span className="text-[#309255] relative">
                       Edule
                       <img
                         src={shape3}
@@ -720,12 +720,12 @@ export default About;
                 {i18n.language === "ar" ? (
                   <div className="text-xl md:text-2xl">
                     <div>
-                      الرئيسية // <span className="text-main">عنا</span>
+                      الرئيسية // <span className="text-[#309255]">عنا</span>
                     </div>
 
                     <div className="mt-4 md:mt-6">
                       <span className="text-3xl md:text-5xl">عن </span>
-                      <span className="text-main text-3xl md:text-5xl">
+                      <span className="text-[#309255] text-3xl md:text-5xl">
                         درب أكاديمي{" "}
                       </span>
                     </div>
@@ -733,13 +733,13 @@ export default About;
                 ) : (
                   <>
                     <div>
-                      Home // <span className="text-main">About</span>
+                      Home // <span className="text-[#309255]">About</span>
                     </div>
 
                     <div className="mt-4 md:mt-6">
                       <span className="text-3xl md:text-5xl">About </span>
                       <div className="inline-flex flex-col items-center">
-                        <span className="text-main text-3xl md:text-5xl">
+                        <span className="text-[#309255] text-3xl md:text-5xl">
                           Edule.
                         </span>
                         <img src={shape3} alt="Shape" className=" mt-2" />
@@ -768,7 +768,7 @@ export default About;
               <div className="gap-20 flex">
                 <div>
                   <div className="relative top-10 w-28 h-28 md:w-36 md:h-36 rounded-full border-2 gap-4 border-emerald-700 flex items-center justify-center">
-                    <div className="bg-main w-24 h-24 md:w-32 md:h-32 rounded-full flex items-center justify-center">
+                    <div className="bg-[#309255] w-24 h-24 md:w-32 md:h-32 rounded-full flex items-center justify-center">
                       <LiaCertificateSolid className="text-white text-8xl" />
                     </div>
                   </div>

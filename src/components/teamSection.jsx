@@ -83,10 +83,10 @@ export default function TeamSection() {
     <section className="bg-white py-16">
   <div className="container mx-auto px-4">
     {i18n.language === "ar" ? (
-                      <>    <h2 className="text-xl text-center mb-8 text-main">فريق العمل</h2>
+                      <>    <h2 className="text-xl text-center mb-8 text-[#309255]">فريق العمل</h2>
 <h1 className="text-3xl mb-8 font-bold text-center">
   مدربو Edule {" "}
-  <span className="relative inline-block  text-main">
+  <span className="relative inline-block  text-[#309255]">
     المهرة
     <img
       src={shape3}
@@ -96,10 +96,10 @@ export default function TeamSection() {
   </span>
 </h1></>
                     ) : (<>
-                        <h2 className="text-xl text-center mb-8 text-main">Team Member's</h2>
+                        <h2 className="text-xl text-center mb-8 text-[#309255]">Team Member's</h2>
 <h1 className="text-3xl mb-8 font-bold text-center">
   Edule Skilled{" "}
-  <span className="relative inline-block  text-main">
+  <span className="relative inline-block  text-[#309255]">
     Instructor
     <img
       src={shape3}
@@ -136,9 +136,9 @@ export default function TeamSection() {
           </div>
           {i18n.language === "ar"?(<>
                <h3 className="text-xl font-semibold">{member.name.ar}</h3>
-          <p className="text-main">{member.role.ar}</p></>):(<>
+          <p className="text-[#309255]">{member.role.ar}</p></>):(<>
                <h3 className="text-xl font-semibold">{member.name.en}</h3>
-          <p className="text-main">{member.role.en}</p></>)}
+          <p className="text-[#309255]">{member.role.en}</p></>)}
      
         </div>
       ))}

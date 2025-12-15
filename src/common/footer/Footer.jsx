@@ -28,14 +28,14 @@ const Footer = () => {
               {i18n.language === "ar" ? "شارع الكاريبي" : "Caribbean Ct"}
             </li>
 
-            <li className="text-main font-light">
+            <li className="text-[#309255] font-light">
               {i18n.language === "ar"
                 ? "هايماركت، فيرجينيا (VA)"
                 : "Haymarket, Virginia (VA)."}
             </li>
 
             <li className="flex gap-3 items-center">
-              <MdOutlineMail className="text-main" />
+              <MdOutlineMail className="text-[#309255]" />
               <span className="text-gray-500">
                 {i18n.language === "ar"
                   ? "address@gmail.com"
@@ -44,7 +44,7 @@ const Footer = () => {
             </li>
 
             <li className="flex gap-3 items-center">
-              <BsTelephone className="text-main" />
+              <BsTelephone className="text-[#309255]" />
               <span className="text-gray-500">
                 {i18n.language === "ar" ? "(970) 262-1413" : "(970) 262-1413"}
               </span>
@@ -159,7 +159,7 @@ const Footer = () => {
           {/* Left Text */}
           <p className="text-sm text-center md:text-left">
             © {new Date().getFullYear()}
-            <span className="text-main font-medium"> Edule </span>
+            <span className="text-[#309255] font-medium"> Edule </span>
             {i18n.language === "ar"
               ? "جميع الحقوق محفوظة."
               : "All Rights Reserved."}
@@ -167,13 +167,13 @@ const Footer = () => {
 
           {/* Footer Links */}
           <ul className="flex gap-5 text-sm md:ml-auto">
-            <li className="hover:text-main cursor-pointer">
+            <li className="hover:text-[#309255] cursor-pointer">
               {i18n.language === "ar" ? "الخصوصية" : "Privacy"}
             </li>
-            <li className="hover:text-main cursor-pointer">
+            <li className="hover:text-[#309255] cursor-pointer">
               {i18n.language === "ar" ? "الشروط" : "Terms"}
             </li>
-            <li className="hover:text-main cursor-pointer">
+            <li className="hover:text-[#309255] cursor-pointer">
               {i18n.language === "ar" ? "الدعم" : "Support"}
             </li>
           </ul>

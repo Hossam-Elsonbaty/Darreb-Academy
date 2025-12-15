@@ -9,7 +9,7 @@ const News = () => {
   const news = t("news", { returnObjects: true });
   return (
     <div className="py-20 px-4 md:px-15 lg:px-30 xl:px-40 bg-white">
-      <p className="text-main mb-5 text-center font-medium text-2xl">
+      <p className="text-[#309255] mb-5 text-center font-medium text-2xl">
         {lang === "en" ? "Latest News" : "اخر الاخبار"}
       </p>
       <SectionTitle
@@ -17,11 +17,11 @@ const News = () => {
         title={
           lang === "en" ? (
             <h2 className="text-4xl font-medium capitalize text-center">
-              Educational Tips & <span className="text-main">Tricks</span>
+              Educational Tips & <span className="text-[#309255]">Tricks</span>
             </h2>
           ) : (
             <h2 className="text-4xl font-medium text-center">
-              نصائح تعليمية <span className="text-main">و حيل</span>
+              نصائح تعليمية <span className="text-[#309255]">و حيل</span>
             </h2>
           )
         }
