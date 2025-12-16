@@ -120,7 +120,7 @@ const CourseDetails = () => {
             
 
               {/* sec 3 */}
-              <div className="flex justify-evenly  bg-lightGreen my-5 py-3 px-10 rounded-xl" >
+              <div className="flex justify-evenly  bg-[#eefbf3] my-5 py-3 px-10 rounded-xl" >
 
                 <button className="btn1"> {lang === "en" ? "Description" : "الوصف"}</button>
                 <button className="p-3 rounded-lg bg-white text-md text-center duration-300 cursor-pointer hover:text-white hover:bg-green-700 border-lightGreen border">

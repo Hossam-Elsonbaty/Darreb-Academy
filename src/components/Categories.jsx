@@ -50,7 +50,7 @@ const Categories = () => {
           }
         />
 
-        <div className="border rounded border-main/40 px-3 py-1 flex justify-between items-center mt-20 md:mt-0 gap-2">
+        <div className="border rounded border-[#ddd] px-3 py-1 flex justify-between items-center mt-20 md:mt-0 gap-2">
           <input
             className="w-full py-3 outline-0"
             placeholder={
@@ -66,7 +66,7 @@ const Categories = () => {
         </div>
       </div>
       {/* Swiper Categories */}
-      <div className="relative mt-16 bg-lightGreen py-10 px-15">
+      <div className="relative mt-16 bg-[#eefbf3] py-10 px-15">
         {/* Custom arrows */}
         <button className="custom-prev absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-[#309255] text-white ms-2 me-2  rounded-full shadow cursor-pointer w-[30px] h-[30px] hidden md:block">
           ‹
@@ -93,7 +93,7 @@ const Categories = () => {
           {title.map((cat) => (
             <SwiperSlide key={cat}>
               <div
-                className={`p-3 rounded w-full bg-white text-lg text-center duration-300 cursor-pointer hover:text-[#309255] hover:border-main border-lightGreen border ${
+                className={`p-3 rounded w-full bg-white text-lg text-center duration-300 cursor-pointer hover:text-[#309255] hover:border-main border border-[#ddd] ${
                   cate === cat.toLowerCase() && "text-[#309255] border-main"
                 }`}
                 onClick={() => setCate(cat.toLowerCase())}

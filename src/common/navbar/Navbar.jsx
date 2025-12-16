@@ -31,7 +31,7 @@ const Navbar = () => {
     ${
       isScrolled
         ? "fixed top-0 left-0 w-full shadow-md bg-white border-0 rounded-none"
-        : "border border-main rounded-md sticky top-8 bg-lightGreen"
+        : "border border-main rounded-md sticky top-8 bg-[#eefbf3]"
     }
   `}
     >

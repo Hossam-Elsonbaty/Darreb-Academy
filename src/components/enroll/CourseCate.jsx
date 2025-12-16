@@ -32,7 +32,7 @@ const CourseCate = () => {
   return (
     <div className="w-full">
       {/* Buttons Section */}
-      <div className="bg-lightGreen p-6 rounded-lg gap-3 flex items-center flex-wrap shadow-sm">
+      <div className="bg-[#eefbf3] p-6 rounded-lg gap-3 flex items-center flex-wrap shadow-sm">
         {links.map((link, index) => (
           <button
             onClick={() => handleContent(link)}

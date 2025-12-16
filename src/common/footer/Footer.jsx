@@ -13,7 +13,7 @@ const Footer = () => {
 
   return (
     <>
-      <section className="relative flex flex-col lg:flex-row p-20 bg-lightGreen justify-center gap-40">
+      <section className="relative flex flex-col lg:flex-row p-20 bg-[#eefbf3] justify-center gap-40">
         {/* Left Column */}
         <div >
           <img

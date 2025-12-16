@@ -31,7 +31,7 @@ const Works = () => {
 
       <div className="py-20 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {work.map((w) => (
-          <div className="bg-lightGreen p-4  rounded flex flex-col gap-5 hover:-translate-y-3  shadow-md border-t-0 duration-400 hover:border-t-2 border-main" key={w.id}>
+          <div className="bg-[#eefbf3] p-4  rounded flex flex-col gap-5 hover:-translate-y-3  shadow-md border-t-0 duration-400 hover:border-t-2 border-main" key={w.id}>
             <img src={workImgs[w.id - 1]} alt="icon" width={50} />
             <h3 className="text-[#309255] text-2xl font-medium">{w.title}</h3>
             <p className="text-dark">{w.desc}</p>

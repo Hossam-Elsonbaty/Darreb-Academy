@@ -399,7 +399,7 @@ const About = () => {
       {/*================= End Cards Section ==================*/}
       <section className="relative bg-white">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 bg-lightGreen rounded-2xl p-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 bg-[#eefbf3] rounded-2xl p-10">
             <img
               src={shape8}
               alt="Shape"
@@ -622,7 +622,7 @@ const About = () => {
       {/*================= End Student Testimonial Section ==================*/}
       <section className="relative bg-white">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-16">
-          <div className="flex flex-col gap-8 bg-lightGreen rounded-2xl p-10">
+          <div className="flex flex-col gap-8 bg-[#eefbf3] rounded-2xl p-10">
             {i18n.language === "ar" ? (
               <>
                 {" "}
@@ -707,7 +707,7 @@ const About = () => {
 
 export default About;
 /*
-      <section className="relative bg-lightGreen py-20">
+      <section className="relative bg-[#eefbf3] py-20">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
             <div className="flex flex-col gap-6 justify-center text-center lg:text-start">

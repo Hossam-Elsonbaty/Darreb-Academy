@@ -8,7 +8,6 @@ import doubleCurveImg from "../../assets/images/shape-24.png";
 
 const DynamicHero = ({ links, authorImg }) => {
   const { lang } = useLanguage();
-console.log(links);
 
   return (
     <div className="h-[40vh] flex flex-col justify-center relative px-4 md:px-15 lg:px-30 xl:px-40">
