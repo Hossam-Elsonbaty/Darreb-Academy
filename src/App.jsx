@@ -18,6 +18,7 @@ import Profile from "./pages/user-dash/Profile/Profile";
 import Photo from "./pages/user-dash/Photo/Photo";
 import Security from "./pages/user-dash/Security/Security";
 import DeleteAccount from "./pages/user-dash/delete/DeleteAccount";
+import PurchasedCourses from "./pages/user-dash/Purchased courses/PurchasedCourses";
 
 
 
@@ -150,7 +151,11 @@ const router = createBrowserRouter([
     {
       path: "DeleteAccount",
       element: <DeleteAccount />,
-    }
+    },
+    {
+      path: "PurchasedCourses",
+      element: <PurchasedCourses />,
+    },
   ],
 },
   

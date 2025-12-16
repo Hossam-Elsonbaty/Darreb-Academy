@@ -1,28 +1,8 @@
 import { useState } from "react";
-import {
-  Box,
-  Button,
-  Typography,
-  TextField,
-} from "@mui/material";
-import { styled } from "@mui/material/styles";
 import { FaRegCircleUser } from "react-icons/fa6";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { FiUploadCloud } from "react-icons/fi";
 
 export default function Photo() {
-
-  const VisuallyHiddenInput = styled("input")({
-    clip: "rect(0 0 0 0)",
-    clipPath: "inset(50%)",
-    height: 1,
-    overflow: "hidden",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    whiteSpace: "nowrap",
-    width: 1,
-  });
-
   const [fileName, setFileName] = useState("No file selected");
   const [preview, setPreview] = useState(null);
 
@@ -35,78 +15,82 @@ export default function Photo() {
   };
 
   return (
-    <Box
-      sx={{
-    
-        bgcolor: "#fff",
-        p: 4,
-        borderRadius: 1,
-        border: "1px solid #ddd",
-      }}
-    >
-      <Typography variant="h5" mb={1} textAlign="center">
+    <div className="bg-white p-6 rounded border border-[rgba(48,146,85,0.2)] ">
+      
+      {/* Title */}
+      <h2 className="text-xl font-semibold text-center mb-1">
         Photo
-      </Typography>
-
-      <Typography
-        variant="body2"
-        color="text.secondary"
-        mb={3}
-        textAlign="center"
-      >
+      </h2>
+      <p className="text-sm text-gray-500 text-center mb-6">
         Add a nice photo of yourself for your profile.
-      </Typography>
+      </p>
 
-      <Typography variant="subtitle2" mb={1}>
-        Image preview
-      </Typography>
+      {/* Image preview */}
+      <p className="text-sm font-medium mb-2">Image preview</p>
 
-      <Box
-        sx={{
-          width: "100%",
-          height: 250,
-          border: "1px solid #ccc",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          mb: 3,
-        }}
-      >
+      <div className="w-full h-[250px] border border-[rgba(48,146,85,0.2)] flex items-center justify-center mb-6">
         {preview ? (
           <img
             src={preview}
             alt="preview"
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
-            }}
+            className="w-full h-full object-contain"
           />
         ) : (
-          <FaRegCircleUser style={{ fontSize: "150px", color: "#999" }} />
+          <FaRegCircleUser className="text-[150px] text-gray-400" />
         )}
-      </Box>
+      </div>
 
-      <Typography variant="subtitle2" mb={1}>
-        Add / Change Image
-      </Typography>
+      {/* Upload */}
+      <p className="text-sm font-medium mb-2">Add / Change Image</p>
 
-      <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
-        <TextField fullWidth size="small" value={fileName} disabled />
+      <div className="flex gap-3 mb-6">
+        <input
+          type="text"
+          value={fileName}
+          disabled
+          className="
+            flex-1
+            h-[60px] px-6
+            text-[15px] text-[#52565b]
+            border border-[rgba(48,146,85,0.2)]
+            rounded-[10px] bg-gray-100
+            focus:outline-none
+          "
+        />
 
-        <Button
-          component="label"
-          variant="contained"
-          startIcon={<CloudUploadIcon />}
+        <label
+          className="
+            flex items-center gap-2
+            h-[60px] px-5
+            bg-main text-white
+            rounded-[10px]
+            cursor-pointer
+            transition-all duration-300
+            hover:bg-main/90
+          "
         >
+          <FiUploadCloud size={18} />
           Upload image
-          <VisuallyHiddenInput type="file" onChange={handleImage} />
-        </Button>
-      </Box>
+          <input
+            type="file"
+            onChange={handleImage}
+            className="hidden"
+          />
+        </label>
+      </div>
 
-      <Button variant="contained">
+      {/* Save */}
+      <button
+        className="
+          bg-main text-white
+          px-6 py-2
+          rounded-[10px]
+          transition-all duration-300
+          hover:bg-main/90
+        "
+      >
         Save
-      </Button>
-    </Box>
+      </button>
+    </div>
   );
 }
