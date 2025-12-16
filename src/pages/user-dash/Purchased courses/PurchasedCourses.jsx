@@ -18,10 +18,28 @@ export default function PurchasedCourses() {
       instructor: "Sara Hassan",
       image: "https://picsum.photos/400/250?3",
     },
+    {
+      id: 4,
+      title: "Python for Beginners",
+      instructor: "Ahmed Salah",
+      image: "https://picsum.photos/400/250?4",
+    },
+    {
+      id: 5,
+      title: "React for Beginners",
+      instructor: "Ahmed Salah",
+      image: "https://picsum.photos/400/250?5",
+    },
+    {
+      id: 6,
+      title: "Advanced JavaScript",
+      instructor: "Mohamed Ali",
+      image: "https://picsum.photos/400/250?6",
+    },
   ];
 
   return (
-    <div className="bg-white border border-gray-300 rounded p-8 max-w-6xl">
+    <div className="bg-white border border-gray-300 rounded p-8 ">
       
       <h2 className="text-2xl font-semibold mb-6">
         Purchased Courses
