@@ -158,7 +158,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-  path: "/",
+  path: "/user-dashboard",
   element: <AccountLayout />,
   children: [
     {
