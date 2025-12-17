@@ -6,10 +6,49 @@ import { useForm } from "react-hook-form"
 import { useLanguage } from "../../hooks/useLanguage";
 import loginimg from "../../assets/images/login.png";
 import titleLine from "../../assets/images/shape11.png";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 export default function Register (){
-  const onSubmit = (data) => console.log(data)
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  // const onSubmit = (data) => console.log(data)
+  const onSubmit = async (data) => {
+  console.log('====================================');
+  console.log(data);
+  console.log('====================================');
+  if (data.password !== data.confirmPassword) {
+    alert("Password and Confirm Password must be the same");
+    return;
+  }
+
+  try {
+    // 2️⃣ نبعت request للـ register
+    const response = await axios.post(
+      "https://darreb-academy-backend.vercel.app/api/auth/register",
+      {
+        fullName: data.name,   
+        email: data.email,
+        password: data.password,
+      }
+    );
+
+    // 3️⃣ لو الباك رجع 201
+    if (response.status === 201) {
+      navigate("/signin");
+    }
+
+  } catch (error) {
+    console.error(error);
+    alert(
+      error.response?.data?.message || "Something went wrong, try again"
+    );
+  }
+};
+
+  const { register, handleSubmit,watch, formState: { errors } } = useForm();
+  const password = watch("password");
+  const confirmPassword = watch("confirmPassword");
   const { lang } = useLanguage();
+  const navigate = useNavigate();
+
   return (
     <div >
       <DynamicHero
@@ -177,6 +216,8 @@ export default function Register (){
                 "
                 {...register("confirmPassword", {
                   required: "Please confirm your password",
+                   validate: (value) =>
+                    value === watch("password") || "Passwords do not match",
                 })}
               />
               {errors.confirmPassword && (
@@ -187,6 +228,7 @@ export default function Register (){
             {/* SUBMIT BUTTON */}
             <button
               type="submit"
+              disabled={password && confirmPassword && password !== confirmPassword}
               className="
                 w-full bg-[#309255] text-white py-3 rounded-lg 
                 text-lg font-medium hover:bg-[#2a7f49] 
