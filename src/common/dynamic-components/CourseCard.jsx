@@ -6,7 +6,9 @@ import { Rating } from "@mui/material";
 import profile1 from "../../assets/images/author-02.jpg";
 import { useLanguage } from "../../hooks/useLanguage";
 import { useNavigate } from "react-router-dom";
-
+import { LuShoppingCart } from "react-icons/lu";
+import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdHeart } from "react-icons/io";
 const profileImages = [
   profile1,
 ];
@@ -23,8 +25,12 @@ const CourseCard = ({ c, status }) => {
       className=" bg-white border border-green-300 rounded-2xl p-5 shadow-sm 
   transition-all duration-500 
   hover:shadow-2xl hover:scale-[1.01] hover:border-green-500
-  group"
+  group relative"
     >
+      <div className="absolute flex gap-2 flex-col right-4 ">
+        <button className="bg-[#eefbf3] rounded shadow-lg p-1"><IoMdHeartEmpty className="text-2xl text-[#309255]"/></button>
+        <button  className="bg-[#eefbf3] rounded shadow-lg p-1"><LuShoppingCart className="text-2xl text-[#309255]"/></button>
+      </div>
       <div className="rounded-xl overflow-hidden">
         <img
           src={c.thumbnail}

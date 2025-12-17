@@ -192,14 +192,14 @@ const Navbar = () => {
           <div className="flex gap-4 items-center">
             <div className="hidden lg:flex gap-3 items-center text-lg">
               <NavLink
-                to="/signup"
+                to="/signin"
                 className="relative  hover:text-[#309255] duration-400"
               >
                 {t(navLinks[5])}
               </NavLink>
 
               <Link
-                to="/signin"
+                to="/signup"
                 className="py-3 px-7 bg-white rounded text-dark border-1 border-main hover:bg-[#309255] hover:text-white duration-400"
               >
                 {t(navLinks[6])}

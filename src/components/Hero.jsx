@@ -6,7 +6,7 @@ const Hero = () => {
   const hero = t("hero", { returnObjects: true });
 
   return (
-    <section className="relative">
+    <section className="relative max-h-[42rem]">
       <div className="max-w-7xl mx-auto px-4 md:px-8 pt-10 lg:pt-15 ">
         {/* GRID */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">
