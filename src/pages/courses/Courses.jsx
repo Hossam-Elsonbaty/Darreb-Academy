@@ -124,7 +124,7 @@ const Courses = () => {
   const { categories } = useSelector((state) => state.categories);
   // Dispatch the fetchCourses action on component mount
   useEffect(() => {
-    
+
     dispatch(fetchCourses());
     dispatch(fetchCategories());
     console.log(courses);
@@ -132,7 +132,7 @@ const Courses = () => {
   }, [dispatch]);
   // Filter courses based on the selected category and search term
   const filteredCourses = courses?.filter((c) => {
-    const matchesCategory = cate ===0 || c.category?._id == cate ;
+    const matchesCategory = cate === 0 || c.category?._id == cate;
     const matchesSearch = c.title.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesCategory && matchesSearch;
   });
@@ -142,12 +142,12 @@ const Courses = () => {
 
       <div className="bg-white py-20 px-4 md:px-15 lg:px-30 xl:px-40">
         <div className="flex justify-evenly mt-16 bg-[#eefbf3] py-10 px-15 rounded-xl">
-          <button className="btn1" onClick={()=>setCate(0)}>
+          <button className="btn1" onClick={() => setCate(0)}>
             {lang === "en" ? "All Courses" : "كل الكورسات"}
           </button>
           {
-            categories?.map(cat=>
-              <button onClick={()=>setCate(cat._id)} key={cat._id} className="p-3 rounded-lg bg-white text-lg text-center duration-300 cursor-pointer hover:text-white hover:bg-green-700 border-[#ddd] border">
+            categories?.map(cat =>
+              <button onClick={() => setCate(cat._id)} key={cat._id} className="p-3 rounded-lg bg-white text-lg text-center duration-300 cursor-pointer hover:text-white hover:bg-green-700 border-[#ddd] border">
                 {lang === "en" ? cat.name : cat.name_ar}
               </button>
             )
@@ -183,17 +183,17 @@ const Courses = () => {
         {/* Courses Cards */}
         <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
           {
-                      filteredCourses.length > 0 ? (
-            filteredCourses.map((c) => (
-              <div key={c._id}>
-                <CourseCard c={c} />
+            filteredCourses.length > 0 ? (
+              filteredCourses.map((c) => (
+                <div key={c._id}>
+                  <CourseCard c={c} />
+                </div>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-10 text-gray-500 text-xl">
+                {lang === "en" ? "No courses found matching your search" : "لم يتم العثور على كورسات مطابقة لبحثك"}
               </div>
-            ))
-          ) : (
-            <div className="col-span-full text-center py-10 text-gray-500 text-xl">
-              {lang === "en" ? "No courses found matching your search" : "لم يتم العثور على كورسات مطابقة لبحثك"}
-            </div>
-          )
+            )
 
           }
           {/* {cate != 0 ?
@@ -220,7 +220,7 @@ const Courses = () => {
               {lang === "en" ? "No courses found matching your search" : "لم يتم العثور على كورسات مطابقة لبحثك"}
             </div>
           )} */}
-          
+
         </div>
       </div>
 
