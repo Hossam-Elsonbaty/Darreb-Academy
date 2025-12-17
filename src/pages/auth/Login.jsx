@@ -5,11 +5,50 @@ import { useForm } from "react-hook-form";
 import loginimg from "../../assets/images/login.png";
 import titleLine from "../../assets/images/shape11.png";
 import { useLanguage } from "../../hooks/useLanguage";
-
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = (data) => console.log(data);
+  
   const { lang } = useLanguage();
+  const navigate = useNavigate();
+  // const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+  try {
+    const response = await axios.post(
+      "https://darreb-academy-backend.vercel.app/api/auth/login",
+      {
+        email: data.email, 
+        password: data.password,
+      }
+    );
+     
+    console.log("RESPONSE DATA:", response.data);
+
+    const token= response.data.data.token;
+    const userData = response.data.data;
+
+console.log(token);
+console.log("======================");
+console.log(userData);
+
+
+
+    if (token) {
+      
+      localStorage.setItem("token", token);
+      localStorage.setItem("userData", JSON.stringify(userData));
+
+    
+      navigate("/");
+    }
+  } catch (error) {
+    console.error(error);
+    alert(
+      error.response?.data?.message || "Invalid email or password"
+    );
+  }
+};
 
   return (
     <div>
@@ -98,7 +137,7 @@ export default function Login() {
                     transition-all duration-300 
                     focus:border-main focus:outline-none
                   "
-                  {...register("Email", {
+                  {...register("email", {
                     required: "Email is required",
                     pattern: {
                       value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
@@ -106,8 +145,8 @@ export default function Login() {
                     },
                   })}
                 />
-                {errors.Email && (
-                  <p className="text-red-500 text-sm mt-1">{errors.Email.message}</p>
+                {errors.email && (
+                  <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
                 )}
               </div>
 
