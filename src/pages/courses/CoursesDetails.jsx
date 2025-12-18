@@ -62,13 +62,14 @@ const ShareIcon = ({ icon }) => (
 
 const CourseDetails = () => {
   const { id } = useParams();
+  console.log("Course ID:", id);
   const { t } = useTranslation();
   const { lang } = useLanguage();
   const [course, setCourse] = useState(null);
   useEffect(() => {
     async function fetchData() {
       const response = await axios.get(
-        `https://darreb-academy-backend.vercel.app/api/courses/${id}`
+        `/courses/${id}`
       );
       setCourse(response.data);
     }
