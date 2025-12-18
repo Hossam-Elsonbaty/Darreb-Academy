@@ -188,6 +188,7 @@ const [modalMessage, setModalMessage] = useState("");
                         message:
                           lang === "en"
                             ? "Invalid email address"
+                            : "البريد الإلكتروني غير صحيح",
                       },
                     })}
                   />
