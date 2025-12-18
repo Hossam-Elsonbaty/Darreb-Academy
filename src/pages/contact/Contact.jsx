@@ -7,8 +7,14 @@ import { IoCallOutline } from "react-icons/io5";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { PiMapPinLight } from "react-icons/pi";
 import Banner from "../../common/Banner";
+import axios, { Axios } from "axios";
+import { useState } from "react";
 
 const Contact = () => {
+const [showModal, setShowModal] = useState(false);
+const [modalType, setModalType] = useState("success"); 
+const [modalMessage, setModalMessage] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -16,10 +22,36 @@ const Contact = () => {
   } = useForm();
 
   const { lang } = useLanguage();
-
-  const onSubmit = (data) => {
+    const onSubmit = (data) => {
     console.log(data);
+    axios.post("https://darreb-academy-backend.vercel.app/api/contact-us/create-email",{
+      name:data.name,
+      email:data.email,
+      subject: data.subject,
+      message: data.message,
+    }).then(() => {
+    setModalType("success");
+    setModalMessage(
+      lang === "en"
+        ? "Message sent successfully"
+        : "تم إرسال الرسالة بنجاح"
+    );
+    setShowModal(true);
+  })
+  .catch((err) => {
+    console.error("Error sending message:", err);
+    setModalType("error");
+    setModalMessage(
+      lang === "en"
+        ? "Something went wrong, try again"
+        : "حصل خطأ، حاول مرة أخرى"
+    );
+    setShowModal(true);
+  });
+
+    
   };
+  
 
   return (
     <>
@@ -151,6 +183,13 @@ const Contact = () => {
                         lang === "en"
                           ? "Email is required"
                           : "البريد الإلكتروني مطلوب",
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message:
+                          lang === "en"
+                            ? "Invalid email address"
+                            : "البريد الإلكتروني غير صحيح",
+                      },
                     })}
                   />
                   {errors.email && (
@@ -234,9 +273,57 @@ const Contact = () => {
         </div>
       </section>
         <Banner/>
+
+
+
+        {showModal && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 relative animate-fadeIn">
+
+      {/* Icon */}
+      <div className="flex justify-center mb-4">
+        {modalType === "success" ? (
+          <div className="w-16 h-16 flex items-center justify-center rounded-full bg-green-100">
+            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" strokeWidth="2"
+              viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+        ) : (
+          <div className="w-16 h-16 flex items-center justify-center rounded-full bg-red-100">
+            <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" strokeWidth="2"
+              viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </div>
+        )}
+      </div>
+
+      {/* Message */}
+      <p className="text-center text-gray-700 text-lg mb-6">
+        {modalMessage}
+      </p>
+
+      {/* Button */}
+      <div className="flex justify-center">
+        <button
+          onClick={() => setShowModal(false)}
+          className={`px-6 py-2 rounded-lg text-white font-medium transition
+            ${modalType === "success"
+              ? "bg-green-600 hover:bg-green-700"
+              : "bg-red-600 hover:bg-red-700"}`}
+        >
+          {lang === "en" ? "OK" : "حسناً"}
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </>
 
   );
 };
 
 export default Contact;
+
