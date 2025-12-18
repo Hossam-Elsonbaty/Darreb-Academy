@@ -65,15 +65,17 @@ const CourseDetails = () => {
   const { t } = useTranslation();
   const { lang } = useLanguage();
   const [course, setCourse] = useState(null);
-  useEffect(() => {
-    async function fetchData() {
-      const response = await axios.get(
-        `https://darreb-academy-backend.vercel.app/api/courses/${id}`
-      );
+ useEffect(() => {
+  axios
+    .get(`https://darreb-academy-backend.vercel.app/api/courses/${id}`)
+    .then((response) => {
       setCourse(response.data);
-    }
-    fetchData();
-  }, [id]);
+    })
+    .catch((error) => {
+      console.error("Error fetching course:", error);
+    });
+}, [id]);
+
 
   if (!course) {
     return <div className="p-10 text-center text-gray-500">Loading...</div>;
