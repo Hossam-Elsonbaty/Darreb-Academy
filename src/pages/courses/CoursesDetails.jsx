@@ -62,6 +62,7 @@ const ShareIcon = ({ icon }) => (
 
 const CourseDetails = () => {
   const { id } = useParams();
+  console.log("Course ID:", id);
   const { t } = useTranslation();
   const { lang } = useLanguage();
   const [course, setCourse] = useState(null);
