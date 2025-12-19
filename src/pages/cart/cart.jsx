@@ -3,10 +3,12 @@ import i18n from "../../i18n";
 import { useEffect, useState } from "react";
 import api from "../../api/axios";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
+   const { setShowModal, setModalType, setModalMessage } = useCart(); 
   // ================= GET CART =================
   useEffect(() => {
     const getCart = async () => {
@@ -47,14 +49,20 @@ const Cart = () => {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        alert(
+        setModalType("error");
+        setModalMessage(
           i18n.language === "ar"
             ? "الرجاء تسجيل الدخول أولاً!"
             : "Please login first!"
         );
+        setShowModal(true);
+        // alert(
+        //   i18n.language === "ar"
+        //     ? "الرجاء تسجيل الدخول أولاً!"
+        //     : "Please login first!"
+        // );
         return;
       }
-
       const wishlistRes = await api.get("/wishlist", {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -64,11 +72,19 @@ const Cart = () => {
       );
 
       if (alreadyInWishlist) {
-        alert(
+        setModalType("error");
+        setModalMessage(
           i18n.language === "ar"
             ? "الكورس موجود بالفعل في المفضلة!"
             : "Course already in wishlist!"
         );
+        setShowModal(true);
+        
+        // alert(
+        //   i18n.language === "ar"
+        //     ? "الكورس موجود بالفعل في المفضلة!"
+        //     : "Course already in wishlist!"
+        // );
         navigate("/wishlist");
         return;
       }
@@ -82,20 +98,35 @@ const Cart = () => {
       setCartItems((prev) =>
         prev.filter((item) => item.course._id !== courseId)
       );
-
-      alert(
+      setModalType("success");
+      setModalMessage(
         i18n.language === "ar"
           ? "تم نقل الكورس للمفضلة"
           : "Course moved to wishlist"
       );
+      setShowModal(true);
+      // alert(
+      //   i18n.language === "ar"
+      //     ? "تم نقل الكورس للمفضلة"
+      //     : "Course moved to wishlist"
+      // );
+      
       navigate("/wishlist");
     } catch (error) {
       console.log("Move to wishlist error:", error.response || error);
-      alert(
+      setModalType("error");
+      setModalMessage(
         i18n.language === "ar"
           ? "حدث خطأ، حاول مرة أخرى"
           : "Something went wrong, try again"
       );
+      setShowModal(true);
+      
+      // alert(
+      //   i18n.language === "ar"
+      //     ? "حدث خطأ، حاول مرة أخرى"
+      //     : "Something went wrong, try again"
+      // );
     }
   };
 

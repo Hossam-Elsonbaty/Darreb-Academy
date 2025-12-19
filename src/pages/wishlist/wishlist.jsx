@@ -2,10 +2,11 @@ import { FiTrash2 } from "react-icons/fi";
 import i18n from "../../i18n";
 import { useEffect, useState } from "react";
 import api from "../../api/axios";
+import { useCart } from "../../context/CartContext";
 
 const WishlistPage = () => {
   const [wishlist, setWishlist] = useState([]);
-
+ const { setShowModal, setModalType, setModalMessage } = useCart(); 
   // ================= GET WISHLIST =================
   useEffect(() => {
     const getWishlist = async () => {
@@ -35,14 +36,26 @@ const WishlistPage = () => {
 
       setWishlist((prev) => prev.filter((item) => item.course._id !== courseId));
 
-      alert(i18n.language === "ar" ? "تم حذف الكورس من المفضلة" : "Course removed from wishlist");
+      // alert(i18n.language === "ar" ? "تم حذف الكورس من المفضلة" : "Course removed from wishlist");
+       setModalType("success");
+      setModalMessage(
+        i18n.language === "ar" ? "تم حذف الكورس من المفضلة" : "Course removed from wishlist"
+      );
+      setShowModal(true);
     } catch (error) {
       console.log("Remove from wishlist error:", error.response || error);
-      alert(
+       setModalType("error");
+      setModalMessage(
         i18n.language === "ar"
           ? "حدث خطأ، حاول مرة أخرى"
           : "Something went wrong, try again"
       );
+      setShowModal(true);
+      // alert(
+      //   i18n.language === "ar"
+      //     ? "حدث خطأ، حاول مرة أخرى"
+      //     : "Something went wrong, try again"
+      // );
     }
   };
 
