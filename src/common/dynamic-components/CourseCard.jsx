@@ -9,10 +9,12 @@ import { useNavigate } from "react-router-dom";
 import { LuShoppingCart } from "react-icons/lu";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
+import { useCart } from "../../context/CartContext";
 // import api from "../../api/axios";
 const profileImages = [profile1];
 
-const CourseCard = ({ c, status, addToCart , cartItems=[], isCartLoading=false }) => {
+const CourseCard = ({ c, status}) => {
+  const { addToCart, cartItems, isCartLoading  } = useCart();
   const { lang } = useLanguage();
   const navigate = useNavigate();
   const isInCart = cartItems.some(item => item.course?._id === c._id);
@@ -44,7 +46,7 @@ const CourseCard = ({ c, status, addToCart , cartItems=[], isCartLoading=false }
           <button className="bg-[#eefbf3] rounded shadow-lg p-1">
             <IoMdHeartEmpty className="text-2xl text-[#309255]" />
           </button>
-          <button   disabled={isInCart || isCartLoading || isAdding}
+          <button   disabled={isInCart || isCartLoading  || isAdding}
             className="bg-[#eefbf3] rounded shadow-lg p-1"
             onClick={(e) => {
               e.stopPropagation();

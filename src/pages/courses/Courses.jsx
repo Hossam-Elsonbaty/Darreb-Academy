@@ -113,7 +113,7 @@ import { useLanguage } from "../../hooks/useLanguage";
 // import { useTranslation } from "react-i18next";
 import authorImg from "../../assets/images/author-11.jpg";
 import { fetchCategories } from "../../Store/Slices/categoriesSlice";
-import api from "../../api/axios";
+import { useCart } from "../../context/CartContext";
 
 const Courses = () => {
   const { lang } = useLanguage();
@@ -122,44 +122,18 @@ const Courses = () => {
   const dispatch = useDispatch();
   const { courses, loading, error } = useSelector((state) => state.courses);
   const { categories } = useSelector((state) => state.categories);
-  const [cartItems, setCartItems] = useState([]);
-  const [isCartLoading, setIsCartLoading] = useState(true);
-  const getCart = async () => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    setIsCartLoading(false);
-    return;
-  }
-  setIsCartLoading(true);
-  console.log("Fetching cart, token exists:", !!token);
-  try {
-    const res = await api.get("/cart");
-    setCartItems(Array.isArray(res.data?.cart) ? res.data.cart : []);
-    console.log("Cart fetched:", res.data.cart);
-
-  } catch (err) {
-    console.log("Get cart error:", err.response?.status, err.response?.data);
-    if (err.response?.status === 401) {
-      alert(lang === "en" ? "Session expired, please login again" : "انتهت الجلسة، يرجى تسجيل الدخول مرة أخرى");
-      localStorage.removeItem("token");
-    }
-  } finally {
-    setIsCartLoading(false);
-  }
-};
-
+  const { cartItems, isCartLoading } = useCart();
 useEffect(() => {
   console.log(courses); 
 }, [courses]);
  useEffect(() => {
     dispatch(fetchCourses());
     dispatch(fetchCategories());
-    getCart();
+    // getCart();
 }, [dispatch]);
 useEffect(() => {
     console.log("Courses updated:", courses);
 }, [courses]);
-
 
   // Filter courses based on the selected category and search term
   const filteredCourses = courses?.filter((c) => {
@@ -167,44 +141,6 @@ useEffect(() => {
     const matchesSearch = c.title.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesCategory && matchesSearch;
   });
- const addToCart = async (course) => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    alert(lang === "en" ? "Please login first!" : "الرجاء تسجيل الدخول أولاً!");
-    return;
-  }
- if (cartItems.some(item => item.course?._id === course._id)) {
-    alert(lang === "en" ? "Course already in your cart" : "الكورس موجود بالفعل في العربة");
-    return;
-  }
-  console.log("Adding courseId:", course._id, "Token exists:", !!token);
-  try {
-    const res = await api.post(
-      "/cart",
-      { courseId: course._id }
-    );
-    console.log("Course added to cart:", res.data);
-    await getCart();
-
-
- 
-  } catch (error) {
-    console.log("Error status:", error.response?.status, "Data:", error.response?.data);
-    if (error.response?.status === 401) {
-      alert(lang === "en" ? "Session expired, please login again" : "انتهت الجلسة، يرجى تسجيل الدخول مرة أخرى");
-      localStorage.removeItem("token");
-      return;
-    }
-    if (error.response?.status === 400 && (error.response?.data?.message === "Course already in cart" || error.response?.data?.error === "Course already in cart")) {
-      alert(lang === "en" ? "Course is already in your cart!" : "الكورس موجود بالفعل في العربة!");
-      await getCart();
-      return;
-    } else {
-      console.error(error);
-      alert(lang === "en" ? "Something went wrong" : "حدث خطأ، حاول مرة أخرى");
-    }
-  }
-};
 
   return (
     <div>
@@ -256,7 +192,7 @@ useEffect(() => {
             filteredCourses.length > 0 ? (
               filteredCourses.map((c) => (
                 <div key={c._id}>
-                  <CourseCard c={c} addToCart={addToCart} cartItems={cartItems} isCartLoading={isCartLoading}/>
+                  <CourseCard c={c}/>
                 </div>
               ))
             ) : (
