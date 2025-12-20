@@ -94,7 +94,7 @@ const [modalMessage, setModalMessage] = useState("");
 const fetchReviews = useCallback(async () => {
   try {
     setIsReviewsLoading(true);
-    const res = await api.get(`/reviews/${id}`);
+    const res = await api.get(`/reviews/course/${id}`);
     setReviews(Array.isArray(res.data) ? res.data : []);
   } catch (err) {
     console.log("Fetch reviews error:", err.response?.data);

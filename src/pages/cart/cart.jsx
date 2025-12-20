@@ -23,8 +23,7 @@ const Cart = () => {
       console.error("Error in payment checkout:", error.response ? error.response.data : error.message);
     }
   }
-
-   const { setShowModal, setModalType, setModalMessage } = useCart(); 
+  const { setShowModal, setModalType, setModalMessage } = useCart(); 
   // ================= GET CART =================
   useEffect(() => {
     const getCart = async () => {
