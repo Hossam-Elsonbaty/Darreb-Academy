@@ -3,10 +3,25 @@ import i18n from "../../i18n";
 import { useEffect, useState } from "react";
 import api from "../../api/axios";
 import { useNavigate } from "react-router-dom";
-
+import {loadStripe} from '@stripe/stripe-js';
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
+  console.log(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
+  const makePayment = async()=> {
+    const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
+    const body = {
+      products:cartItems
+    }
+    try 
+      {
+        const response = await api.post('/payment/create-checkout-session', body);
+        window.location.href = response.data.url;
+      } 
+    catch (error) {
+      console.error("Error in payment checkout:", error.response ? error.response.data : error.message);
+    }
+  }
   // ================= GET CART =================
   useEffect(() => {
     const getCart = async () => {
@@ -178,7 +193,7 @@ const Cart = () => {
             <h2 className="text-3xl font-bold">£E{total.toFixed(2)}</h2>
           </div>
 
-          <button className="w-full bg-green-500 text-white py-3 font-semibold hover:bg-green-700 duration-300">
+          <button onClick={makePayment} className="w-full bg-green-500 text-white py-3 font-semibold hover:bg-green-700 duration-300">
             {i18n.language === "ar"
               ? "المتابعة إلى الدفع"
               : "Proceed to Checkout →"}

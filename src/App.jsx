@@ -22,6 +22,7 @@ import Photo from "./pages/user-dash/Photo/Photo";
 import Security from "./pages/user-dash/Security/Security";
 import DeleteAccount from "./pages/user-dash/delete/DeleteAccount";
 import PurchasedCourses from "./pages/user-dash/Purchased courses/PurchasedCourses";
+import SuccessPayment from "./pages/success/success";
 
 
 
@@ -144,6 +145,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<LottieLoading status="notFound" />}>
             <NotFound />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/success",
+        element: (
+          <Suspense fallback={<LottieLoading status="page" />}>
+            <SuccessPayment />
           </Suspense>
         ),
       },
