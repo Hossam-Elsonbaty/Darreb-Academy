@@ -1,14 +1,8 @@
 import { useParams } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 import DynamicHero from "../../common/dynamic-components/DynamicHero";
 import authorImg from "../../assets/images/author-11.jpg";
 import imgDetail from "../../assets/images/courses-details.webp";
-// import courseImg1 from "../../assets/images/courses-01.jpg";
-// import courseImg2 from "../../assets/images/courses-02.jpg";
-// import courseImg3 from "../../assets/images/courses-03.jpg";
-// import courseImg4 from "../../assets/images/courses-04.jpg";
-// import courseImg5 from "../../assets/images/courses-05.jpg";
-// import courseImg6 from "../../assets/images/courses-06.jpg";
 import profile1 from "../../assets/images/author-01.jpg";
 import profile2 from "../../assets/images/author-02.jpg";
 import profile3 from "../../assets/images/author03.jpg";
@@ -24,16 +18,23 @@ import { Rating } from "@mui/material";
 import { CiUser, CiClock1, CiBookmark, CiGlobe, CiMedal } from "react-icons/ci";
 import { IoBookOutline } from "react-icons/io5";
 import { FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
-import axios from "axios";
-import { useEffect, useState } from "react";
-// const coursesImages = [
-//   courseImg1,
-//   courseImg2,
-//   courseImg3,
-//   courseImg4,
-//   courseImg5,
-//   courseImg6,
-// ];
+// import axios from "axios";
+import { useEffect, useState,useCallback  } from "react";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import api from "../../api/axios";
+import { useForm, Controller } from "react-hook-form";
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+// import './styles.css';
+
+
+// import required modules
+import { Pagination } from 'swiper/modules';
+
+
 const profileImages = [
   profile1,
   profile2,
@@ -63,24 +64,147 @@ const ShareIcon = ({ icon }) => (
 const CourseDetails = () => {
   const { id } = useParams();
   console.log("Course ID:", id);
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const { lang } = useLanguage();
   const [course, setCourse] = useState(null);
- useEffect(() => {
-  axios
-    .get(`https://darreb-academy-backend.vercel.app/api/courses/${id}`)
-    .then((response) => {
-      setCourse(response.data);
-    })
-    .catch((error) => {
-      console.error("Error fetching course:", error);
-    });
+const [activeTab, setActiveTab] = useState("description");
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [reviews, setReviews] = useState([]);
+const [isReviewsLoading, setIsReviewsLoading] = useState(false);
+const [showModal, setShowModal] = useState(false);
+const [modalType, setModalType] = useState("success"); // success | error
+const [modalMessage, setModalMessage] = useState("");
+
+
+  const {
+  register,
+  handleSubmit,
+  control,
+  reset,
+  formState: { errors, isSubmitting },
+} = useForm({
+  defaultValues: {
+    comment: "",
+    rating: 0,
+  },
+});
+
+
+
+const fetchReviews = useCallback(async () => {
+  try {
+    setIsReviewsLoading(true);
+    const res = await api.get(`/reviews/${id}`);
+    setReviews(Array.isArray(res.data) ? res.data : []);
+  } catch (err) {
+    console.log("Fetch reviews error:", err.response?.data);
+  } finally {
+    setIsReviewsLoading(false);
+  }
 }, [id]);
+
+useEffect(() => {
+  fetchReviews();
+}, [fetchReviews]);
+
+
+useEffect(() => {
+  const token = localStorage.getItem("token");
+  if (!token) return;
+  fetchReviews();
+}, [id,fetchReviews]);
+
+  useEffect(() => {
+    api.get(`/courses/${id}`)
+      .then((response) => {
+        setCourse(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching course:", error);
+      });
+  }, [id]);
+
 
 
   if (!course) {
     return <div className="p-10 text-center text-gray-500">Loading...</div>;
   }
+
+
+
+  const tabClass = (tabName) =>
+  `p-3 rounded-lg text-md border-lightGreen border cursor-pointer
+   ${
+     activeTab === tabName
+       ? "bg-green-700 text-white"
+       : "bg-white text-black hover:bg-green-700 hover:text-white"
+   }`;
+
+const onSubmitReview = async (data) => {
+  const userData = JSON.parse(localStorage.getItem("userData"));
+
+  if (!userData) {
+    setModalType("error");
+setModalMessage(
+  lang === "en"
+    ? "Please login first"
+    : "من فضلك سجل الدخول أولاً"
+);
+setShowModal(true);
+return;
+
+  }
+
+  const isPurchased = userData.purchasedCourse?.find(
+    (courseId) => courseId === id
+  );
+
+  if (!isPurchased) {
+   setModalType("error");
+setModalMessage(
+  lang === "en"
+    ? "You must purchase this course first"
+    : "يجب شراء الكورس أولاً"
+);
+setShowModal(true);
+return;
+
+  }
+
+  try {
+    await api.post("/reviews", {
+      courseId: id,
+      comment: data.comment,
+      rating: Number(data.rating),
+    });
+
+   setModalType("success");
+setModalMessage(
+  lang === "en"
+    ? "Review submitted successfully"
+    : "تم إرسال التقييم بنجاح"
+);
+setShowModal(true);
+reset();
+setIsReviewModalOpen(false);
+fetchReviews();
+
+
+  } catch (err) {
+    console.log("Submit review error:", err.response?.data);
+    setModalType("error");
+setModalMessage(
+  lang === "en"
+    ? "Something went wrong, please try again"
+    : "حدث خطأ ما، حاول مرة أخرى"
+);
+setShowModal(true);
+
+  }
+
+
+  
+};
 
   return (
     <>
@@ -97,9 +221,10 @@ const CourseDetails = () => {
           {/* left side */}
           <div className="lg:w-2/3 w-full">
             <img src={course.thumbnail || imgDetail} className="rounded-lg" />
-            {/* <h1 className="text-3xl  py-3">{course.title}:{course.description} {lang === "en" ? "Description" : "وصف"}</h1> */}
             <h1 className="text-3xl py-2">{course.title}</h1>
             <p className="text-gray-600">{course.description}</p>
+
+
             {/* section2 */}
             <div className="flex items-center justify-between mt-4">
               <div className="flex items-center gap-3">
@@ -133,62 +258,229 @@ const CourseDetails = () => {
             {/* end of section 2 */}
             {/* sec 3 */}
             <div className="flex justify-evenly  bg-[#eefbf3] my-5 py-3 px-10 rounded-xl">
-              <button className="btn1">
-                {" "}
+              <button onClick={() => setActiveTab("description")}
+                  className={tabClass("description")}>
                 {lang === "en" ? "Description" : "الوصف"}
               </button>
-              <button className="p-3 rounded-lg bg-white text-md text-center duration-300 cursor-pointer hover:text-white hover:bg-green-700 border-lightGreen border">
+               {/* <button className="p-3 rounded-lg bg-white text-md text-center duration-300 cursor-pointer hover:text-white hover:bg-green-700 border-lightGreen border">
                 {lang === "en" ? "Instructor" : "المدربين"}
-              </button>
-              <button className="p-3  rounded-lg bg-white text-md text-center duration-300 cursor-pointer hover:text-white hover:bg-green-700 border-lightGreen border">
+              </button>  */}
+              <button onClick={() => setActiveTab("reviews")}
+                className={tabClass("reviews")}>
                 {lang === "en" ? "Reviews" : "التقييمات"}
               </button>
             </div>
-            {/* sec4 */}
+       
+        {/* TAB CONTENT */}
+{activeTab === "description" && (
+  <div>
+    <div>
+      <h1 className="text-2xl py-3">
+        {lang === "en" ? "Description:" : "الوصف"}
+      </h1>
+      <p>
+        {lang === "en"
+          ? course.description
+          : course.description_ar}
+      </p>
+    </div>
+
+    <div>
+      <h1 className="text-2xl py-3">
+        {lang === "en" ? "Curriculum:" : "المقرر"}
+      </h1>
+
+      {course.chapters && course.chapters.length > 0 ? (
+        <ul className="list-disc ps-5 space-y-2">
+          {course.chapters.map((item) => (
+            <li key={item._id}>
+              {lang === "en"
+                ? item.chapter.title
+                : item.chapter.title_ar}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>
+          {lang === "en"
+            ? "No curriculum available"
+            : "لا يوجد محتوى للدورة"}
+        </p>
+      )}
+    </div>
+
+    <div>
+      <h1 className="text-2xl py-3">
+        {lang === "en" ? "Certificate:" : "الشهادة"}
+      </h1>
+      <p>
+        {lang === "en"
+          ? "Certificate available after completion"
+          : "شهادة متاحة بعد إتمام الدورة"}
+      </p>
+    </div>
+  </div>
+)}
+{activeTab === "reviews" && (
+  <>
+  {isReviewsLoading ? (
+  <p className="text-center text-gray-500">
+    {lang === "en" ? "Loading reviews..." : "جاري تحميل التقييمات..."}
+  </p>
+) : reviews.length === 0 ? (
+  <p className="text-center text-gray-500">
+    {lang === "en" ? "No reviews yet" : "لا يوجد تقييمات بعد"}
+  </p>
+) : (
+  <Swiper
+   modules={[Pagination]}
+                pagination={{ clickable: true }}
+                spaceBetween={20}
+                slidesPerView={1}
+    className="reviews-swiper">
+    {reviews.map((review) => (
+      <SwiperSlide key={review._id}>
+        <div className="border border-green-200 rounded-3xl p-8 bg-white">
+          
+          <div className="flex items-center gap-4 mb-4">
+            <img
+              src={profileImages[Math.floor(Math.random() * 6)]}
+              className="w-20 h-20 rounded-full"
+            />
             <div>
-              <div>
-                <h1 className="text-2xl  py-3">
-                  {" "}
-                  {lang === "en" ? "Description:" : "الوصف"}
-                </h1>
-                <p>
-                  {lang === "en" ? course.description : course.description_ar}
-                </p>
-              </div>
-              <div>
-                <h1 className="text-2xl  py-3">
-                  {lang === "en" ? " Curriculum:" : "المقرر"}
-                </h1>
-                {course.chapters && course.chapters.length > 0 ? (
-                  <ul className="list-disc ps-5 space-y-2">
-                    {course.chapters.map((item) => (
-                      <li key={item._id}>
-                        {lang === "en"
-                          ? item.chapter.title
-                          : item.chapter.title_ar}
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <p>
-                    {lang === "en"
-                      ? "No curriculum available"
-                      : "لا يوجد محتوى للدورة"}
-                  </p>
-                )}
-              </div>
-              <div>
-                <h1 className="text-2xl  py-3">
-                  {lang === "en" ? " Certificate:" : "الشهادة"}
-                </h1>
-                <p>
-                  {lang === "en"
-                    ? "Certificate available after completion"
-                    : "شهادة متاحة بعد إتمام الدورة"}
-                </p>
-              </div>
+              <p className="font-semibold text-lg">
+                {review.user?.fullName || "User"}
+              </p>
+
+<Rating value={review.rating} readOnly size="medium" />
+
             </div>
           </div>
+
+          <p className="text-gray-600 leading-relaxed">
+            {review.comment}
+          </p>
+
+        </div>
+      </SwiperSlide>
+    ))}
+  </Swiper>
+)}               
+              <div className="flex justify-center mt-8"> 
+                  <button
+  className="btn1"
+  onClick={() => setIsReviewModalOpen(true)}
+>
+  {lang === "en" ? "Write A Review" : "اكتب تقييم"}
+</button>
+ </div>
+ 
+{isReviewModalOpen && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    
+    {/* Modal Box */}
+    <div
+      className="bg-white rounded-lg p-6 w-full max-w-md relative"
+      onClick={(e) => e.stopPropagation()}
+    >
+      
+      {/* Close */}
+      <button
+        className="absolute top-3 right-3 text-gray-500 hover:text-black cursor-pointer"
+        onClick={() => setIsReviewModalOpen(false)}
+      >
+        ✕
+      </button>
+
+      <h3 className="text-xl font-semibold mb-4">
+        {lang === "en" ? "Write a Review" : "اكتب تقييم"}
+      </h3>
+
+    
+      <textarea
+  className={`w-full border border-green-200 rounded-lg p-4 resize-none focus:outline-none 
+    ${errors.comment ? "border-red-500" : "border-gray-300"}
+  `}
+  rows={5}
+  placeholder={
+    lang === "en"
+      ? "Write your comment..."
+      : "اكتب تعليقك..."
+  }
+  {...register("comment", {
+    required:
+      lang === "en"
+        ? "Comment is required"
+        : "التعليق مطلوب",
+    minLength: {
+      value: 10,
+      message:
+        lang === "en"
+          ? "Comment must be at least 10 characters"
+          : "التعليق يجب ألا يقل عن 10 حروف",
+    },
+  })}
+/>
+
+{errors.comment && (
+  <p className="text-red-500 text-sm mt-1">
+    {errors.comment.message}
+  </p>
+)}
+
+    
+      <div className="flex justify-center mb-4">
+<Controller
+  name="rating"
+  control={control}
+  rules={{
+    validate: (value) =>
+      value > 0 ||
+      (lang === "en"
+        ? "Rating is required"
+        : "التقييم مطلوب"),
+  }}
+  render={({ field }) => (
+    <Rating
+      {...field}
+      value={field.value}
+      onChange={(_, value) => field.onChange(value)}
+    />
+  )}
+/>
+
+{errors.rating && (
+  <p className="text-red-500 text-sm mt-1 text-center">
+    {errors.rating.message}
+  </p>
+)}
+      </div>
+
+    <button
+  className="btn1 w-full"
+  onClick={handleSubmit(onSubmitReview)}
+  disabled={isSubmitting}
+>
+  {isSubmitting
+    ? lang === "en"
+      ? "Submitting..."
+      : "جاري الإرسال..."
+    : lang === "en"
+    ? "Submit Review"
+    : "إرسال التقييم"}
+</button>
+
+
+    </div>
+  </div>
+)}
+
+ 
+ </>
+)}
+
+          </div>
+
           {/* right side */}
 
           <div className="lg:w-1/3 w-full flex flex-col gap-6">
@@ -297,8 +589,53 @@ const CourseDetails = () => {
           </button>
         </div>
       </section>
+
+    {showModal && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+    <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 relative animate-fadeIn">
+
+      {/* Icon */}
+      <div className="flex justify-center mb-4">
+        {modalType === "success" ? (
+          <div className="w-16 h-16 flex items-center justify-center rounded-full bg-green-100">
+            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" strokeWidth="2"
+              viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+        ) : (
+          <div className="w-16 h-16 flex items-center justify-center rounded-full bg-red-100">
+            <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" strokeWidth="2"
+              viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </div>
+        )}
+      </div>
+
+      {/* Message */}
+      <p className="text-center text-gray-700 text-lg mb-6">
+        {modalMessage}
+      </p>
+
+      {/* Button */}
+      <div className="flex justify-center">
+        <button
+          onClick={() => setShowModal(false)}
+          className={`px-6 py-2 rounded-lg text-white font-medium transition
+            ${modalType === "success"
+              ? "bg-green-600 hover:bg-green-700"
+              : "bg-red-600 hover:bg-red-700"}`}
+        >
+          {lang === "en" ? "OK" : "حسناً"}
+        </button>
+      </div>
+    </div>
+  </div>
+)}
     </>
   );
 };
 
 export default CourseDetails;
+
