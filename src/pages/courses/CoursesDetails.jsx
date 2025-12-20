@@ -26,6 +26,18 @@ import { IoBookOutline } from "react-icons/io5";
 import { FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+// import './styles.css';
+
+
+// import required modules
+import { Pagination } from 'swiper/modules';
+
 // const coursesImages = [
 //   courseImg1,
 //   courseImg2,
@@ -66,21 +78,33 @@ const CourseDetails = () => {
   const { t } = useTranslation();
   const { lang } = useLanguage();
   const [course, setCourse] = useState(null);
- useEffect(() => {
-  axios
-    .get(`https://darreb-academy-backend.vercel.app/api/courses/${id}`)
-    .then((response) => {
-      setCourse(response.data);
-    })
-    .catch((error) => {
-      console.error("Error fetching course:", error);
-    });
-}, [id]);
+  const [activeTab, setActivetab] = useState("description");
+  useEffect(() => {
+    axios
+      .get(`https://darreb-academy-backend.vercel.app/api/courses/${id}`)
+      .then((response) => {
+        setCourse(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching course:", error);
+      });
+  }, [id]);
 
 
   if (!course) {
     return <div className="p-10 text-center text-gray-500">Loading...</div>;
   }
+
+
+
+  const tabClass = (tabName) =>
+  `p-3 rounded-lg text-md border-lightGreen border cursor-pointer
+   ${
+     activeTab === tabName
+       ? "bg-green-700 text-white"
+       : "bg-white text-black hover:bg-green-700 hover:text-white"
+   }`;
+
 
   return (
     <>
@@ -100,6 +124,8 @@ const CourseDetails = () => {
             {/* <h1 className="text-3xl  py-3">{course.title}:{course.description} {lang === "en" ? "Description" : "وصف"}</h1> */}
             <h1 className="text-3xl py-2">{course.title}</h1>
             <p className="text-gray-600">{course.description}</p>
+
+
             {/* section2 */}
             <div className="flex items-center justify-between mt-4">
               <div className="flex items-center gap-3">
@@ -133,19 +159,20 @@ const CourseDetails = () => {
             {/* end of section 2 */}
             {/* sec 3 */}
             <div className="flex justify-evenly  bg-[#eefbf3] my-5 py-3 px-10 rounded-xl">
-              <button className="btn1">
-                {" "}
+              <button onClick={() => setActivetab("description")}
+                  className={tabClass("description")}>
                 {lang === "en" ? "Description" : "الوصف"}
               </button>
-              <button className="p-3 rounded-lg bg-white text-md text-center duration-300 cursor-pointer hover:text-white hover:bg-green-700 border-lightGreen border">
+               {/* <button className="p-3 rounded-lg bg-white text-md text-center duration-300 cursor-pointer hover:text-white hover:bg-green-700 border-lightGreen border">
                 {lang === "en" ? "Instructor" : "المدربين"}
-              </button>
-              <button className="p-3  rounded-lg bg-white text-md text-center duration-300 cursor-pointer hover:text-white hover:bg-green-700 border-lightGreen border">
+              </button>  */}
+              <button onClick={() => setActivetab("reviews")}
+                className={tabClass("reviews")}>
                 {lang === "en" ? "Reviews" : "التقييمات"}
               </button>
             </div>
             {/* sec4 */}
-            <div>
+            {/* <div>
               <div>
                 <h1 className="text-2xl  py-3">
                   {" "}
@@ -187,8 +214,102 @@ const CourseDetails = () => {
                     : "شهادة متاحة بعد إتمام الدورة"}
                 </p>
               </div>
-            </div>
+            </div> */}
+        {/* TAB CONTENT */}
+{activeTab === "description" && (
+  <div>
+    <div>
+      <h1 className="text-2xl py-3">
+        {lang === "en" ? "Description:" : "الوصف"}
+      </h1>
+      <p>
+        {lang === "en"
+          ? course.description
+          : course.description_ar}
+      </p>
+    </div>
+
+    <div>
+      <h1 className="text-2xl py-3">
+        {lang === "en" ? "Curriculum:" : "المقرر"}
+      </h1>
+
+      {course.chapters && course.chapters.length > 0 ? (
+        <ul className="list-disc ps-5 space-y-2">
+          {course.chapters.map((item) => (
+            <li key={item._id}>
+              {lang === "en"
+                ? item.chapter.title
+                : item.chapter.title_ar}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>
+          {lang === "en"
+            ? "No curriculum available"
+            : "لا يوجد محتوى للدورة"}
+        </p>
+      )}
+    </div>
+
+    <div>
+      <h1 className="text-2xl py-3">
+        {lang === "en" ? "Certificate:" : "الشهادة"}
+      </h1>
+      <p>
+        {lang === "en"
+          ? "Certificate available after completion"
+          : "شهادة متاحة بعد إتمام الدورة"}
+      </p>
+    </div>
+  </div>
+)}
+{activeTab === "reviews" && (
+  <><Swiper
+                modules={[Pagination]}
+                pagination={{ clickable: true }}
+                spaceBetween={20}
+                slidesPerView={1}
+    className="reviews-swiper"
+              >
+                {[1, 2, 3, 4, 5].map((_, index) => (
+                  <SwiperSlide key={index}>
+                    <div className="border border-green-200 rounded-3xl p-8 bg-white">
+
+                      <div className="flex items-center gap-4 mb-4">
+                        <img
+                          src={profileImages[index % 6]}
+                          className="w-20 h-20 rounded-full" />
+
+                        <div>
+                          <p className="font-semibold text-lg">Sara Alexander</p>
+                          <p className="text-sm text-green-600">
+                            Product Designer, USA
+                          </p>
+                          <Rating value={5} readOnly size="medium" />
+                        </div>
+                      </div>
+
+                      <p className="text-gray-600 leading-relaxed">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, quae. Numquam modi et sint earum soluta dolorum deleniti? Natus, reprehenderit qui ea pariatur magni nisi corrupti illum id cumque distinctio?
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, quae. Numquam modi et sint earum soluta dolorum deleniti? Natus, reprehenderit qui ea pariatur magni nisi corrupti illum id cumque distinctio?
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, quae. Numquam modi et sint earum soluta dolorum deleniti? Natus, reprehenderit qui ea pariatur magni nisi corrupti illum id cumque distinctio?
+
+                      </p>
+
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper><div className="flex justify-center mt-8">
+                  <button className="btn1">
+                    {lang === "en" ? "Write A Review" : "اكتب تقييم"}
+                  </button>
+                </div></>
+)}
+
           </div>
+
           {/* right side */}
 
           <div className="lg:w-1/3 w-full flex flex-col gap-6">
