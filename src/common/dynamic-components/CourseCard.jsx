@@ -10,26 +10,43 @@ import { LuShoppingCart } from "react-icons/lu";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 import { useCart } from "../../context/CartContext";
+import { useWishlist } from "../../context/WishlistContext";
 // import api from "../../api/axios";
 const profileImages = [profile1];
 
-const CourseCard = ({ c, status}) => {
-  const { addToCart, cartItems, isCartLoading  } = useCart();
+const CourseCard = ({ c, status }) => {
+  const { addToCart, cartItems, isCartLoading } = useCart();
   const { lang } = useLanguage();
   const navigate = useNavigate();
-  const isInCart = cartItems.some(item => item.course?._id === c._id);
+  const isInCart = cartItems.some((item) => item.course?._id === c._id);
   const [isAdding, setIsAdding] = useState(false);
+const { wishlist, toggleWishlist } = useWishlist();
+
+const isInWishlist = wishlist.some(
+  item => item.course._id === c._id
+);
+  const handleAddToCart = async (e) => {
+    e.stopPropagation();
+    if (isInCart) return;
+    setIsAdding(true);
+    try {
+      await addToCart(c);
+    } finally {
+      setIsAdding(false);
+    }
+  };
   
- const handleAddToCart = async (e) => {
+
+const handleWishlistToggle = async (e) => {
   e.stopPropagation();
-  if (isInCart) return;
-  setIsAdding(true);
   try {
-    await addToCart(c);
-  } finally {
-    setIsAdding(false);
+    await toggleWishlist(c);
+      navigate("/wishlist");
+  } catch (err) {
+    console.log("Wishlist error:", err);
   }
 };
+
 
   return (
     <div
@@ -43,10 +60,20 @@ const CourseCard = ({ c, status}) => {
   group relative"
       >
         <div className="absolute flex gap-2 flex-col right-4 z-50 ">
-          <button className="bg-[#eefbf3] rounded shadow-lg p-1">
-            <IoMdHeartEmpty className="text-2xl text-[#309255]" />
-          </button>
-          <button   disabled={isInCart || isCartLoading  || isAdding}
+ <button
+  onClick={handleWishlistToggle}
+  className="bg-[#eefbf3] rounded shadow-lg p-1"
+>
+  {isInWishlist ? (
+    <IoMdHeart className="text-2xl text-red-500" />
+  ) : (
+    <IoMdHeartEmpty className="text-2xl text-[#309255]" />
+  )}
+</button>
+
+
+          <button
+            disabled={isInCart || isCartLoading || isAdding}
             className="bg-[#eefbf3] rounded shadow-lg p-1"
             onClick={(e) => {
               e.stopPropagation();

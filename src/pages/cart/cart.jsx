@@ -5,6 +5,7 @@ import api from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 import {loadStripe} from '@stripe/stripe-js';
 import { useCart } from "../../context/CartContext";
+import { useWishlist } from "../../context/WishlistContext";
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
@@ -24,6 +25,8 @@ const Cart = () => {
     }
   }
   const { setShowModal, setModalType, setModalMessage } = useCart(); 
+  const { wishlist, toggleWishlist } = useWishlist();
+
   // ================= GET CART =================
   useEffect(() => {
     const getCart = async () => {
@@ -58,61 +61,12 @@ const Cart = () => {
       console.log(error);
     }
   };
-
-  // ================= MOVE TO WISHLIST =================
-  const moveToWishlist = async (courseId) => {
+ // ================= MOVE TO WISHLIST =================
+  const moveToWishlist = async (course) => {
     try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        setModalType("error");
-        setModalMessage(
-          i18n.language === "ar"
-            ? "الرجاء تسجيل الدخول أولاً!"
-            : "Please login first!"
-        );
-        setShowModal(true);
-        // alert(
-        //   i18n.language === "ar"
-        //     ? "الرجاء تسجيل الدخول أولاً!"
-        //     : "Please login first!"
-        // );
-        return;
-      }
-      const wishlistRes = await api.get("/wishlist", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await toggleWishlist(course);
+      await removeFromCart(course._id);
 
-      const alreadyInWishlist = wishlistRes.data.items?.some(
-        (item) => item.course._id === courseId
-      );
-
-      if (alreadyInWishlist) {
-        setModalType("error");
-        setModalMessage(
-          i18n.language === "ar"
-            ? "الكورس موجود بالفعل في المفضلة!"
-            : "Course already in wishlist!"
-        );
-        setShowModal(true);
-        
-        // alert(
-        //   i18n.language === "ar"
-        //     ? "الكورس موجود بالفعل في المفضلة!"
-        //     : "Course already in wishlist!"
-        // );
-        navigate("/wishlist");
-        return;
-      }
-
-      await api.post(
-        "/wishlist",
-        { courseId },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-
-      setCartItems((prev) =>
-        prev.filter((item) => item.course._id !== courseId)
-      );
       setModalType("success");
       setModalMessage(
         i18n.language === "ar"
@@ -120,15 +74,9 @@ const Cart = () => {
           : "Course moved to wishlist"
       );
       setShowModal(true);
-      // alert(
-      //   i18n.language === "ar"
-      //     ? "تم نقل الكورس للمفضلة"
-      //     : "Course moved to wishlist"
-      // );
-      
+
       navigate("/wishlist");
     } catch (error) {
-      console.log("Move to wishlist error:", error.response || error);
       setModalType("error");
       setModalMessage(
         i18n.language === "ar"
@@ -136,14 +84,10 @@ const Cart = () => {
           : "Something went wrong, try again"
       );
       setShowModal(true);
-      
-      // alert(
-      //   i18n.language === "ar"
-      //     ? "حدث خطأ، حاول مرة أخرى"
-      //     : "Something went wrong, try again"
-      // );
     }
   };
+
+ 
 
   return (
     <div className="w-[90%] mx-auto py-10">
@@ -202,7 +146,7 @@ const Cart = () => {
 
                 <button
                   className="text-green-500 text-sm"
-                  onClick={() => moveToWishlist(item.course._id)}
+                  onClick={() => moveToWishlist(item.course)}
                 >
                   {i18n.language === "ar" ? "نقل للمفضلة" : "Move To Wishlist"}
                 </button>
