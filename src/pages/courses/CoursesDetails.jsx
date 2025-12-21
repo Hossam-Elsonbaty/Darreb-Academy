@@ -155,9 +155,10 @@ return;
 
   }
 
-  const isPurchased = userData.purchasedCourse?.find(
-    (courseId) => courseId === id
-  );
+  // const isPurchased = userData.purchasedCourse?.find(
+  //   (courseId) => courseId === id
+  // );
+  const isPurchased = userData.purchasedCourse?.includes(id)
 
   if (!isPurchased) {
    setModalType("error");
