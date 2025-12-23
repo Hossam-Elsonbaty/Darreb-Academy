@@ -13,6 +13,24 @@ const Navbar = () => {
   const [dropdown1, setDropdown1] = useState(false);
   const [dropdown2, setDropdown2] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+const [userMenuOpen, setUserMenuOpen] = useState(false);
+const [userData, setUserData] = useState(null);
+
+const isLoggedIn = Boolean(localStorage.getItem("userData"));
+
+useEffect(() => {
+  const storedUser = localStorage.getItem("userData");
+  if (storedUser) {
+    setUserData(JSON.parse(storedUser));
+  }
+}, []);
+
+const handleLogout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("userData")
+  setUserMenuOpen(false);
+  window.location.reload();
+};
 
   useEffect(() => {
     const handleScroll = () => {
@@ -190,6 +208,7 @@ const Navbar = () => {
           </NavLink>
           {/* right side login buttons*/}
           <div className="flex gap-4 items-center">
+             {!isLoggedIn ? (
             <div className="hidden lg:flex gap-3 items-center text-lg">
               <NavLink
                 to="/signin"
@@ -205,7 +224,44 @@ const Navbar = () => {
                 {t(navLinks[6])}
               </Link>
             </div>
+             ):(
+              // LOGGED IN
+             
+           <div className="relative flex items-center md:order-2 space-x-3">
+            {isLoggedIn && userData && (
+  <button
+    type="button"
+    onClick={() => setUserMenuOpen(!userMenuOpen)}
+    className="flex text-sm rounded-full focus:ring-4"
+  >
+    <img className="w-8 h-8 rounded-full" src={userData.profilePic} alt={userData.fullName }/>
+  </button>)}
+
+  {userMenuOpen && userData && (
+    <div className="absolute end-0 top-full mt-2 z-50 w-44 bg-white border rounded shadow-lg">
+      <div className="px-4 py-3 text-sm border-b">
+        <span className="block font-medium">{userData.fullName}</span>
+        <span className="block text-gray-500 truncate">
+         {userData.email}
+        </span>
+      </div>
+
+      <ul className="p-2 text-sm">
+        <li className="p-2 hover:bg-gray-100 rounded cursor-pointer">
+          User Profile
+        </li>
+       
+        <li className="p-2 hover:bg-gray-100 rounded cursor-pointer text-red-500" onClick={handleLogout}>
+          Sign out
+        </li>
+      </ul>
+    </div>
+  )}
+</div>)}
+
+          
             <LanguageSwitcher />
+            
             {/* MOBILE MENU ICON */}
             <button
               className="lg:hidden text-3xl cursor-pointer text-[#309255]"
