@@ -19,21 +19,20 @@ import { CiUser, CiClock1, CiBookmark, CiGlobe, CiMedal } from "react-icons/ci";
 import { IoBookOutline } from "react-icons/io5";
 import { FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
 // import axios from "axios";
-import { useEffect, useState,useCallback  } from "react";
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { useEffect, useState, useCallback } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import api from "../../api/axios";
 import { useForm, Controller } from "react-hook-form";
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
+import "swiper/css";
+import "swiper/css/pagination";
 
 // import './styles.css';
 
-
 // import required modules
-import { Pagination } from 'swiper/modules';
-
+import { Pagination } from "swiper/modules";
+import { useCart } from "../../context/CartContext";
 
 const profileImages = [
   profile1,
@@ -63,60 +62,72 @@ const ShareIcon = ({ icon }) => (
 
 const CourseDetails = () => {
   const { id } = useParams();
+  const { addToCart, cartItems, isCartLoading } = useCart();
+  const isInCart = cartItems.some((item) => item.course?._id === id);
+  const [isAdding, setIsAdding] = useState(false);
   console.log("Course ID:", id);
   // const { t } = useTranslation();
   const { lang } = useLanguage();
   const [course, setCourse] = useState(null);
-const [activeTab, setActiveTab] = useState("description");
+  const [activeTab, setActiveTab] = useState("description");
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [reviews, setReviews] = useState([]);
-const [isReviewsLoading, setIsReviewsLoading] = useState(false);
-const [showModal, setShowModal] = useState(false);
-const [modalType, setModalType] = useState("success"); // success | error
-const [modalMessage, setModalMessage] = useState("");
-
+  const [isReviewsLoading, setIsReviewsLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState("success"); // success | error
+  const [modalMessage, setModalMessage] = useState("");
+  const handleAddToCart = async (e) => {
+    e.stopPropagation();
+    if (isInCart) return;
+    setIsAdding(true);
+    try {
+      await addToCart(id);
+    } finally {
+      setIsAdding(false);
+    }
+  };
 
   const {
-  register,
-  handleSubmit,
-  control,
-  reset,
-  formState: { errors, isSubmitting },
-} = useForm({
-  defaultValues: {
-    comment: "",
-    rating: 0,
-  },
-});
+    register,
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    defaultValues: {
+      comment: "",
+      rating: 0,
+    },
+  });
 
-
-
-const fetchReviews = useCallback(async () => {
-  try {
-    setIsReviewsLoading(true);
-    const res = await api.get(`/reviews/course/${id}`);
-    setReviews(Array.isArray(res.data) ? res.data : []);
-  } catch (err) {
-    console.log("Fetch reviews error:", err.response?.data);
-  } finally {
-    setIsReviewsLoading(false);
-  }
-}, [id]);
-
-useEffect(() => {
-  fetchReviews();
-}, [fetchReviews]);
-
-
-useEffect(() => {
-  const token = localStorage.getItem("token");
-  if (!token) return;
-  fetchReviews();
-}, [id,fetchReviews]);
+  const fetchReviews = useCallback(async () => {
+    try {
+      setIsReviewsLoading(true);
+      const res = await api.get(`/reviews/course/${id}`);
+      setReviews(Array.isArray(res.data) ? res.data : []);
+    } catch (err) {
+      console.log("Fetch reviews error:", err.response?.data);
+    } finally {
+      setIsReviewsLoading(false);
+    }
+  }, [id]);
 
   useEffect(() => {
-    api.get(`/courses/${id}`)
+    fetchReviews();
+  }, [fetchReviews]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    fetchReviews();
+  }, [id, fetchReviews]);
+
+  useEffect(() => {
+    api
+      .get(`/courses/${id}`)
       .then((response) => {
+        console.log(response.data);
+
         setCourse(response.data);
       })
       .catch((error) => {
@@ -124,88 +135,75 @@ useEffect(() => {
       });
   }, [id]);
 
-
-
   if (!course) {
     return <div className="p-10 text-center text-gray-500">Loading...</div>;
   }
 
-
-
   const tabClass = (tabName) =>
-  `p-3 rounded-lg text-md border-lightGreen border cursor-pointer
+    `p-3 rounded-lg text-md border-lightGreen border cursor-pointer
    ${
      activeTab === tabName
        ? "bg-green-700 text-white"
        : "bg-white text-black hover:bg-green-700 hover:text-white"
    }`;
 
-const onSubmitReview = async (data) => {
-  const userData = JSON.parse(localStorage.getItem("userData"));
+  const onSubmitReview = async (data) => {
+    const userData = JSON.parse(localStorage.getItem("userData"));
 
-  if (!userData) {
-    setModalType("error");
-setModalMessage(
-  lang === "en"
-    ? "Please login first"
-    : "من فضلك سجل الدخول أولاً"
-);
-setShowModal(true);
-return;
+    if (!userData) {
+      setModalType("error");
+      setModalMessage(
+        lang === "en" ? "Please login first" : "من فضلك سجل الدخول أولاً"
+      );
+      setShowModal(true);
+      return;
+    }
 
-  }
+    // const isPurchased = userData.purchasedCourse?.find(
+    //   (courseId) => courseId === id
+    // );
+    const isPurchased = userData.purchasedCourses?.includes(id);
+    console.log(isPurchased);
 
-  // const isPurchased = userData.purchasedCourse?.find(
-  //   (courseId) => courseId === id
-  // );
-  const isPurchased = userData.purchasedCourse?.includes(id)
+    if (!isPurchased) {
+      setModalType("error");
+      setModalMessage(
+        lang === "en"
+          ? "You must purchase this course first"
+          : "يجب شراء الكورس أولاً"
+      );
+      setShowModal(true);
+      return;
+    }
 
-  if (!isPurchased) {
-   setModalType("error");
-setModalMessage(
-  lang === "en"
-    ? "You must purchase this course first"
-    : "يجب شراء الكورس أولاً"
-);
-setShowModal(true);
-return;
+    try {
+      await api.post("/reviews", {
+        courseId: id,
+        comment: data.comment,
+        rating: Number(data.rating),
+      });
 
-  }
-
-  try {
-    await api.post("/reviews", {
-      courseId: id,
-      comment: data.comment,
-      rating: Number(data.rating),
-    });
-
-   setModalType("success");
-setModalMessage(
-  lang === "en"
-    ? "Review submitted successfully"
-    : "تم إرسال التقييم بنجاح"
-);
-setShowModal(true);
-reset();
-setIsReviewModalOpen(false);
-fetchReviews();
-
-
-  } catch (err) {
-    console.log("Submit review error:", err.response?.data);
-    setModalType("error");
-setModalMessage(
-  lang === "en"
-    ? "Something went wrong, please try again"
-    : "حدث خطأ ما، حاول مرة أخرى"
-);
-setShowModal(true);
-
-  }
-
-
-  
-};
+      setModalType("success");
+      setModalMessage(
+        lang === "en"
+          ? "Review submitted successfully"
+          : "تم إرسال التقييم بنجاح"
+      );
+      setShowModal(true);
+      reset();
+      setIsReviewModalOpen(false);
+      fetchReviews();
+    } catch (err) {
+      console.log("Submit review error:", err.response?.data);
+      setModalType("error");
+      setModalMessage(
+        lang === "en"
+          ? "Something went wrong, please try again"
+          : "حدث خطأ ما، حاول مرة أخرى"
+      );
+      setShowModal(true);
+    }
+  };
 
   return (
     <>
@@ -224,8 +222,6 @@ setShowModal(true);
             <img src={course.thumbnail || imgDetail} className="rounded-lg" />
             <h1 className="text-3xl py-2">{course.title}</h1>
             <p className="text-gray-600">{course.description}</p>
-
-
             {/* section2 */}
             <div className="flex items-center justify-between mt-4">
               <div className="flex items-center gap-3">
@@ -259,227 +255,223 @@ setShowModal(true);
             {/* end of section 2 */}
             {/* sec 3 */}
             <div className="flex justify-evenly  bg-[#eefbf3] my-5 py-3 px-10 rounded-xl">
-              <button onClick={() => setActiveTab("description")}
-                  className={tabClass("description")}>
+              <button
+                onClick={() => setActiveTab("description")}
+                className={tabClass("description")}
+              >
                 {lang === "en" ? "Description" : "الوصف"}
               </button>
-               {/* <button className="p-3 rounded-lg bg-white text-md text-center duration-300 cursor-pointer hover:text-white hover:bg-green-700 border-lightGreen border">
+              {/* <button className="p-3 rounded-lg bg-white text-md text-center duration-300 cursor-pointer hover:text-white hover:bg-green-700 border-lightGreen border">
                 {lang === "en" ? "Instructor" : "المدربين"}
               </button>  */}
-              <button onClick={() => setActiveTab("reviews")}
-                className={tabClass("reviews")}>
+              <button
+                onClick={() => setActiveTab("reviews")}
+                className={tabClass("reviews")}
+              >
                 {lang === "en" ? "Reviews" : "التقييمات"}
               </button>
             </div>
-       
-        {/* TAB CONTENT */}
-{activeTab === "description" && (
-  <div>
-    <div>
-      <h1 className="text-2xl py-3">
-        {lang === "en" ? "Description:" : "الوصف"}
-      </h1>
-      <p>
-        {lang === "en"
-          ? course.description
-          : course.description_ar}
-      </p>
-    </div>
+            {/* TAB CONTENT */}
+            {activeTab === "description" && (
+              <div>
+                <div>
+                  <h1 className="text-2xl py-3">
+                    {lang === "en" ? "Description:" : "الوصف"}
+                  </h1>
+                  <p>
+                    {lang === "en" ? course.description : course.description_ar}
+                  </p>
+                </div>
 
-    <div>
-      <h1 className="text-2xl py-3">
-        {lang === "en" ? "Curriculum:" : "المقرر"}
-      </h1>
+                <div>
+                  <h1 className="text-2xl py-3">
+                    {lang === "en" ? "Curriculum:" : "المقرر"}
+                  </h1>
 
-      {course.chapters && course.chapters.length > 0 ? (
-        <ul className="list-disc ps-5 space-y-2">
-          {course.chapters.map((item) => (
-            <li key={item._id}>
-              {lang === "en"
-                ? item.chapter.title
-                : item.chapter.title_ar}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>
-          {lang === "en"
-            ? "No curriculum available"
-            : "لا يوجد محتوى للدورة"}
-        </p>
-      )}
-    </div>
+                  {course.chapters && course.chapters.length > 0 ? (
+                    <ul className="list-disc ps-5 space-y-2">
+                      {course.chapters.map((item) => (
+                        <li key={item._id}>
+                          {lang === "en"
+                            ? item.chapter.title
+                            : item.chapter.title_ar}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>
+                      {lang === "en"
+                        ? "No curriculum available"
+                        : "لا يوجد محتوى للدورة"}
+                    </p>
+                  )}
+                </div>
 
-    <div>
-      <h1 className="text-2xl py-3">
-        {lang === "en" ? "Certificate:" : "الشهادة"}
-      </h1>
-      <p>
-        {lang === "en"
-          ? "Certificate available after completion"
-          : "شهادة متاحة بعد إتمام الدورة"}
-      </p>
-    </div>
-  </div>
-)}
-{activeTab === "reviews" && (
-  <>
-  {isReviewsLoading ? (
-  <p className="text-center text-gray-500">
-    {lang === "en" ? "Loading reviews..." : "جاري تحميل التقييمات..."}
-  </p>
-) : reviews.length === 0 ? (
-  <p className="text-center text-gray-500">
-    {lang === "en" ? "No reviews yet" : "لا يوجد تقييمات بعد"}
-  </p>
-) : (
-  <Swiper
-   modules={[Pagination]}
-                pagination={{ clickable: true }}
-                spaceBetween={20}
-                slidesPerView={1}
-    className="reviews-swiper">
-    {reviews.map((review) => (
-      <SwiperSlide key={review._id}>
-        <div className="border border-green-200 rounded-3xl p-8 bg-white">
-          
-          <div className="flex items-center gap-4 mb-4">
-            <img
-              src={profileImages[Math.floor(Math.random() * 6)]}
-              className="w-20 h-20 rounded-full"
-            />
-            <div>
-              <p className="font-semibold text-lg">
-                {review.user?.fullName || "User"}
-              </p>
+                <div>
+                  <h1 className="text-2xl py-3">
+                    {lang === "en" ? "Certificate:" : "الشهادة"}
+                  </h1>
+                  <p>
+                    {lang === "en"
+                      ? "Certificate available after completion"
+                      : "شهادة متاحة بعد إتمام الدورة"}
+                  </p>
+                </div>
+              </div>
+            )}
+            {activeTab === "reviews" && (
+              <>
+                {isReviewsLoading ? (
+                  <p className="text-center text-gray-500">
+                    {lang === "en"
+                      ? "Loading reviews..."
+                      : "جاري تحميل التقييمات..."}
+                  </p>
+                ) : reviews.length === 0 ? (
+                  <p className="text-center text-gray-500">
+                    {lang === "en" ? "No reviews yet" : "لا يوجد تقييمات بعد"}
+                  </p>
+                ) : (
+                  <Swiper
+                    modules={[Pagination]}
+                    pagination={{ clickable: true }}
+                    spaceBetween={20}
+                    slidesPerView={1}
+                    className="reviews-swiper"
+                  >
+                    {reviews.map((review) => (
+                      <SwiperSlide key={review._id}>
+                        <div className="border border-green-200 rounded-3xl p-8 bg-white">
+                          <div className="flex items-center gap-4 mb-4">
+                            <img
+                              src={profileImages[Math.floor(Math.random() * 6)]}
+                              className="w-20 h-20 rounded-full"
+                            />
+                            <div>
+                              <p className="font-semibold text-lg">
+                                {review.user?.fullName || "User"}
+                              </p>
 
-<Rating value={review.rating} readOnly size="medium" />
+                              <Rating
+                                value={review.rating}
+                                readOnly
+                                size="medium"
+                              />
+                            </div>
+                          </div>
 
-            </div>
-          </div>
-
-          <p className="text-gray-600 leading-relaxed">
-            {review.comment}
-          </p>
-
-        </div>
-      </SwiperSlide>
-    ))}
-  </Swiper>
-)}               
-              <div className="flex justify-center mt-8"> 
+                          <p className="text-gray-600 leading-relaxed">
+                            {review.comment}
+                          </p>
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                )}
+                <div className="flex justify-center mt-8">
                   <button
-  className="btn1"
-  onClick={() => setIsReviewModalOpen(true)}
->
-  {lang === "en" ? "Write A Review" : "اكتب تقييم"}
-</button>
- </div>
- 
-{isReviewModalOpen && (
-  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-    
-    {/* Modal Box */}
-    <div
-      className="bg-white rounded-lg p-6 w-full max-w-md relative"
-      onClick={(e) => e.stopPropagation()}
-    >
-      
-      {/* Close */}
-      <button
-        className="absolute top-3 right-3 text-gray-500 hover:text-black cursor-pointer"
-        onClick={() => setIsReviewModalOpen(false)}
-      >
-        ✕
-      </button>
+                    className="btn1"
+                    onClick={() => setIsReviewModalOpen(true)}
+                  >
+                    {lang === "en" ? "Write A Review" : "اكتب تقييم"}
+                  </button>
+                </div>
 
-      <h3 className="text-xl font-semibold mb-4">
-        {lang === "en" ? "Write a Review" : "اكتب تقييم"}
-      </h3>
+                {isReviewModalOpen && (
+                  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                    {/* Modal Box */}
+                    <div
+                      className="bg-white rounded-lg p-6 w-full max-w-md relative"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {/* Close */}
+                      <button
+                        className="absolute top-3 right-3 text-gray-500 hover:text-black cursor-pointer"
+                        onClick={() => setIsReviewModalOpen(false)}
+                      >
+                        ✕
+                      </button>
 
-    
-      <textarea
-  className={`w-full border border-green-200 rounded-lg p-4 resize-none focus:outline-none 
+                      <h3 className="text-xl font-semibold mb-4">
+                        {lang === "en" ? "Write a Review" : "اكتب تقييم"}
+                      </h3>
+
+                      <textarea
+                        className={`w-full border border-green-200 rounded-lg p-4 resize-none focus:outline-none 
     ${errors.comment ? "border-red-500" : "border-gray-300"}
   `}
-  rows={5}
-  placeholder={
-    lang === "en"
-      ? "Write your comment..."
-      : "اكتب تعليقك..."
-  }
-  {...register("comment", {
-    required:
-      lang === "en"
-        ? "Comment is required"
-        : "التعليق مطلوب",
-    minLength: {
-      value: 10,
-      message:
-        lang === "en"
-          ? "Comment must be at least 10 characters"
-          : "التعليق يجب ألا يقل عن 10 حروف",
-    },
-  })}
-/>
+                        rows={5}
+                        placeholder={
+                          lang === "en"
+                            ? "Write your comment..."
+                            : "اكتب تعليقك..."
+                        }
+                        {...register("comment", {
+                          required:
+                            lang === "en"
+                              ? "Comment is required"
+                              : "التعليق مطلوب",
+                          minLength: {
+                            value: 10,
+                            message:
+                              lang === "en"
+                                ? "Comment must be at least 10 characters"
+                                : "التعليق يجب ألا يقل عن 10 حروف",
+                          },
+                        })}
+                      />
 
-{errors.comment && (
-  <p className="text-red-500 text-sm mt-1">
-    {errors.comment.message}
-  </p>
-)}
+                      {errors.comment && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.comment.message}
+                        </p>
+                      )}
 
-    
-      <div className="flex justify-center mb-4">
-<Controller
-  name="rating"
-  control={control}
-  rules={{
-    validate: (value) =>
-      value > 0 ||
-      (lang === "en"
-        ? "Rating is required"
-        : "التقييم مطلوب"),
-  }}
-  render={({ field }) => (
-    <Rating
-      {...field}
-      value={field.value}
-      onChange={(_, value) => field.onChange(value)}
-    />
-  )}
-/>
+                      <div className="flex justify-center mb-4">
+                        <Controller
+                          name="rating"
+                          control={control}
+                          rules={{
+                            validate: (value) =>
+                              value > 0 ||
+                              (lang === "en"
+                                ? "Rating is required"
+                                : "التقييم مطلوب"),
+                          }}
+                          render={({ field }) => (
+                            <Rating
+                              {...field}
+                              value={field.value}
+                              onChange={(_, value) => field.onChange(value)}
+                            />
+                          )}
+                        />
 
-{errors.rating && (
-  <p className="text-red-500 text-sm mt-1 text-center">
-    {errors.rating.message}
-  </p>
-)}
-      </div>
+                        {errors.rating && (
+                          <p className="text-red-500 text-sm mt-1 text-center">
+                            {errors.rating.message}
+                          </p>
+                        )}
+                      </div>
 
-    <button
-  className="btn1 w-full"
-  onClick={handleSubmit(onSubmitReview)}
-  disabled={isSubmitting}
->
-  {isSubmitting
-    ? lang === "en"
-      ? "Submitting..."
-      : "جاري الإرسال..."
-    : lang === "en"
-    ? "Submit Review"
-    : "إرسال التقييم"}
-</button>
-
-
-    </div>
-  </div>
-)}
-
- 
- </>
-)}
-
+                      <button
+                        className="btn1 w-full"
+                        onClick={handleSubmit(onSubmitReview)}
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting
+                          ? lang === "en"
+                            ? "Submitting..."
+                            : "جاري الإرسال..."
+                          : lang === "en"
+                          ? "Submit Review"
+                          : "إرسال التقييم"}
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
           </div>
 
           {/* right side */}
@@ -528,8 +520,15 @@ setShowModal(true);
 
               {/* Enroll Button */}
               <div className="flex justify-center">
-                <button className="btn1 w-full mt-8 text-center  ">
-                  {lang === "en" ? " Enroll Now" : "سجل الان"}
+                <button
+                  disabled={isInCart || isCartLoading || isAdding}
+                  onClick={(e) => {
+                    console.log("Cart clicked");
+                    handleAddToCart(e);
+                  }}
+                  className="btn1 w-full mt-8 text-center  "
+                >
+                  {lang === "en" ? " Add To Cart " : " أضف إلى العربه"}
                 </button>
               </div>
             </div>
@@ -591,52 +590,70 @@ setShowModal(true);
         </div>
       </section>
 
-    {showModal && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-    <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 relative animate-fadeIn">
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 relative animate-fadeIn">
+            {/* Icon */}
+            <div className="flex justify-center mb-4">
+              {modalType === "success" ? (
+                <div className="w-16 h-16 flex items-center justify-center rounded-full bg-green-100">
+                  <svg
+                    className="w-8 h-8 text-green-600"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+              ) : (
+                <div className="w-16 h-16 flex items-center justify-center rounded-full bg-red-100">
+                  <svg
+                    className="w-8 h-8 text-red-600"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </div>
+              )}
+            </div>
 
-      {/* Icon */}
-      <div className="flex justify-center mb-4">
-        {modalType === "success" ? (
-          <div className="w-16 h-16 flex items-center justify-center rounded-full bg-green-100">
-            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" strokeWidth="2"
-              viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
+            {/* Message */}
+            <p className="text-center text-gray-700 text-lg mb-6">
+              {modalMessage}
+            </p>
+
+            {/* Button */}
+            <div className="flex justify-center">
+              <button
+                onClick={() => setShowModal(false)}
+                className={`px-6 py-2 rounded-lg text-white font-medium transition
+            ${
+              modalType === "success"
+                ? "bg-green-600 hover:bg-green-700"
+                : "bg-red-600 hover:bg-red-700"
+            }`}
+              >
+                {lang === "en" ? "OK" : "حسناً"}
+              </button>
+            </div>
           </div>
-        ) : (
-          <div className="w-16 h-16 flex items-center justify-center rounded-full bg-red-100">
-            <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" strokeWidth="2"
-              viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </div>
-        )}
-      </div>
-
-      {/* Message */}
-      <p className="text-center text-gray-700 text-lg mb-6">
-        {modalMessage}
-      </p>
-
-      {/* Button */}
-      <div className="flex justify-center">
-        <button
-          onClick={() => setShowModal(false)}
-          className={`px-6 py-2 rounded-lg text-white font-medium transition
-            ${modalType === "success"
-              ? "bg-green-600 hover:bg-green-700"
-              : "bg-red-600 hover:bg-red-700"}`}
-        >
-          {lang === "en" ? "OK" : "حسناً"}
-        </button>
-      </div>
-    </div>
-  </div>
-)}
+        </div>
+      )}
     </>
   );
 };
 
 export default CourseDetails;
-

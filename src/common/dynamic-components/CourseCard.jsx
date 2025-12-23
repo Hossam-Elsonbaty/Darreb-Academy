@@ -16,15 +16,13 @@ const profileImages = [profile1];
 
 const CourseCard = ({ c, status }) => {
   const { addToCart, cartItems, isCartLoading } = useCart();
-  const { lang } = useLanguage();
-  const navigate = useNavigate();
   const isInCart = cartItems.some((item) => item.course?._id === c._id);
   const [isAdding, setIsAdding] = useState(false);
-const { wishlist, toggleWishlist } = useWishlist();
+  const { lang } = useLanguage();
+  const navigate = useNavigate();
+  const { wishlist, toggleWishlist } = useWishlist();
 
-const isInWishlist = wishlist.some(
-  item => item.course._id === c._id
-);
+  const isInWishlist = wishlist.some((item) => item.course._id === c._id);
   const handleAddToCart = async (e) => {
     e.stopPropagation();
     if (isInCart) return;
@@ -35,18 +33,16 @@ const isInWishlist = wishlist.some(
       setIsAdding(false);
     }
   };
-  
 
-const handleWishlistToggle = async (e) => {
-  e.stopPropagation();
-  try {
-    await toggleWishlist(c);
+  const handleWishlistToggle = async (e) => {
+    e.stopPropagation();
+    try {
+      await toggleWishlist(c);
       navigate("/wishlist");
-  } catch (err) {
-    console.log("Wishlist error:", err);
-  }
-};
-
+    } catch (err) {
+      console.log("Wishlist error:", err);
+    }
+  };
 
   return (
     <div
@@ -55,26 +51,25 @@ const handleWishlistToggle = async (e) => {
     >
       <div
         className=" bg-white border border-green-300 rounded-2xl p-5 shadow-sm 
-  transition-all duration-500 
-  hover:shadow-2xl hover:scale-[1.01] hover:border-green-500
-  group relative"
+          transition-all duration-500 
+          hover:shadow-2xl hover:scale-[1.01] hover:border-green-500
+          group relative"
       >
-        <div className="absolute flex gap-2 flex-col right-4 z-50 ">
- <button
-  onClick={handleWishlistToggle}
-  className="bg-[#eefbf3] rounded shadow-lg p-1"
->
-  {isInWishlist ? (
-    <IoMdHeart className="text-2xl text-red-500" />
-  ) : (
-    <IoMdHeartEmpty className="text-2xl text-[#309255]" />
-  )}
-</button>
-
+        <div className="absolute flex gap-2 flex-col right-4 z-10 ">
+          <button
+            onClick={handleWishlistToggle}
+            className="bg-[#eefbf3] rounded shadow-lg p-1 cursor-pointer"
+          >
+            {isInWishlist ? (
+              <IoMdHeart className="text-2xl text-red-500" />
+            ) : (
+              <IoMdHeartEmpty className="text-2xl text-[#309255]" />
+            )}
+          </button>
 
           <button
             disabled={isInCart || isCartLoading || isAdding}
-            className="bg-[#eefbf3] rounded shadow-lg p-1"
+            className="bg-[#eefbf3] rounded shadow-lg p-1 cursor-pointer"
             onClick={(e) => {
               e.stopPropagation();
               console.log("Cart clicked");
@@ -139,7 +134,7 @@ const handleWishlistToggle = async (e) => {
                 {c.totalRatings}
               </span>
               <Rating
-                value={Number(c.totalRatings)}
+                value={Number(c.rating || 0)}
                 precision={0.1}
                 readOnly
                 size="small"

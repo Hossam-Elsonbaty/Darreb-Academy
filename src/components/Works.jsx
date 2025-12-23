@@ -13,7 +13,7 @@ const Works = () => {
   let work = t("work", { returnObjects: true });
   const workImgs = [icon1, icon2, icon3];
   return (
-    <div className="bg-white py-10 px-4 md:px-15 lg:px-30 xl:px-40">
+    <div className="bg-white py-10 px-4 md:px-15 lg:px-30 xl:px-40 flex flex-col items-center">
       <SectionTitle
         status="center"
         title={

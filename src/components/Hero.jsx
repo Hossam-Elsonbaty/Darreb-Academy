@@ -6,10 +6,10 @@ const Hero = () => {
   const hero = t("hero", { returnObjects: true });
 
   return (
-    <section className="relative max-h-[42rem]">
-      <div className="max-w-7xl mx-auto px-4 md:px-8 pt-10 lg:pt-15 ">
+    <section className="relative max-h-[38rem]">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 pt-10 lg:pt-15 max-h-[38rem]">
         {/* GRID */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 max-h-[38rem]">
           {/* TEXT SIDE */}
           <div className="flex flex-col gap-6 lg:gap-10  lg:order-1 text-center lg:text-start">
             <span className="text-[#309255] text-lg md:text-xl font-medium">
@@ -42,7 +42,7 @@ const Hero = () => {
           </div>
 
           {/* IMAGE SIDE */}
-          <div className=" lg:order-2 flex items-start h-screen">
+          <div className=" lg:order-2 flex items-start h-fit">
             <img src={heroImg} alt="Hero" className="w-full  object-contain" />
           </div>
         </div>

@@ -25,7 +25,7 @@ const Cart = () => {
     }
   }
   const { setShowModal, setModalType, setModalMessage } = useCart(); 
-  const { wishlist, toggleWishlist } = useWishlist();
+  const {  toggleWishlist } = useWishlist();
 
   // ================= GET CART =================
   useEffect(() => {
@@ -34,29 +34,29 @@ const Cart = () => {
         const res = await api.get("/cart");
 
         console.log("FULL CART RESPONSE:", res.data);
-        setCartItems(res.data?.items || []);
+        setCartItems(res.data || []);
       } catch (error) {
         console.log("Get cart error:", error);
       }
     };
 
     getCart();
-  }, []);
+  }, [cartItems]);
 
   // ================= TOTAL =================
-  const total = (cartItems || []).reduce(
-    (sum, item) => sum + (item.course.price || 0),
-    0
-  );
+  // const total = (cartItems || []).reduce(
+  //   (sum, item) => sum + (item.course.price || 0),
+  //   0
+  // );
 
   // ================= REMOVE FROM CART =================
-  const removeFromCart = async (cartItemId) => {
+  const removeFromCart = async (courseId) => {
+    console.log(courseId);
+    
     try {
-      await api.delete("/cart", {
-        data: { courseId: cartItemId },
-      });
-
-      setCartItems((prev) => prev.filter((item) => item._id !== cartItemId));
+      const res = await api.delete(`/cart/${courseId}`);
+      console.log(res.data)
+      setCartItems(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -77,6 +77,7 @@ const Cart = () => {
 
       navigate("/wishlist");
     } catch (error) {
+      console.log(error);
       setModalType("error");
       setModalMessage(
         i18n.language === "ar"
@@ -96,14 +97,14 @@ const Cart = () => {
       </h1>
 
       <p className="text-gray-500 mb-8">
-        {cartItems?.length || 0}{" "}
+        {cartItems.items?.length || 0}{" "}
         {i18n.language === "ar" ? "دورات في عربة التسوق" : "Courses in Cart"}
       </p>
 
       <div className="flex flex-col gap-10">
         {/* CART ITEMS */}
         <div>
-          {(cartItems || []).map((item) => (
+          {cartItems?.items&&cartItems?.items.map((item) => (
             <div key={item._id} className="flex gap-4 border-b py-6">
               <img
                 src={item.course.thumbnail || ""}
@@ -128,17 +129,17 @@ const Cart = () => {
                   </span>
                 </div>
 
-                <p className="text-sm text-gray-500">
+                {/* <p className="text-sm text-gray-500">
                   {`${item.course?.totalDuration || ""} • ${
                     item.course?.totalLectures || ""
                   } Lectures`}
-                </p>
+                </p> */}
               </div>
 
               <div className="flex flex-col items-end gap-3">
                 <button
                   className="text-red-500 text-sm flex items-center gap-1"
-                  onClick={() => removeFromCart(item._id)}
+                  onClick={() => removeFromCart(item.course._id)}
                 >
                   <FiTrash2 />
                   {i18n.language === "ar" ? "إزالة" : "Remove"}
@@ -165,7 +166,7 @@ const Cart = () => {
             <p className="text-gray-500">
               {i18n.language === "ar" ? "المجموع:" : "Total:"}
             </p>
-            <h2 className="text-3xl font-bold">£E{total.toFixed(2)}</h2>
+            <h2 className="text-3xl font-bold">£E{cartItems.totalPrice}</h2>
           </div>
 
           <button onClick={makePayment} className="w-full bg-green-500 text-white py-3 font-semibold hover:bg-green-700 duration-300">

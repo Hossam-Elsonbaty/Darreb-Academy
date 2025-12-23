@@ -29,11 +29,14 @@ const { lang } = useLanguage();
   };
 
   const addToCart = async (course) => {
+  console.log(typeof course);
+  const course_id = course && typeof course === 'object' && course._id ? course._id : course;
+  console.log(course == "" ? course : course._id);
   const token = localStorage.getItem("token");
   if (!token) return;
   try {
-    console.log("Adding course to cart:", course._id);
-    await api.post("/cart", { courseId: course._id });
+    console.log("Adding course to cart:", course_id);
+    await api.post("/cart", { courseId: course_id });
     await getCart();
         setModalType("success");
     setModalMessage(

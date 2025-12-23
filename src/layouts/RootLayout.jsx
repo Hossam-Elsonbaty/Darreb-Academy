@@ -3,6 +3,7 @@ import Navbar from "../common/navbar/Navbar";
 import { Outlet } from "react-router-dom";
 import Footer from "../common/footer/Footer";
 import CartModal from "../components/Modal";
+import Chatbot from "../components/Chatbot";
 
 const RootLayout = () => {
   return (
@@ -11,6 +12,7 @@ const RootLayout = () => {
       <Outlet />
       <CartModal />
       <Footer/>
+      <Chatbot/>
     </main>
   );
 };

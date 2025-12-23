@@ -28,6 +28,8 @@ const Categories = () => {
   const { categories } = useSelector((state) => state.categories);
   // Dispatch the fetchCourses action on component mount
   useEffect(() => {
+    console.log(courses);
+    
     dispatch(fetchCourses());
     dispatch(fetchCategories());
   }, [dispatch]);
@@ -72,7 +74,7 @@ const Categories = () => {
             }
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            type="search"
+            type="text"
           />
           <span className="bg-[#309255] inline-flex items-center justify-center rounded p-3">
             <FiSearch className="text-white" size={20} />
