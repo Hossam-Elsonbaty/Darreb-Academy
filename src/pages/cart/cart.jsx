@@ -13,7 +13,7 @@ const Cart = () => {
   const makePayment = async()=> {
     const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISH_KEY);
     const body = {
-      products:cartItems
+      products:cartItems.items
     }
     try 
       {
