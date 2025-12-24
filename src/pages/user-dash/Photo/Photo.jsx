@@ -1,96 +1,158 @@
-import { useState } from "react";
-import { FaRegCircleUser } from "react-icons/fa6";
-import { FiUploadCloud } from "react-icons/fi";
+// import { FaRegCircleUser } from "react-icons/fa6";
+// import { FiUploadCloud } from "react-icons/fi";
+// import { useContext, useEffect, useState } from "react";
+// import { useForm } from "react-hook-form";
+// import api from "../../../api/axios";
+// import ToasterContext from "../../../context/ToasterContext";
+
+// export default function Photo() {
+//   const { register, handleSubmit, watch} = useForm();
+//   const [preview, setPreview] = useState(null);
+//   const userData = JSON.parse(localStorage.getItem("userData")) 
+//   const user_id = userData?._id;
+//   const file = watch("profilePic")
+//   const handleImage = (e) => {
+//     setPreview(URL.createObjectURL(file));
+//   };
+//   const onSubmit = (data)=> {
+//     console.log(user_id);
+//     console.log(data);
+//     // try{
+//     //   const response = api.put(`/users/profile-pic/${user_id}`)
+//     //   console.log(response.data);
+//     // }
+//     // catch(err){
+//     //   console.log(err);
+//     // }
+//   }
+//   return (
+//     <div className="bg-white p-6 rounded border border-[rgba(48,146,85,0.2)] ">
+//       <h2 className="text-xl font-semibold text-center mb-1">
+//         Photo
+//       </h2>
+//       <p className="text-sm text-gray-500 text-center mb-6">
+//         Add a nice photo of yourself for your profile.
+//       </p>
+//       <p className="text-sm font-medium mb-2">Image preview</p>
+//       <div className="w-full h-[250px] border border-[rgba(48,146,85,0.2)] flex items-center justify-center mb-6">
+//         <img
+//           src={file? URL.createObjectURL(file) : userData.profilePic}
+//           alt="preview"
+//           className="w-full h-full object-contain"
+//         />
+//       </div>
+//       <p className="text-sm font-medium mb-2">Add / Change Image</p>
+//       <form className="flex gap-3 mb-6 flex-col" onSubmit={handleSubmit(onSubmit)}>
+//         <span
+//           className="
+//             flex items-center gap-2
+//             h-[60px] px-5
+//             bg-[#ddd] text-white
+//             rounded-[10px]
+//             cursor-pointer
+//             transition-all duration-300
+//             hover:bg-main/90 w-full
+//           "
+//         >
+//           <input
+//             className="text-black w-full"
+//             type="file"
+//             {...register("profilePic", { required: true })}
+//           />
+//         </span>
+//         <button
+//           className="
+//             bg-[#309255] text-white
+//             px-6 py-2
+//             rounded-[10px]
+//             transition-all duration-300
+//             hover:bg-main/90 w-fit
+//           "
+//         >
+//           Save
+//         </button>
+//       </form>
+//     </div>
+//   );
+// }
+import { useEffect, useState,useContext } from "react";
+import { useForm } from "react-hook-form";
+import ToasterContext from "../../../context/ToasterContext";
+import axios from "axios";
 
 export default function Photo() {
-  const [fileName, setFileName] = useState("No file selected");
+  const { register, handleSubmit } = useForm();
+  const token = localStorage.getItem("token");
+  const {setShowModal, setModalType, setModalMessage} = useContext(ToasterContext)
   const [preview, setPreview] = useState(null);
-
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  const user_id = userData?._id;
   const handleImage = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    setFileName(file.name);
-    setPreview(URL.createObjectURL(file));
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setPreview(URL.createObjectURL(selectedFile)); 
+    }
   };
-
+  const onSubmit = async (data) => {
+    const formData = new FormData();
+    formData.append("profilePic", data.profilePic[0]);
+    try {
+      const response = await axios.put(`http://localhost:5000/api/users/update-pic/${user_id}`, formData,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization":`Bearer ${token}`
+        },
+      });
+      console.log(response.data);
+      setModalType("success");
+      setModalMessage("User Updated Successfully");
+      setShowModal(true);
+      localStorage.setItem("userData",JSON.stringify(response.data.data))
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className="bg-white p-6 rounded border border-[rgba(48,146,85,0.2)] ">
-      
-      {/* Title */}
-      <h2 className="text-xl font-semibold text-center mb-1">
-        Photo
-      </h2>
+      <h2 className="text-xl font-semibold text-center mb-1">Photo</h2>
       <p className="text-sm text-gray-500 text-center mb-6">
         Add a nice photo of yourself for your profile.
       </p>
-
-      {/* Image preview */}
       <p className="text-sm font-medium mb-2">Image preview</p>
-
       <div className="w-full h-[250px] border border-[rgba(48,146,85,0.2)] flex items-center justify-center mb-6">
-        {preview ? (
-          <img
-            src={preview}
-            alt="preview"
-            className="w-full h-full object-contain"
-          />
-        ) : (
-          <FaRegCircleUser className="text-[150px] text-gray-400" />
-        )}
-      </div>
-
-      {/* Upload */}
-      <p className="text-sm font-medium mb-2">Add / Change Image</p>
-
-      <div className="flex gap-3 mb-6">
-        <input
-          type="text"
-          value={fileName}
-          disabled
-          className="
-            flex-1
-            h-[60px] px-6
-            text-[15px] text-[#52565b]
-            border border-[rgba(48,146,85,0.2)]
-            rounded-[10px] bg-gray-100
-            focus:outline-none
-          "
+        <img
+          src={preview ? preview : userData.profilePic} 
+          alt="preview"
+          className="w-full h-full object-contain"
         />
-
-        <label
+      </div>
+      <p className="text-sm font-medium mb-2">Add / Change Image</p>
+      <form className="flex gap-3 mb-6 flex-col" onSubmit={handleSubmit(onSubmit)}>
+        <span
           className="
             flex items-center gap-2
             h-[60px] px-5
-            bg-main text-white
+            bg-[#ddd] text-white
             rounded-[10px]
             cursor-pointer
             transition-all duration-300
-            hover:bg-main/90
+            hover:bg-main/90 w-full
           "
         >
-          <FiUploadCloud size={18} />
-          Upload image
           <input
+            className="text-black w-full"
             type="file"
+            {...register("profilePic", { required: true })}
             onChange={handleImage}
-            className="hidden"
           />
-        </label>
-      </div>
-
-      {/* Save */}
-      <button
-        className="
-          bg-main text-white
-          px-6 py-2
-          rounded-[10px]
-          transition-all duration-300
-          hover:bg-main/90
-        "
-      >
-        Save
-      </button>
+        </span>
+        <button
+          type="submit"
+          className="bg-[#309255] text-white px-6 py-2 rounded-[10px] hover:bg-main/90 transition"
+        >
+          Save
+        </button>
+      </form>
     </div>
   );
 }

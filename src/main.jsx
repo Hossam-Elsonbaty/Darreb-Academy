@@ -9,12 +9,15 @@ import { Provider } from 'react-redux';
 import store from './Store/store.js';
 import { CartProvider } from './context/CartContext.jsx';
 import { WishlistProvider } from './context/WishlistContext.jsx';
+import { ToasterProvider } from './context/ToasterContext.jsx';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
   <Provider store={store}>
     <WishlistProvider>
-     <CartProvider>
-    <App />
+    <CartProvider>
+      <ToasterProvider>
+        <App />
+      </ToasterProvider>
     </CartProvider>
     </WishlistProvider>
   </Provider>

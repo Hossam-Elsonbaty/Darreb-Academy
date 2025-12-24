@@ -1,13 +1,16 @@
 import DynamicHero from "../../common/dynamic-components/DynamicHero";
 import authorImg from "../../assets/images/author-11.jpg";
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import loginimg from "../../assets/images/login.png";
 import titleLine from "../../assets/images/shape11.png";
 import { useLanguage } from "../../hooks/useLanguage";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import ToasterContext from "../../context/ToasterContext";
 export default function Login() {
+  const {setShowModal, setModalType, setModalMessage} = useContext(ToasterContext)
+  
   const { register, handleSubmit, formState: { errors } } = useForm();
   
   const { lang } = useLanguage();
@@ -40,13 +43,13 @@ console.log(userData);
       localStorage.setItem("userData", JSON.stringify(userData));
 
     
-      navigate("/");
+      navigate("/",{replace:true});
     }
   } catch (error) {
     console.error(error);
-    alert(
-      error.response?.data?.message || "Invalid email or password"
-    );
+    setModalMessage(error.response?.data?.message || "Invalid email or password")
+    setModalType("error")
+    setShowModal(true)
   }
 };
 

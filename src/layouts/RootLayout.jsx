@@ -4,10 +4,12 @@ import { Outlet } from "react-router-dom";
 import Footer from "../common/footer/Footer";
 import CartModal from "../components/Modal";
 import Chatbot from "../components/Chatbot";
+import Toaster from "../components/Toaster";
 
 const RootLayout = () => {
   return (
     <main className=" bg-[#eefbf3]">
+      <Toaster/>
       <Navbar />
       <Outlet />
       <CartModal />

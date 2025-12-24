@@ -1,9 +1,22 @@
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import api from "../../../api/axios";
+import ToasterContext from "../../../context/ToasterContext";
 
 export default function Profile() {
-  const { register, handleSubmit, watch } = useForm();
+  const { register, handleSubmit, watch,setValue  } = useForm();
   const headlineValue = watch("headline", "");
-
+  const [userData,setUserData] = useState();
+  const {setShowModal, setModalType, setModalMessage} = useContext(ToasterContext)
+  const data = JSON.parse(localStorage.getItem('userData'));
+  useEffect(() => {
+    setUserData(data);    
+    if (data) {
+      setValue("fullName", data.fullName);
+      setValue("headline", data.headline || "");
+      setValue("bio", data.bio || "");
+    }
+  }, [setValue]);
   const inputClass = `
     w-full px-4 py-2
     text-[15px] text-[#52565b]
@@ -13,9 +26,24 @@ export default function Profile() {
     focus:border-main focus:outline-none
   `;
 
-  const onSubmit = (data) => console.log(data);
-
+  const onSubmit = async(data) => {
+    try{
+      const response = await api.put(`/users/${userData._id}`,{
+        fullName:data.fullName
+      })
+      console.log(response.data);
+      setUserData(response.data.data);
+      setModalType("success");
+      setModalMessage("User Updated Successfully");
+      setShowModal(true);
+      localStorage.setItem("userData",JSON.stringify(response.data.data))
+    }
+    catch(err){
+      console.log(err);
+    }
+  };
   return (
+
     <div className="bg-white border border-[rgba(48,146,85,0.2)] rounded p-8 ">
       
       <h2 className="text-2xl font-semibold mb-1 text-center">Public profile</h2>
@@ -32,16 +60,9 @@ export default function Profile() {
           <div className="space-y-4">
             <input
               type="text"
-              placeholder="First name"
+              placeholder="Full Name"
               className={inputClass}
-              {...register("firstName", { required: true })}
-            />
-
-            <input
-              type="text"
-              placeholder="Last name"
-              className={inputClass}
-              {...register("lastName", { required: true })}
+              {...register("fullName", { required: true })}
             />
 
             <div className="relative">
@@ -88,24 +109,13 @@ export default function Profile() {
             Links and coupon codes are not permitted.
           </p>
         </div>
-
-        {/* Language */}
-        <select
-          className={inputClass}
-          {...register("language")}
-        >
-          <option>English (US)</option>
-          <option>Arabic</option>
-        </select>
-
         {/* Save */}
         <button
           type="submit"
-          className="bg-main text-white px-6 py-2 rounded-[10px] hover:bg-main/90 transition"
+          className="bg-[#309255] text-white px-6 py-2 rounded-[10px] hover:bg-main/90 transition"
         >
           Save
         </button>
-
       </form>
     </div>
   );

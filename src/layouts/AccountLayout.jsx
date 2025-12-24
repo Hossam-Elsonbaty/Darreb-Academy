@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Box,
@@ -21,6 +21,8 @@ import PhotoIcon from "@mui/icons-material/Photo";
 import SecurityIcon from "@mui/icons-material/Security";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BarChartIcon from "@mui/icons-material/BarChart";
+import { useEffect } from "react";
+import Toaster from "../components/Toaster";
 
 const drawerWidth = 240;
 
@@ -31,7 +33,16 @@ export default function AccountLayout(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token'); // Assuming you store the token in localStorage
 
+  useEffect(() => {
+    // If no token, redirect to login page
+    if (!token) {
+      navigate('/login',{replace:true});
+      return;
+    }
+  },[navigate,token])
   const drawer = (
     <div>
       <Toolbar>
@@ -85,6 +96,7 @@ export default function AccountLayout(props) {
 
   return (
     <Box sx={{ display: "flex" }}>
+      <Toaster/>
       <CssBaseline />
 
       {/* TOP BAR */}

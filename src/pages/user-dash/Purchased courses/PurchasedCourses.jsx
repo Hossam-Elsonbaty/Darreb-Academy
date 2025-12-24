@@ -1,43 +1,16 @@
-export default function PurchasedCourses() {
-  const courses = [
-    {
-      id: 1,
-      title: "React for Beginners",
-      instructor: "Ahmed Salah",
-      image: "https://picsum.photos/400/250?1",
-    },
-    {
-      id: 2,
-      title: "Advanced JavaScript",
-      instructor: "Mohamed Ali",
-      image: "https://picsum.photos/400/250?2",
-    },
-    {
-      id: 3,
-      title: "HTML & CSS Mastery",
-      instructor: "Sara Hassan",
-      image: "https://picsum.photos/400/250?3",
-    },
-    {
-      id: 4,
-      title: "Python for Beginners",
-      instructor: "Ahmed Salah",
-      image: "https://picsum.photos/400/250?4",
-    },
-    {
-      id: 5,
-      title: "React for Beginners",
-      instructor: "Ahmed Salah",
-      image: "https://picsum.photos/400/250?5",
-    },
-    {
-      id: 6,
-      title: "Advanced JavaScript",
-      instructor: "Mohamed Ali",
-      image: "https://picsum.photos/400/250?6",
-    },
-  ];
+import { useEffect, useState } from "react";
+import api from "../../../api/axios";
+import { NavLink } from "react-router-dom";
+import axios from "axios";
 
+export default function PurchasedCourses() {
+  const [purchasedCourses, setPurchasedCourses] = useState();
+  const token = localStorage.getItem("token");
+  useEffect(()=>{
+    axios.get(`http://localhost:5000/api/auth/my-courses`,{headers:{"Authorization":`Bearer ${token}`}})
+    .then((res)=>setPurchasedCourses(res.data.data))
+    .catch(err=>console.log(err))
+  },[])
   return (
     <div className="bg-white border border-gray-300 rounded p-8 ">
       
@@ -46,15 +19,16 @@ export default function PurchasedCourses() {
       </h2>
 
       {/* CARDS */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {courses.map((course) => (
+      <div className="flex flex-wrap gap-6">
+
+        {purchasedCourses?.length > 0 ?purchasedCourses.map((course) => (
           <div
             key={course.id}
             className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition"
           >
             {/* Image */}
             <img
-              src={course.image}
+              src={course.thumbnail}
               alt={course.title}
               className="w-full h-40 object-cover"
             />
@@ -65,11 +39,16 @@ export default function PurchasedCourses() {
                 {course.title}
               </h3>
               <p className="text-xs text-gray-500">
-                {course.instructor}
+                {course.instructor.fullName}
               </p>
             </div>
           </div>
-        ))}
+        )):
+        <div className="flex flex-col items-center gap-5 w-full">
+          <h1 className="font-bold text-2xl text-[#575757]">You haven't purchased any course yet</h1>
+          <NavLink to="/courses" className="bg-[#309255] p-4 rounded-lg text-lg text-white">Browse Our Courses</NavLink>
+        </div>
+        }
       </div>
 
     </div>

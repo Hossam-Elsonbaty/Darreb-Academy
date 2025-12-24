@@ -5,9 +5,11 @@ import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "../../components/LanguageSwitcher";
 import { useEffect, useState } from "react";
 import { FiMenu, FiX, FiShoppingCart } from "react-icons/fi";
+import { useLanguage } from "../../hooks/useLanguage";
 
 const Navbar = () => {
   const { t } = useTranslation();
+  const { lang } = useLanguage();
   const navLinks = t("links", { returnObjects: true });
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdown1, setDropdown1] = useState(false);
@@ -23,7 +25,7 @@ useEffect(() => {
   if (storedUser) {
     setUserData(JSON.parse(storedUser));
   }
-}, []);
+}, [isLoggedIn]);
 
 const handleLogout = () => {
   localStorage.removeItem("token");
@@ -232,27 +234,32 @@ const handleLogout = () => {
   <button
     type="button"
     onClick={() => setUserMenuOpen(!userMenuOpen)}
-    className="flex text-sm rounded-full focus:ring-4"
+    className="flex text-sm rounded-full focus:ring-2 ring-[#309255]"
   >
-    <img className="w-8 h-8 rounded-full" src={userData.profilePic} alt={userData.fullName }/>
+    <img className="w-12 h-12 rounded-full" src={userData.profilePic} alt={userData.fullName }/>
   </button>)}
 
   {userMenuOpen && userData && (
-    <div className="absolute end-0 top-full mt-2 z-50 w-44 bg-white border rounded shadow-lg">
-      <div className="px-4 py-3 text-sm border-b">
+    <div className="absolute end-0 top-full mt-2 z-50 w-44 bg-white border rounded shadow-lg border-[#ddd]">
+      <div className="px-4 py-3 text-sm border-b border-[#ddd]">
         <span className="block font-medium">{userData.fullName}</span>
         <span className="block text-gray-500 truncate">
          {userData.email}
         </span>
       </div>
-
       <ul className="p-2 text-sm">
         <li className="p-2 hover:bg-gray-100 rounded cursor-pointer">
-          User Profile
+            <NavLink
+              to="/user-dashboard"
+              className="hover:text-[#309255] duration-300"
+              onClick={() => setMobileOpen(false)}
+            >
+              {t(navLinks[15])}
+            </NavLink>
         </li>
        
         <li className="p-2 hover:bg-gray-100 rounded cursor-pointer text-red-500" onClick={handleLogout}>
-          Sign out
+          {lang=="en"?"Sign out":"تسجيل الخروج"}
         </li>
       </ul>
     </div>
