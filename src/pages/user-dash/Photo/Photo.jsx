@@ -97,7 +97,7 @@ export default function Photo() {
     const formData = new FormData();
     formData.append("profilePic", data.profilePic[0]);
     try {
-      const response = await axios.put(`http://localhost:5000/api/users/update-pic/${user_id}`, formData,{
+      const response = await axios.put(`https://darreb-academy-backend.vercel.app/api/users/update-pic/${user_id}`, formData,{
         headers: {
           "Content-Type": "multipart/form-data",
           "Authorization":`Bearer ${token}`

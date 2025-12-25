@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import api from "../../../api/axios";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
 
 export default function PurchasedCourses() {
   const [purchasedCourses, setPurchasedCourses] = useState();
-  const token = localStorage.getItem("token");
   useEffect(()=>{
-    axios.get(`http://localhost:5000/api/auth/my-courses`,{headers:{"Authorization":`Bearer ${token}`}})
+    api.get(`/auth/my-courses`)
     .then((res)=>setPurchasedCourses(res.data.data))
     .catch(err=>console.log(err))
   },[])
