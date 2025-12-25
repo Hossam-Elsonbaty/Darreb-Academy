@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from "../../api/axios";
 import { 
   Share2, 
   Users, 
@@ -28,13 +28,8 @@ const CourseWatch = () => {
     const fetchCourseDetails = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(
-          `http://localhost:5000/api/users/me/courses/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${apiKey}`,
-            },
-          }
+        const response = await api.get(
+          `/users/me/courses/${id}`
         );
         setCourseData(response.data.data);
         
