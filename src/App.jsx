@@ -23,6 +23,7 @@ import Security from "./pages/user-dash/Security/Security";
 import DeleteAccount from "./pages/user-dash/delete/DeleteAccount";
 import PurchasedCourses from "./pages/user-dash/Purchased courses/PurchasedCourses";
 import SuccessPayment from "./pages/success/success";
+import CourseWatch from "./pages/watchCourse/CourseWatch";
 
 
 
@@ -77,6 +78,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<LottieLoading status="page" />}>
             <Enroll />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/watch-course/:id",
+        element: (
+          <Suspense fallback={<LottieLoading status="page" />}>
+            <CourseWatch />
           </Suspense>
         ),
       },

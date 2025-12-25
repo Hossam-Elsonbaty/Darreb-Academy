@@ -22,13 +22,13 @@ export default function PurchasedCourses() {
         {purchasedCourses?.length > 0 ?purchasedCourses.map((course) => (
           <div
             key={course.id}
-            className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition"
+            className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition min-w-80 p-2"
           >
             {/* Image */}
             <img
               src={course.thumbnail}
               alt={course.title}
-              className="w-full h-40 object-cover"
+              className="w-full h-40 object-contain"
             />
 
             {/* Content */}
@@ -40,6 +40,7 @@ export default function PurchasedCourses() {
                 {course.instructor.fullName}
               </p>
             </div>
+            <NavLink className="p-2  text-sm rounded-lg text-white bg-[#309255] text-center" to={`/watch-course/${course._id}`}>Watch Now</NavLink>
           </div>
         )):
         <div className="flex flex-col items-center gap-5 w-full">

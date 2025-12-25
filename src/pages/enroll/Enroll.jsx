@@ -13,7 +13,6 @@ const Enroll = () => {
           {/* left video  */}
           <div>
             <Video />
-
             {/* Course filter  */}
             <div className="mt-10">
               <CourseCate />
