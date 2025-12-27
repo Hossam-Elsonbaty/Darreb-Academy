@@ -184,7 +184,9 @@ import { FaUser, FaCamera, FaLock, FaShoppingCart, FaTrashAlt } from "react-icon
 import Toaster from "../components/Toaster";
 import { useSelector } from "react-redux";
 import Loader from "../components/Loader";
+import { useLanguage } from "../hooks/useLanguage";
 const AccountLayout = () => {
+  const {lang} = useLanguage();
   const navigate = useNavigate();
   const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
   useEffect(()=>{
@@ -207,63 +209,56 @@ const AccountLayout = () => {
     <Loader/>
     :
     <div className="flex gap-15 flex-col items-center min-h-screen bg-gray-100">
-      {/* navbar */}
       <Navbar/>
       <main className="flex lg:flex-row lg:w-[80%] w-[-webkit-fill-available] flex-col border border-[#ddd]">
         <Toaster/>
         <div className="lg:w-64 bg-white-600 text-white p-5 space-y-8 md:border-r border-[#ddd]">
-          <h2 className="text-2xl font-bold text-center text-green-600">Account</h2>
+          <h2 className="text-2xl font-bold text-center text-green-600">{lang === "en" ? "Account" : "الحساب"}</h2>
           <div className="space-y-4">
             <NavLink
               to="profile"
               className={({ isActive }) =>`flex text-[#1f2124] items-center gap-2 p-2 rounded-lg ${getActiveClass({ isActive })}`}
             >
               <FaUser />
-              <span>Profile</span>
+              <span>{lang === "en" ? "Profile" : "الملف الشخصي"}</span>
             </NavLink>
             <NavLink
               to="photo"
               className={({ isActive }) =>`flex text-[#1f2124] items-center gap-2 p-2 rounded-lg ${getActiveClass({ isActive })}`}
             >
               <FaCamera />
-              <span>Photo</span>
+              <span>{lang === "en" ? "Photo" : "الصورة"}</span>
             </NavLink>
             <NavLink
               to="security"
               className={({ isActive }) =>`flex text-[#1f2124] items-center gap-2 p-2 rounded-lg ${getActiveClass({ isActive })}`}
             >
               <FaLock />
-              <span>Security</span>
+              <span>{lang === "en" ? "Security" : "الأمان"}</span>
             </NavLink>
             <NavLink
               to="PurchasedCourses"          
               className={({ isActive }) =>`flex text-[#1f2124] items-center gap-2 p-2 rounded-lg ${getActiveClass({ isActive })}`}
             >
               <FaShoppingCart />
-              <span>Purchased Courses</span>
+              <span>{lang === "en" ? "Purchased Courses" : "الدورات المشتراة"}</span>
             </NavLink>
             <NavLink
               to="DeleteAccount"
               className={({ isActive }) =>`flex text-[#1f2124] items-center gap-2 p-2 rounded-lg ${getActiveClass({ isActive })}`}
             >
               <FaTrashAlt />
-              <span>Delete Account</span>
+              <span>{lang === "en" ? "Delete Account" : "حذف الحساب"}</span>
             </NavLink>
           </div>
         </div>
-
-        {/* Content Area */}
         <div className="flex-1 lg:p-8 p-8 pb-28">
-          {/* Header */}
           <div className="flex items-center justify-between mb-6">
-            <h1 className="text-3xl font-bold text-green-600">User Dashboard</h1>
+            <h1 className="text-3xl font-bold text-green-600">{lang === "en" ? "User Dashboard" : "لوحة تحكم المستخدم"}</h1>
           </div>
-
-          {/* Main Content */}
           <Outlet />
         </div>
       </main>
-      {/* Sidebar */}
     </div>
     }
     </>

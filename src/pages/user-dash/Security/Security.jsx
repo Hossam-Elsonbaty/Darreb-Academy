@@ -3,6 +3,7 @@ import {useState, useEffect, useContext} from "react";
 import ToasterContext from "../../../context/ToasterContext";
 import api from "../../../api/axios";
 import axios from "axios";
+import { useLanguage } from "../../../hooks/useLanguage";
 export default function Security() {
   const token = localStorage.getItem("token");
   const {
@@ -50,32 +51,34 @@ export default function Security() {
       console.log(err);
     }
   };
-
+  const {lang} = useLanguage()
   return (
     <div className="bg-white border border-[rgba(48,146,85,0.2)] rounded p-8 ">
-      <h2 className="text-2xl font-semibold mb-1 text-center">Account</h2>
+      <h2 className="text-2xl font-semibold mb-1 text-center">{lang === "en" ? "Account" : "الحساب"}</h2>
       <p className="text-sm text-gray-500 mb-8 text-center">
-        Edit your account settings and change your password here.
+        {lang === "en"
+      ? "Edit your account settings and change your password here."
+      : "قم بتعديل إعدادات حسابك وتغيير كلمة المرور هنا."}
       </p>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="border-b border-[#ddd] pb-5">
-          <h4 className="text-sm font-semibold mb-3">Email:</h4>
+          <h4 className="text-sm font-semibold mb-3">{lang === "en" ? "Email:" : "البريد الإلكتروني:"}</h4>
           <input
             type="email"
-            placeholder="Email"
+            placeholder={lang === "en" ? "Email:" : "البريد الإلكتروني:"}
             disabled
             className={inputClass}
             {...register("email")}
           />
         </div>
         <div>
-          <h4 className="text-sm font-semibold mb-3">Old Password:</h4>
+          <h4 className="text-sm font-semibold mb-3">{lang === "en" ? "Old Password:" : "كلمة المرور القديمة:"}</h4>
           <input
             type="password"
-            placeholder="Old password"
+            placeholder={lang === "en" ? "Old Password:" : "كلمة المرور القديمة:"}
             className={inputClass}
             {...register("oldPassword", {
-              required: "Password is required",
+              required: lang === "en" ? "Password is required" : "كلمة المرور مطلوبة",
             })}
           />
           {errors.password && (
@@ -85,16 +88,18 @@ export default function Security() {
           )}
         </div>
         <div>
-          <h4 className="text-sm font-semibold mb-3">New Password:</h4>
+          <h4 className="text-sm font-semibold mb-3">{lang === "en" ? "New Password:" : "كلمة المرور الجديدة:"}</h4>
           <input
             type="password"
-            placeholder="newPassword"
+            placeholder={lang === "en" ? "New Password:" : "كلمة المرور الجديدة:"}
             className={inputClass}
             {...register("newPassword", {
-              required: "New Password is required",
+              required: lang === "en" ? "New Password is required" : "كلمة المرور الجديدة مطلوبة",
               minLength: {
                 value: 8,
-                message: "Password must be at least 8 characters",
+                message:lang === "en"
+              ? "Password must be at least 8 characters"
+              : "يجب أن تكون كلمة المرور على الأقل 8 أحرف",
               },
             })}
           />
@@ -105,15 +110,15 @@ export default function Security() {
           )}
         </div>
         <div className="border-b border-[#ddd] pb-5">
-          <h4 className="text-sm font-semibold mb-3">Confirm Password:</h4>
+          <h4 className="text-sm font-semibold mb-3">{lang === "en" ? "Confirm Password:" : "تأكيد كلمة المرور:"}</h4>
           <input
             type="password"
-            placeholder="Confirm Password"
+            placeholder={lang === "en" ? "Confirm Password:" : "تأكيد كلمة المرور:"}
             className={inputClass}
             {...register("confirmPassword", {
-              required: "Please confirm your password",
+              required: lang === "en" ? "Please confirm your password" : "يرجى تأكيد كلمة المرور",
               validate: (value) =>
-                value === newPassword || "Passwords do not match",
+                value === newPassword || (lang === "en" ? "Passwords do not match" : "كلمات المرور غير متطابقة"),
             })}
           />
           {errors.confirmPassword && (
@@ -126,7 +131,7 @@ export default function Security() {
           type="submit"
           className="bg-[#309255] text-white px-6 py-2 rounded-[10px] hover:bg-main/90 transition"
         >
-          change password
+          {lang === "en" ? "Change password" : "تغيير كلمة المرور"}
         </button>
       </form>
     </div>

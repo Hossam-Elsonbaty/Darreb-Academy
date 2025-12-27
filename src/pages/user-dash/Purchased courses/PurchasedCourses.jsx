@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../../../api/axios";
 import { NavLink } from "react-router-dom";
+import { useLanguage } from "../../../hooks/useLanguage";
 
 export default function PurchasedCourses() {
   const [purchasedCourses, setPurchasedCourses] = useState();
@@ -9,11 +10,12 @@ export default function PurchasedCourses() {
     .then((res)=>setPurchasedCourses(res.data.data))
     .catch(err=>console.log(err))
   },[])
+  const {lang} = useLanguage()
   return (
     <div className="bg-white border border-gray-300 rounded p-8 ">
       
       <h2 className="text-2xl font-semibold mb-6">
-        Purchased Courses
+        {lang === "en" ? "Purchased Courses" : "الدورات المشتراة"}
       </h2>
 
       {/* CARDS */}
@@ -40,12 +42,12 @@ export default function PurchasedCourses() {
                 {course.instructor.fullName}
               </p>
             </div>
-            <NavLink className="p-2  text-sm rounded-lg text-white bg-[#309255] text-center" to={`/watch-course/${course._id}`}>Watch Now</NavLink>
+            <NavLink className="p-2  text-sm rounded-lg text-white bg-[#309255] text-center" to={`/watch-course/${course._id}`}>{lang === "en" ? "Watch Now" : "شاهد الأن"}</NavLink>
           </div>
         )):
         <div className="flex flex-col items-center gap-5 w-full">
-          <h1 className="font-bold text-2xl text-[#575757]">You haven't purchased any course yet</h1>
-          <NavLink to="/courses" className="bg-[#309255] p-4 rounded-lg text-lg text-white">Browse Our Courses</NavLink>
+          <h1 className="font-bold text-2xl text-[#575757]">{lang === "en" ? "You haven't purchased any course yet" : "لم تشترِ أي كورس بعد"}</h1>
+          <NavLink to="/courses" className="bg-[#309255] p-4 rounded-lg text-lg text-white">{lang === "en" ? "Browse Our Courses" : "تصفح دوراتنا"}</NavLink>
         </div>
         }
       </div>

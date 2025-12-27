@@ -79,9 +79,11 @@ import { useEffect, useState,useContext } from "react";
 import { useForm } from "react-hook-form";
 import ToasterContext from "../../../context/ToasterContext";
 import axios from "axios";
+import { useLanguage } from "../../../hooks/useLanguage";
 
 export default function Photo() {
   const { register, handleSubmit } = useForm();
+  const {lang} = useLanguage()
   const token = localStorage.getItem("token");
   const {setShowModal, setModalType, setModalMessage} = useContext(ToasterContext)
   const [preview, setPreview] = useState(null);
@@ -114,11 +116,13 @@ export default function Photo() {
   };
   return (
     <div className="bg-white p-6 rounded border border-[rgba(48,146,85,0.2)] ">
-      <h2 className="text-xl font-semibold text-center mb-1">Photo</h2>
+      <h2 className="text-xl font-semibold text-center mb-1">{lang === "en" ? "Photo" : "الصورة"}</h2>
       <p className="text-sm text-gray-500 text-center mb-6">
-        Add a nice photo of yourself for your profile.
+        {lang === "en"
+      ? "Add a nice photo of yourself for your profile."
+      : "أضف صورة جميلة لنفسك لملفك الشخصي."}
       </p>
-      <p className="text-sm font-medium mb-2">Image preview</p>
+      <p className="text-sm font-medium mb-2">{lang === "en" ? "Image preview" : "معاينة الصورة"}</p>
       <div className="w-full h-[250px] border border-[rgba(48,146,85,0.2)] flex items-center justify-center mb-6">
         <img
           src={preview ? preview : userData.profilePic} 
@@ -126,7 +130,7 @@ export default function Photo() {
           className="w-full h-full object-contain"
         />
       </div>
-      <p className="text-sm font-medium mb-2">Add / Change Image</p>
+      <p className="text-sm font-medium mb-2">{lang === "en" ? "Add / Change Image" : "إضافة / تغيير الصورة"}</p>
       <form className="flex gap-3 mb-6 flex-col" onSubmit={handleSubmit(onSubmit)}>
         <span
           className="
@@ -150,7 +154,7 @@ export default function Photo() {
           type="submit"
           className="bg-[#309255] text-white px-6 py-2 rounded-[10px] hover:bg-main/90 transition"
         >
-          Save
+          {lang === "en" ? "Save" : "حفظ"}
         </button>
       </form>
     </div>

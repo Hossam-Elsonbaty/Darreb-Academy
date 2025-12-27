@@ -20,7 +20,6 @@ export const CartProvider = ({ children }) => {
     setIsCartLoading(true);
     try {
       const res = await api.get("/cart");
-      console.log(res);
       setCartItems( res.data );
     } catch (err) {
       console.error(err);
@@ -29,7 +28,6 @@ export const CartProvider = ({ children }) => {
     }
   };
   const removeFromCart = async (courseId) => {
-    console.log(courseId);
     try {
       const res = await api.delete(`/cart/${courseId}`);
       const updatedCart = cartItems.items.filter(item => item.course._id !== courseId);
@@ -40,7 +38,6 @@ export const CartProvider = ({ children }) => {
   };
 
   const addToCart = async (course) => {
-    console.log(typeof course);
     const course_id =
       course && typeof course === "object" && course._id ? course._id : course;
     console.log(course == "" ? course : course._id);
@@ -58,7 +55,6 @@ export const CartProvider = ({ children }) => {
           : "تمت إضافة الكورس إلى سلة التسوق!"
       );
       setShowModal(true);
-      console.log(res);
     } catch (error) {
       const status = error.response?.status;
       const data = error.response?.data;
