@@ -24,6 +24,8 @@ import DeleteAccount from "./pages/user-dash/delete/DeleteAccount";
 import PurchasedCourses from "./pages/user-dash/Purchased courses/PurchasedCourses";
 import SuccessPayment from "./pages/success/success";
 import CourseWatch from "./pages/watchCourse/CourseWatch";
+// import Courses from "./pages/courses/Courses";
+// import CoursesDetails from "./pages/courses/CoursesDetails";
 
 
 
@@ -31,9 +33,9 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Suspense fallback={<LottieLoading status="main" />}>
         <RootLayout />
-      </Suspense>
+      // <Suspense fallback={<LottieLoading status="main" />}>
+      // </Suspense>
     ),
     errorElement: <LottieLoading status="error" />,
     children: [
@@ -58,18 +60,18 @@ const router = createBrowserRouter([
       {
         path: "/courses",
         element: (
-          <Suspense fallback={<LottieLoading status="page" />}>
             <Courses />
-          </Suspense>
+          // <Suspense fallback={<LottieLoading status="page" />}>
+          // </Suspense>
         ),
       },
 
       {
         path: "/courses/:id",
         element: (
-          <Suspense fallback={<LottieLoading status="page" />}>
             <CoursesDetails />
-          </Suspense>
+          // <Suspense fallback={<LottieLoading status="page" />}>
+          // </Suspense>
         ),
       },
 
@@ -93,17 +95,17 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: (
-          <Suspense fallback={<LottieLoading status="page" />}>
            <Cart />
-          </Suspense>
+          // <Suspense fallback={<LottieLoading status="page" />}>
+          // </Suspense>
         ),
       },
       {
         path: "/wishlist",
         element: (
-          <Suspense fallback={<LottieLoading status="page" />}>
            <WishlistPage />
-          </Suspense>
+          // <Suspense fallback={<LottieLoading status="page" />}>
+          // </Suspense>
         ),
       },
       

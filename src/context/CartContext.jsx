@@ -7,10 +7,10 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartLoading, setIsCartLoading] = useState(true);
-const [showModal, setShowModal] = useState(false);
-const [modalType, setModalType] = useState("success"); 
-const [modalMessage, setModalMessage] = useState("");
-const { lang } = useLanguage();
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState("success");
+  const [modalMessage, setModalMessage] = useState("");
+  const { lang } = useLanguage();
   const getCart = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -20,81 +20,98 @@ const { lang } = useLanguage();
     setIsCartLoading(true);
     try {
       const res = await api.get("/cart");
-      setCartItems(Array.isArray(res.data.cart) ? res.data.cart : []);
+      console.log(res);
+      setCartItems( res.data );
     } catch (err) {
       console.error(err);
     } finally {
       setIsCartLoading(false);
     }
   };
+  const removeFromCart = async (courseId) => {
+    console.log(courseId);
+    try {
+      const res = await api.delete(`/cart/${courseId}`);
+      const updatedCart = cartItems.items.filter(item => item.course._id !== courseId);
+      setCartItems({ ...cartItems, items: updatedCart });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const addToCart = async (course) => {
-  console.log(typeof course);
-  const course_id = course && typeof course === 'object' && course._id ? course._id : course;
-  console.log(course == "" ? course : course._id);
-  const token = localStorage.getItem("token");
-  if (!token) return;
-  try {
-    console.log("Adding course to cart:", course_id);
-    await api.post("/cart", { courseId: course_id });
-    await getCart();
-        setModalType("success");
-    setModalMessage(
-      lang === "en"
-        ? "Course added to cart!"
-        : "تمت إضافة الكورس إلى سلة التسوق!"
-    );
-    setShowModal(true);
-  } catch (error) {
-    const status = error.response?.status;
-    const data = error.response?.data;
-    console.error("Cart error data:", data);
-    console.error("Cart error status:", status);
-    if (status === 404) {
-      setModalType("error");
-    setModalMessage(
-      lang === "en"
-        ? "This course is no longer available"
-        : "هذا الكورس لم يعد متاحًا"
-    );
-    setShowModal(true);
-    } else if (status === 400){
-      setModalType("error");
-    setModalMessage(
-      lang === "en"
-        ? data.message || "Invalid request."
-        : data.message || "طلب غير صالح."
-    );
-    setShowModal(true);
+    console.log(typeof course);
+    const course_id =
+      course && typeof course === "object" && course._id ? course._id : course;
+    console.log(course == "" ? course : course._id);
+    const token = localStorage.getItem("token");
+    if (!token) return;
+    try {
+      console.log("Adding course to cart:", course_id);
+      const res = await api.post("/cart", { courseId: course_id });
+      setCartItems(res.data);
+      // await getCart();
+      setModalType("success");
+      setModalMessage(
+        lang === "en"
+          ? "Course added to cart!"
+          : "تمت إضافة الكورس إلى سلة التسوق!"
+      );
+      setShowModal(true);
+      console.log(res);
+    } catch (error) {
+      const status = error.response?.status;
+      const data = error.response?.data;
+      console.error("Cart error data:", data);
+      console.error("Cart error status:", status);
+      if (status === 404) {
+        setModalType("error");
+        setModalMessage(
+          lang === "en"
+            ? "This course is no longer available"
+            : "هذا الكورس لم يعد متاحًا"
+        );
+        setShowModal(true);
+      } else if (status === 400) {
+        setModalType("error");
+        setModalMessage(
+          lang === "en"
+            ? data.message || "Invalid request."
+            : data.message || "طلب غير صالح."
+        );
+        setShowModal(true);
+      } else {
+        setModalType("error");
+        setModalMessage(
+          lang === "en"
+            ? "Failed to add course to cart."
+            : "فشل في إضافة الكورس إلى سلة التسوق."
+        );
+        setShowModal(true);
+      }
     }
-    else{
-      setModalType("error");
-    setModalMessage(
-      lang === "en"
-        ? "Failed to add course to cart."
-        : "فشل في إضافة الكورس إلى سلة التسوق."
-    );
-    setShowModal(true);
-    }
-  }
-};
-
+  };
 
   useEffect(() => {
     getCart();
   }, []);
 
   return (
-    <CartContext.Provider value={{ cartItems,
-  isCartLoading,
-  addToCart,
-  showModal,
-  setShowModal,
-  modalType,
-  setModalType,
-  modalMessage,
-  setModalMessage
- }}>
+    <CartContext.Provider
+      value={{
+        cartItems,
+        isCartLoading,
+        addToCart,
+        showModal,
+        setShowModal,
+        modalType,
+        setModalType,
+        modalMessage,
+        setModalMessage,
+        removeFromCart,
+        getCart,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

@@ -16,7 +16,7 @@ const profileImages = [profile1];
 
 const CourseCard = ({ c, status }) => {
   const { addToCart, cartItems, isCartLoading } = useCart();
-  const isInCart = cartItems.some((item) => item.course?._id === c._id);
+  const isInCart = Array.isArray(cartItems?.items) && cartItems.items.some((item) => item.course?._id === c._id);
   const [isAdding, setIsAdding] = useState(false);
   const { lang } = useLanguage();
   const navigate = useNavigate();

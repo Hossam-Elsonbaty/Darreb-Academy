@@ -1,6 +1,6 @@
 import DynamicHero from "../../common/dynamic-components/DynamicHero";
 import authorImg from "../../assets/images/author-11.jpg";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import loginimg from "../../assets/images/login.png";
 import titleLine from "../../assets/images/shape11.png";
@@ -12,6 +12,9 @@ export default function Login() {
   const {setShowModal, setModalType, setModalMessage} = useContext(ToasterContext)
   
   const { register, handleSubmit, formState: { errors } } = useForm();
+    useEffect(()=>{
+      window.scrollTo(0,0)
+    },[])
   
   const { lang } = useLanguage();
   const navigate = useNavigate();

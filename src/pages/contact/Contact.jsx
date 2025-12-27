@@ -8,12 +8,15 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { PiMapPinLight } from "react-icons/pi";
 import Banner from "../../common/Banner";
 import axios, { Axios } from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Contact = () => {
 const [showModal, setShowModal] = useState(false);
 const [modalType, setModalType] = useState("success"); 
 const [modalMessage, setModalMessage] = useState("");
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
 
   const {
     register,

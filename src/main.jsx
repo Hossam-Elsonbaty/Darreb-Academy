@@ -6,7 +6,7 @@ import './index.css'
 import 'swiper/css';
 import App from './App.jsx'
 import { Provider } from 'react-redux';
-import store from './Store/store.js';
+import {store} from './Store/store.js';
 import { CartProvider } from './context/CartContext.jsx';
 import { WishlistProvider } from './context/WishlistContext.jsx';
 import { ToasterProvider } from './context/ToasterContext.jsx';

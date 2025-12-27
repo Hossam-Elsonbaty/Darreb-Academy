@@ -6,6 +6,8 @@ import LanguageSwitcher from "../../components/LanguageSwitcher";
 import { useEffect, useState } from "react";
 import { FiMenu, FiX, FiShoppingCart } from "react-icons/fi";
 import { useLanguage } from "../../hooks/useLanguage";
+import { useCart } from "../../context/CartContext";
+import { IoMdHeartEmpty } from "react-icons/io";
 
 const Navbar = () => {
   const { t } = useTranslation();
@@ -15,11 +17,11 @@ const Navbar = () => {
   const [dropdown1, setDropdown1] = useState(false);
   const [dropdown2, setDropdown2] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-const [userMenuOpen, setUserMenuOpen] = useState(false);
-const [userData, setUserData] = useState(null);
-
-const isLoggedIn = Boolean(localStorage.getItem("userData"));
-
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [userData, setUserData] = useState(null);
+  const {cartItems} = useCart();
+  const isLoggedIn = Boolean(localStorage.getItem("userData"));
+  
 useEffect(() => {
   const storedUser = localStorage.getItem("userData");
   if (storedUser) {
@@ -68,7 +70,7 @@ const handleLogout = () => {
           <NavLink to="/" className="relative  hover:text-[#309255] duration-400">
             {t(navLinks[0])}
           </NavLink>
-          <div className="relative group">
+          {/* <div className="relative group">
             <Link className="hover:text-[#309255] duration-400 cursor-pointer py-5">
               {t(navLinks[1])}
             </Link>
@@ -111,9 +113,9 @@ const handleLogout = () => {
                 {t(navLinks[8])}
               </NavLink>
             </div>
-          </div>
-          <div className="relative group">
-            <Link className="hover:text-[#309255] duration-400 cursor-pointer py-5">
+          </div> */}
+          {/* <div className="relative group">
+            <Link  className="hover:text-[#309255] duration-400 cursor-pointer py-5">
               {t(navLinks[2])}
             </Link>
 
@@ -183,15 +185,27 @@ const handleLogout = () => {
                 {t(navLinks[13])}
               </NavLink>
             </div>
-          </div>
+          </div> */}
 
-          <NavLink
+          {/* <NavLink
             to="/blogs"
             className="relative  hover:text-[#309255] duration-400"
           >
             {t(navLinks[3])}
-          </NavLink>
+          </NavLink> */}
 
+          <NavLink
+            to="courses"
+            className="relative  hover:text-[#309255] duration-400"
+          >
+            {t(navLinks[1])}
+          </NavLink>
+          <NavLink
+            to="/about"
+            className="relative  hover:text-[#309255] duration-400"
+          >
+            {t(navLinks[2])}
+          </NavLink>
           <NavLink
             to="/contact"
             className="relative  hover:text-[#309255] duration-400"
@@ -204,8 +218,18 @@ const handleLogout = () => {
           >
             <FiShoppingCart className="text-xl" />
             {/* <span>Cart</span> */}
+            <span className="absolute -top-2 -end-3 bg-[#309255] text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+              {cartItems?.items?.length || 0}
+            </span>
+          </NavLink>
+          <NavLink
+            to="/wishlist"
+            className="relative hover:text-[#309255] duration-400 flex items-center gap-1"
+          >
+            <IoMdHeartEmpty className="text-xl" />
+            {/* <span>Cart</span> */}
             {/* <span className="absolute -top-2 -end-3 bg-[#309255] text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
-              0
+              {cartItems?.items?.length || 0}
             </span> */}
           </NavLink>
           {/* right side login buttons*/}
@@ -307,13 +331,13 @@ const handleLogout = () => {
                   >
                     {t(navLinks[7])}
                   </NavLink>
-                  <NavLink
+                  {/* <NavLink
                     to="/coursesdetails"
                     className="ps-3 hover:text-[#309255] duration-400"
                     onClick={() => setMobileOpen(false)}
                   >
                     {t(navLinks[8])}
-                  </NavLink>
+                  </NavLink> */}
                 </div>
               )}
             </div>
@@ -352,7 +376,7 @@ const handleLogout = () => {
                     {t(navLinks[11])}
                   </NavLink>
 
-                  <NavLink
+                  {/* <NavLink
                     to="/faq"
                     className="hover:text-[#309255] ps-3 duration-300"
                     onClick={() => setMobileOpen(false)}
@@ -366,14 +390,14 @@ const handleLogout = () => {
                     onClick={() => setMobileOpen(false)}
                   >
                     {t(navLinks[13])}
-                  </NavLink>
+                  </NavLink> */}
                 </div>
               )}
             </div>
 
-            <NavLink to="/blogs" onClick={() => setMobileOpen(false)}>
+            {/* <NavLink to="/blogs" onClick={() => setMobileOpen(false)}>
               {t(navLinks[3])}
-            </NavLink>
+            </NavLink> */}
             <NavLink to="/contact" onClick={() => setMobileOpen(false)}>
               {t(navLinks[4])}
             </NavLink>

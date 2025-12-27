@@ -27,7 +27,6 @@ export const WishlistProvider = ({ children }) => {
 
   // ===== ADD TO WISHLIST =====
   const addToWishlist = async (course) => {
-    setWishlist((prev) => [...prev, { course }]);
     const token = localStorage.getItem("token");
     if (!token) return;
     try {
@@ -36,6 +35,7 @@ export const WishlistProvider = ({ children }) => {
         { courseId: course._id },
         { headers: { Authorization: `Bearer ${token}` } }
       );
+      setWishlist((prev) => [...prev, { course }]);
     } catch (err) {
       console.log("Add to wishlist error:", err);
     }
@@ -43,13 +43,13 @@ export const WishlistProvider = ({ children }) => {
 
   // ===== REMOVE FROM WISHLIST =====
   const removeFromWishlist = async (courseId) => {
-    setWishlist((prev) => prev.filter((item) => item.course._id !== courseId));
     const token = localStorage.getItem("token");
     if (!token) return;
     try {
       await api.delete(`/wishlist/${courseId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      setWishlist((prev) => prev.filter((item) => item.course._id !== courseId));
     } catch (err) {
       console.log("Remove from wishlist error:", err);
     }
@@ -68,7 +68,7 @@ export const WishlistProvider = ({ children }) => {
 
   return (
     <WishlistContext.Provider
-      value={{ wishlist, addToWishlist, removeFromWishlist, toggleWishlist }}
+      value={{ wishlist, addToWishlist, removeFromWishlist, toggleWishlist, getWishlist }}
     >
       {children}
     </WishlistContext.Provider>

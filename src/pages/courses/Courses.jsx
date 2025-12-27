@@ -113,8 +113,7 @@ import { useLanguage } from "../../hooks/useLanguage";
 // import { useTranslation } from "react-i18next";
 import authorImg from "../../assets/images/author-11.jpg";
 import { fetchCategories } from "../../Store/Slices/categoriesSlice";
-import { useCart } from "../../context/CartContext";
-
+import Loader from "../../components/Loader";
 const Courses = () => {
   const { lang } = useLanguage();
   const [cate, setCate] = useState(0);
@@ -122,7 +121,11 @@ const Courses = () => {
   const dispatch = useDispatch();
   const { courses, loading, error } = useSelector((state) => state.courses);
   const { categories } = useSelector((state) => state.categories);
-  const { cartItems, isCartLoading } = useCart();
+  const isLoading = useSelector(state=>state.loader.isLoading);
+    useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
+
 useEffect(() => {
   console.log(courses); 
 }, [courses]);
@@ -143,6 +146,10 @@ useEffect(() => {
   });
 
   return (
+    <>
+    {isLoading?
+    <Loader/>
+    :
     <div>
       <DynamicHero authorImg={authorImg} links={{ en: ["Home", "Courses"], ar: ["الرئيسية", " الكورسات"] }} />
 
@@ -232,6 +239,8 @@ useEffect(() => {
 
       <Banner />
     </div>
+    }
+    </>
   );
 };
 

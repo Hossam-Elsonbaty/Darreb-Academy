@@ -1,7 +1,7 @@
 
 import DynamicHero from "../../common/dynamic-components/DynamicHero";
 import authorImg from "../../assets/images/author-11.jpg";
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useForm } from "react-hook-form"
 import { useLanguage } from "../../hooks/useLanguage";
 import loginimg from "../../assets/images/login.png";
@@ -11,6 +11,9 @@ import axios from "axios";
 import ToasterContext from "../../context/ToasterContext";
 export default function Register (){
   const {setShowModal, setModalType, setModalMessage} = useContext(ToasterContext)
+    useEffect(()=>{
+      window.scrollTo(0,0)
+    },[])
   
   // const onSubmit = (data) => console.log(data)
   const onSubmit = async (data) => {

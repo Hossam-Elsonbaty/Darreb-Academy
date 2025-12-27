@@ -38,6 +38,8 @@ import { TfiTwitter } from "react-icons/tfi";
 import { SlSocialSkype } from "react-icons/sl";
 import { FaInstagram } from "react-icons/fa";
 import Footer from "../../common/footer/Footer";
+import { NavLink } from "react-router-dom";
+import Testimonials from "../../components/Testimonials";
 
 const About = () => {
   const { i18n } = useTranslation();
@@ -108,7 +110,9 @@ const About = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
   const totalPages = Math.ceil(cards.length / itemsPerPage);
 
   // Handlers for swipe
@@ -212,13 +216,13 @@ const About = () => {
                 )}
               </p>
               <div className="flex justify-center lg:justify-start">
-                <button className="btn1">
+                <NavLink to="/courses" className="btn1">
                   {i18n.language === "ar" ? (
                     <>ابدأ دورة</>
                   ) : (
                     <> Start A Course</>
                   )}
-                </button>
+                </NavLink>
               </div>
             </div>
           </div>
@@ -397,7 +401,7 @@ const About = () => {
         </div>
       </section>
       {/*================= End Cards Section ==================*/}
-      <section className="relative bg-white">
+      {/* <section className="relative bg-white">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-16">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 bg-[#eefbf3] rounded-2xl p-10">
             <img
@@ -478,7 +482,7 @@ const About = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
       {/*================= End Becoma A instructor Section ==================*/}
       <TeamSection />
       {/*================= End Team Section ==================*/}
@@ -522,7 +526,7 @@ const About = () => {
         </div>
       </section>
       {/*================= End Ready To Strat Section ==================*/}
-      <div className="w-full flex flex-col py-12 items-center bg-white">
+      {/* <div className="w-full flex flex-col py-12 items-center bg-white">
         <div className="container mx-auto px-4 ">
           {i18n.language === "ar" ? (
             <>
@@ -578,7 +582,7 @@ const About = () => {
                   className="w-24 h-24 rounded-full object-cover transition-all duration-300 hover:scale-105"
                 />
               </div>
-              {/* Rating */}
+              
               <div className="flex items-center mt-2 space-x-2">
                 <div className="flex">{renderStars(card.rating)}</div>
                 <span className="text-gray-600 font-medium">
@@ -602,7 +606,7 @@ const About = () => {
           ))}
         </div>
 
-        {/* Dots */}
+        
         <div
           className={`flex mt-6 space-x-2 ${
             i18n.language === "ar" ? "flex-row-reverse" : ""
@@ -618,8 +622,9 @@ const About = () => {
             />
           ))}
         </div>
-      </div>
+      </div> */}
       {/*================= End Student Testimonial Section ==================*/}
+      <Testimonials/>
       <section className="relative bg-white">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-16">
           <div className="flex flex-col gap-8 bg-[#eefbf3] rounded-2xl p-10">

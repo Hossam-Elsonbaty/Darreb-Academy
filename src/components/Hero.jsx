@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import heroImg from "../assets/images/hero-img.png";
+import { NavLink } from "react-router-dom";
 
 const Hero = () => {
   const { t, i18n } = useTranslation();
@@ -37,7 +38,7 @@ const Hero = () => {
             </p>
 
             <div className="flex justify-center lg:justify-start">
-              <button className="btn1 py-4 px-8">{hero.btn}</button>
+              <NavLink className="btn1 py-4 px-8" to="/courses">{hero.btn}</NavLink>
             </div>
           </div>
 

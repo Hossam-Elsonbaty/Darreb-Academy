@@ -2,13 +2,20 @@ import { FiTrash2 } from "react-icons/fi";
 import i18n from "../../i18n";
 import { useCart } from "../../context/CartContext";
 import { useWishlist } from "../../context/WishlistContext";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import Loader from "../../components/Loader";
 
 const WishlistPage = () => {
- const { setShowModal, setModalType, setModalMessage } = useCart(); 
-  
-const { wishlist, removeFromWishlist } = useWishlist();
+  const isLoading = useSelector(state=>state.loader.isLoading);
+  const { setShowModal, setModalType, setModalMessage } = useCart();
 
-    const handleRemove = async (courseId) => {
+  const { wishlist, removeFromWishlist,getWishlist } = useWishlist();
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
+
+  const handleRemove = async (courseId) => {
     try {
       await removeFromWishlist(courseId);
 
@@ -29,55 +36,72 @@ const { wishlist, removeFromWishlist } = useWishlist();
       setShowModal(true);
     }
   };
-
-
+  useEffect(()=>{
+    getWishlist()
+  },[])
   return (
-    <div className="px-20 mx-auto py-10 flex flex-wrap gap-6 justify-start">
-      <h1 className="w-full text-3xl font-bold mb-6">
-        {i18n.language === "ar" ? "قائمة الرغبات" : "Wishlist"}
-      </h1>
+    <>
+    {isLoading?
+    <Loader/>
+    :
+      <div className="px-20 mx-auto py-10 flex flex-wrap gap-6 justify-start">
+        <h1 className="w-full text-3xl font-bold mb-6">
+          {i18n.language === "ar" ? "قائمة الرغبات" : "Wishlist"}
+        </h1>
 
-      {wishlist.length === 0 ? (
-        <p>{i18n.language === "ar" ? "لا توجد منتجات" : "No items"}</p>
-      ) : (
-        wishlist.map((item) => (
-          <div key={item._id || item.course._id} className="flex flex-col rounded-lg shadow-md p-4 bg-white hover:shadow-2xl transition-shadow duration-300 w-80">
-            <img
-              src={item.course.thumbnail}
-              alt={item.course.title}
-              className="w-full h-48 object-cover rounded-lg mb-4"
-            />
+        {wishlist.length === 0 ? (
+          <p>{i18n.language === "ar" ? "لا توجد منتجات" : "No items"}</p>
+        ) : (
+          wishlist.map((item) => (
+            <div
+              key={item._id || item.course._id}
+              className="flex flex-col rounded-lg shadow-md p-4 bg-white hover:shadow-2xl transition-shadow duration-300 w-80"
+            >
+              <img
+                src={item.course.thumbnail}
+                alt={item.course.title}
+                className="w-full h-48 object-cover rounded-lg mb-4"
+              />
 
-            <div className="flex flex-col gap-1">
-              <h2 className="font-bold text-lg">{item.course.title}</h2>
-              <p className="text-sm text-gray-500">{item.course.instructor?.fullName}</p>
+              <div className="flex flex-col gap-1">
+                <h2 className="font-bold text-lg">{item.course.title}</h2>
+                <p className="text-sm text-gray-500">
+                  {item.course.instructor?.fullName}
+                </p>
 
-              <div className="flex items-center gap-2 text-sm">
-                <span className="font-semibold">{item.course.totalRatings}</span>
-                <span className="text-yellow-500">★★★★★</span>
-                <span className="text-gray-500">({item.course.totalReviews})</span>
-              </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <span className="font-semibold">
+                    {item.course.totalRatings}
+                  </span>
+                  <span className="text-yellow-500">★★★★★</span>
+                  <span className="text-gray-500">
+                    ({item.course.totalReviews})
+                  </span>
+                </div>
 
-              <p className="text-sm text-gray-500">
-                {item.course.totalDuration} • {item.course.totalLectures} • {item.course.level}
-              </p>
+                <p className="text-sm text-gray-500">
+                  {item.course.totalDuration} • {item.course.totalLectures} •{" "}
+                  {item.course.level}
+                </p>
 
-              <div className="flex justify-between items-center mt-2">
-                <span className="font-bold text-lg">£E{item.course.price}</span>
+                <div className="flex justify-between items-center mt-2">
+                  <span className="font-bold text-lg">£E{item.course.price}</span>
 
-              <button
-                  className="text-red-500 text-sm flex items-center gap-1"
-                  onClick={() => handleRemove(item.course._id)}
-                >
-                  <FiTrash2 />
-                  {i18n.language === "ar" ? "حذف" : "Remove"}
-                </button>
+                  <button
+                    className="text-red-500 text-sm flex items-center gap-1"
+                    onClick={() => handleRemove(item.course._id)}
+                  >
+                    <FiTrash2 />
+                    {i18n.language === "ar" ? "حذف" : "Remove"}
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        ))
-      )}
-    </div>
+          ))
+        )}
+      </div>
+    }
+    </>
   );
 };
 
