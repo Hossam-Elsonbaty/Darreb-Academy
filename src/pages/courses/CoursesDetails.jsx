@@ -153,9 +153,8 @@ const CourseDetails = () => {
    }`;
 
   const onSubmitReview = async (data) => {
-    const userData = JSON.parse(localStorage.getItem("userData"));
-
-    if (!userData) {
+    const token = localStorage.getItem("token");
+    if (!token) {
       setModalType("error");
       setModalMessage(
         lang === "en" ? "Please login first" : "من فضلك سجل الدخول أولاً"
@@ -163,31 +162,12 @@ const CourseDetails = () => {
       setShowModal(true);
       return;
     }
-
-    // const isPurchased = userData.purchasedCourse?.find(
-    //   (courseId) => courseId === id
-    // );
-    const isPurchased = userData.purchasedCourses?.includes(id);
-    console.log(isPurchased);
-
-    if (!isPurchased) {
-      setModalType("error");
-      setModalMessage(
-        lang === "en"
-          ? "You must purchase this course first"
-          : "يجب شراء الكورس أولاً"
-      );
-      setShowModal(true);
-      return;
-    }
-
     try {
       await api.post("/reviews", {
         courseId: id,
         comment: data.comment,
         rating: Number(data.rating),
       });
-
       setModalType("success");
       setModalMessage(
         lang === "en"
@@ -201,11 +181,7 @@ const CourseDetails = () => {
     } catch (err) {
       console.log("Submit review error:", err.response?.data);
       setModalType("error");
-      setModalMessage(
-        lang === "en"
-          ? "Something went wrong, please try again"
-          : "حدث خطأ ما، حاول مرة أخرى"
-      );
+      setModalMessage(err.response?.data.message);
       setShowModal(true);
     }
   };

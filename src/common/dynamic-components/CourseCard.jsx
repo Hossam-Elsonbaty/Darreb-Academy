@@ -31,36 +31,36 @@ const CourseCard = ({ c, status }) => {
   const handleAddToCart = async (e) => {
     e.stopPropagation();
     console.log(isInCart);
-    if(!token){
-      setModalType("error");
-      setModalMessage(
-        lang === "en"
-          ? "Please sign in first"
-          : "من فضلك قم بتسجيل الدخول اولا"
-      );
-      setShowModal(true);
-      return;
-    }
-    if (isInCart){
-      setModalType("error");
-      setModalMessage(
-        lang === "en"
-          ? "Course already in cart"
-          : "لقد قمت بإضافة هذه الدوره إلى العربه من قبل"
-      );
-      setShowModal(true);
-      return;
-    };
-    if (isPurchased ){
-      setModalType("error");
-      setModalMessage(
-        lang === "en"
-        ? "Course already purchased"
-        : "لقد قمت بشراء هذه الدوره من قبل"
-      );
-      setShowModal(true);
-      return;
-    };
+    // if(!token){
+    //   setModalType("error");
+    //   setModalMessage(
+    //     lang === "en"
+    //       ? "Please sign in first"
+    //       : "من فضلك قم بتسجيل الدخول اولا"
+    //   );
+    //   setShowModal(true);
+    //   return;
+    // }
+    // if (isInCart){
+    //   setModalType("error");
+    //   setModalMessage(
+    //     lang === "en"
+    //       ? "Course already in cart"
+    //       : "لقد قمت بإضافة هذه الدوره إلى العربه من قبل"
+    //   );
+    //   setShowModal(true);
+    //   return;
+    // };
+    // if (isPurchased ){
+    //   setModalType("error");
+    //   setModalMessage(
+    //     lang === "en"
+    //     ? "Course already purchased"
+    //     : "لقد قمت بشراء هذه الدوره من قبل"
+    //   );
+    //   setShowModal(true);
+    //   return;
+    // };
     setIsAdding(true);
     try {
       await addToCart(c);

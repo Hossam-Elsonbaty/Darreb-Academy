@@ -18,15 +18,18 @@ api.interceptors.request.use((config) => {
   }
   return config;
 },(err)=>{
-  Promise.reject(err)
+  return Promise.reject(err)
 });
-api.interceptors.response.use((config)=>{
+api.interceptors.response.use((response)=>{
   import("../Store/store.js").then(({ store }) => {
     store.dispatch(handleChangeLoader(false));
   });
-  return config
+  return response
 },(err)=>{
-  Promise.reject(err)
+  import("../Store/store.js").then(({ store }) => {
+    store.dispatch(handleChangeLoader(false));
+  });
+  return Promise.reject(err)
 })
 
 export default api;

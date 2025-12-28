@@ -20,7 +20,7 @@ export const CartProvider = ({ children }) => {
     setIsCartLoading(true);
     try {
       const res = await api.get("/cart");
-      setCartItems( res.data );
+      setCartItems(res.data);
     } catch (err) {
       console.error(err);
     } finally {
@@ -30,34 +30,41 @@ export const CartProvider = ({ children }) => {
   const removeFromCart = async (courseId) => {
     try {
       const res = await api.delete(`/cart/${courseId}`);
-      const updatedCart = cartItems.items.filter(item => item.course._id !== courseId);
-      const newTotalPrice = updatedCart.reduce((total, item) => total + item.course.price, 0);
-      setCartItems({ ...cartItems, items: updatedCart, totalPrice: newTotalPrice });
+      const updatedCart = cartItems.items.filter(
+        (item) => item.course._id !== courseId
+      );
+      const newTotalPrice = updatedCart.reduce(
+        (total, item) => total + item.course.price,
+        0
+      );
+      setCartItems({
+        ...cartItems,
+        items: updatedCart,
+        totalPrice: newTotalPrice,
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
   const addToCart = async (course) => {
-
     const course_id =
-    course && typeof course === "object" && course._id ? course._id : course;
+      course && typeof course === "object" && course._id ? course._id : course;
     console.log(course == "" ? course : course._id);
     const token = localStorage.getItem("token");
-    if(!token){
+    if (!token) {
       setModalType("error");
       setModalMessage(
-        lang === "en"
-          ? "Please sign in first"
-          : "من فضلك قم بتسجيل الدخول اولا"
+        lang === "en" ? "Please sign in first" : "من فضلك قم بتسجيل الدخول اولا"
       );
       setShowModal(true);
       return;
     }
+  
     try {
       console.log("Adding course to cart:", course_id);
       const res = await api.post("/cart", { courseId: course_id });
-      setCartItems(res.data);
+      setCartItems(res.data.data);
       // await getCart();
       setModalType("success");
       setModalMessage(
@@ -67,35 +74,43 @@ export const CartProvider = ({ children }) => {
       );
       setShowModal(true);
     } catch (error) {
-      const status = error.response?.status;
-      const data = error.response?.data;
-      console.log("Cart error data:", error);
-      console.log("Cart error status:", error);
-      if (status === 404) {
-        setModalType("error");
-        setModalMessage(
-          lang === "en"
-            ? "This course is no longer available"
-            : "هذا الكورس لم يعد متاحًا"
-        );
-        setShowModal(true);
-      } else if (status === 400) {
-        setModalType("error");
-        setModalMessage(
-          lang === "en"
-            ? data.message || "Invalid request."
-            : data.message || "طلب غير صالح."
-        );
-        setShowModal(true);
+      console.log("error is:", error);
+      if (error.response) {
+        const errorMessage =
+          error.response.data?.message || "An error occurred";
+        if (error.response.status === 404) {
+          setModalType("error");
+          setModalMessage(
+            lang === "en"
+              ? "This course is no longer available"
+              : "هذا الكورس لم يعد متاحًا"
+          );
+        } else if (error.response.status === 400) {
+          setModalType("error");
+          setModalMessage(
+            lang === "en"
+              ? errorMessage || "Invalid request."
+              : errorMessage || "طلب غير صالح."
+          );
+        } else {
+          setModalType("error");
+          setModalMessage(
+            lang === "en"
+              ? "Failed to add course to cart."
+              : "فشل في إضافة الكورس إلى سلة التسوق."
+          );
+        }
       } else {
+        // If there's no response, this might be a network error or server down
         setModalType("error");
         setModalMessage(
           lang === "en"
-            ? "Failed to add course to cart."
-            : "فشل في إضافة الكورس إلى سلة التسوق."
+            ? "Failed to add course to cart. Please try again."
+            : "فشل في إضافة الكورس إلى سلة التسوق. حاول مرة أخرى."
         );
-        setShowModal(true);
       }
+
+      setShowModal(true);
     }
   };
 
