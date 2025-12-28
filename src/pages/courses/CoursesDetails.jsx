@@ -63,7 +63,7 @@ const ShareIcon = ({ icon }) => (
 const CourseDetails = () => {
   const { id } = useParams();
   const { addToCart, cartItems, isCartLoading } = useCart();
-  const isInCart = cartItems.some((item) => item.course?._id === id);
+  const isInCart =Array.isArray(cartItems?.items) && cartItems.items.some((item) => item.course?._id === id);
   const [isAdding, setIsAdding] = useState(false);
   console.log("Course ID:", id);
   // const { t } = useTranslation();
