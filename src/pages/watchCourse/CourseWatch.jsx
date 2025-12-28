@@ -10,6 +10,7 @@ import {
   Circle
 } from 'lucide-react';
 import { useParams } from 'react-router-dom';
+import { useLanguage } from '../../hooks/useLanguage';
 
 const CourseWatch = () => {
   const {id}= useParams()
@@ -21,7 +22,7 @@ const CourseWatch = () => {
   const [currentVideo, setCurrentVideo] = useState(null);
   const [completedLectures, setCompletedLectures] = useState(new Set());
   const [loading, setLoading] = useState(true);
-
+  const {lang} = useLanguage();
   const apiKey = localStorage.getItem("token");
 
   useEffect(() => {
@@ -138,13 +139,15 @@ const CourseWatch = () => {
             {/* Course Title and Stats */}
             <div className="p-6 border-b border-[#ddd]">
               <h1 className="text-2xl font-bold text-gray-900 mb-4">
-                {courseData.title}
+                {lang=="en"?courseData.title:courseData.title_ar}
               </h1>
               <div className="flex items-center gap-4 text-gray-600">
                 <div className="flex items-center gap-2">
                   <Users size={18} />
                   <span className="text-sm">
+                    
                     {courseData.totalEnrollments || 8350} Students are watching
+                    {lang=="en"?`${courseData.totalEnrollments || 8350} Students are watching` : `طالب ${courseData.totalEnrollments || 8350} تم شراؤه من قبل `}
                   </span>
                 </div>
               </div>
@@ -153,7 +156,7 @@ const CourseWatch = () => {
             {/* Tabs */}
             <div className="border-b border-[#ddd]">
               <div className="flex gap-4 px-6">
-                {['overview', 'description',  'instructor'].map((tab) => (
+                {lang=="en"?['overview', 'description',  'instructor']:['نظره عامة', 'الوصف',  'المحاضر'].map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
@@ -173,26 +176,26 @@ const CourseWatch = () => {
             <div className="p-6">
               {activeTab === 'overview' && (
                 <div>
-                  <h2 className="text-xl font-bold text-gray-900 mb-4">Course Details</h2>
+                  <h2 className="text-xl font-bold text-gray-900 mb-4">{lang=="en"?"Course Details":"تفاصيل الكورس"}</h2>
                   <div className="prose max-w-none">
                     <p className="text-gray-700 leading-relaxed">
-                      {courseData.description}
+                      {lang=="en"?courseData.description:courseData.description_ar}
                     </p>
                     <div className="mt-6 grid grid-cols-2 gap-4">
                       <div className="bg-gray-50 p-4 rounded-lg">
-                        <p className="text-sm text-gray-600">Level</p>
+                        <p className="text-sm text-gray-600">{lang=="en"?"Level":"المستوى"}</p>
                         <p className="text-lg font-semibold capitalize">{courseData.level}</p>
                       </div>
                       <div className="bg-gray-50 p-4 rounded-lg">
-                        <p className="text-sm text-gray-600">Total Duration</p>
+                        <p className="text-sm text-gray-600">{lang=="en"?"Total Duration":"المده الزمنيه"}</p>
                         <p className="text-lg font-semibold">{courseData.totalDuration}</p>
                       </div>
                       <div className="bg-gray-50 p-4 rounded-lg">
-                        <p className="text-sm text-gray-600">Total Lectures</p>
+                        <p className="text-sm text-gray-600">{lang=="en"?"Total Lectures":"جميع المحاضرات"}</p>
                         <p className="text-lg font-semibold">{courseData.totalLectures}</p>
                       </div>
                       <div className="bg-gray-50 p-4 rounded-lg">
-                        <p className="text-sm text-gray-600">Rating</p>
+                        <p className="text-sm text-gray-600">{lang=="en"?"Rating":"التقييم"}</p>
                         <p className="text-lg font-semibold">⭐ {courseData.rating}/5</p>
                       </div>
                     </div>
@@ -202,8 +205,8 @@ const CourseWatch = () => {
               
               {activeTab === 'description' && (
                 <div>
-                  <h2 className="text-xl font-bold text-gray-900 mb-4">Description</h2>
-                  <p className="text-gray-700 leading-relaxed">{courseData.description}</p>
+                  <h2 className="text-xl font-bold text-gray-900 mb-4">{lang=="en"?"Description" :"وصف الكورس"}</h2>
+                  <p className="text-gray-700 leading-relaxed">{lang=="en"?courseData.description:courseData.description_ar}</p>
                 </div>
               )}
               
@@ -234,7 +237,7 @@ const CourseWatch = () => {
           {/* Right Side - Chapters and Lectures */}
           <div className="bg-green-50 border-l overflow-y-auto border-[#ddd]" style={{ maxHeight: '100vh' }}>
             <div className="sticky top-0 bg-green-100 p-4 border-b border-green-200 flex items-center justify-between">
-              <h2 className="font-semibold text-gray-900">Course Content</h2>
+              <h2 className="font-semibold text-gray-900">{lang=="en"?"Course Content":"محتوى الكورس"}</h2>
               <button className="text-green-700 hover:text-green-900">
                 <Share2 size={20} />
               </button>
@@ -260,7 +263,7 @@ const CourseWatch = () => {
                             <ChevronUp size={20} className="text-gray-400" />
                           )}
                           <div className="text-left">
-                            <p className="font-semibold text-gray-900">{chapter.title}</p>
+                            <p className="font-semibold text-gray-900">{lang=="en"?chapter.title:chapter.title_ar}</p>
                             <p className="text-xs text-gray-500">
                               {formatDuration(
                                 chapter.lectures.reduce((acc, lec) => acc + (lec.lecture.duration || 0), 0)
@@ -303,7 +306,7 @@ const CourseWatch = () => {
                                   <p className={`text-sm font-medium truncate ${
                                     isActive ? 'text-green-700' : 'text-gray-900'
                                   }`}>
-                                    {String(chapterIndex + 1).padStart(2, '0')}. {lecture.title}
+                                    {String(chapterIndex + 1).padStart(2, '0')}. {lang=="en"?lecture.title:lecture.title_ar}
                                   </p>
                                   <p className="text-xs text-gray-500">
                                     {formatDuration(lecture.duration)}
@@ -322,7 +325,7 @@ const CourseWatch = () => {
                 })
               ) : (
                 <div className="text-center py-8 text-gray-500">
-                  <p>No chapters available</p>
+                  <p>{lang=="en"?"No chapters available":"لا يوجد أقسام"}</p>
                 </div>
               )}
             </div>

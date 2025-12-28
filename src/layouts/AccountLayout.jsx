@@ -190,10 +190,12 @@ const AccountLayout = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token"); // Assuming token is stored in localStorage
   useEffect(()=>{
-    window.scrollTo(0,0)
+    window.scrollTo(0,0);
+    console.log(window.location.pathname);
   },[])
 
   useEffect(() => {
+    
     // If no token, redirect to login page
     if (!token) {
       navigate("/login", { replace: true });
@@ -205,7 +207,7 @@ const AccountLayout = () => {
   const isLoading = useSelector(state=>state.loader.isLoading);
   return (
     <>
-    {isLoading?
+    {isLoading && window.location.pathname!="/user-dashboard/PurchasedCourses"?
     <Loader/>
     :
     <div className="flex gap-15 flex-col items-center min-h-screen bg-gray-100">

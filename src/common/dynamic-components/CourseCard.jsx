@@ -98,15 +98,16 @@ const CourseCard = ({ c, status }) => {
             </span>
           </div>
           <span className="bg-green-100 text-green-700 text-sm font-medium px-3 py-1 rounded-lg">
-            {c.category?.name
+            {/* {c.category?.name
               ? c.category?.name
               : lang === "en"
               ? "All"
-              : "جميع الفئات"}
+              : "جميع الفئات"} */}
+              {lang==="en"?(c.category?.name? c.category?.name:"All"):(c.category?.name_ar?c.category?.name_ar:"جميع الفئات")}
           </span>
         </div>
         <h3 className="mt-4 text-gray-800 font-semibold text-lg leading-snug transition-colors duration-300 group-hover:text-green-700">
-          {c.title}
+          {lang==="en"?c.title:c.title_ar}
         </h3>
         <div className="flex items-center justify-between mt-4 text-sm text-gray-600">
           <div className="flex items-center gap-2">
@@ -118,7 +119,7 @@ const CourseCard = ({ c, status }) => {
           <div className="flex items-center gap-2">
             <div className="flex gap-1">
               <IoBookOutline className="text-[#309255] text-lg" />
-              <span>{c.totalLectures} Lectures</span>
+              <span>{lang==="en"?`${c.totalLectures} Lectures`:`محاضرات ${c.totalLectures} `}</span>
             </div>
           </div>
         </div>

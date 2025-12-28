@@ -44,9 +44,9 @@ const Testimonials = () => {
   return (
     <div className="py-20 px-4 md:px-15 lg:px-30 xl:px-40 bg-white ">
       <header className="flex items-center justify-center flex-col ">
-        <p className="text-[#309255] mb-5 text-center font-medium text-2xl">
+        {/* <p className="text-[#309255] mb-5 text-center font-medium text-2xl">
           {lang === "en" ? "Student Testimonial" : "راى الطالب"}
-        </p>
+        </p> */}
         <SectionTitle
           status="center"
           title={

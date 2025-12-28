@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import api from "../../../api/axios";
 import { NavLink } from "react-router-dom";
 import { useLanguage } from "../../../hooks/useLanguage";
+import { useSelector } from "react-redux";
+import Loader from "../../../components/Loader";
 
 export default function PurchasedCourses() {
   const [purchasedCourses, setPurchasedCourses] = useState();
+  const isLoading =  useSelector(state=>state.loader.isLoading)
   useEffect(()=>{
     api.get(`/auth/my-courses`)
     .then((res)=>setPurchasedCourses(res.data.data))
@@ -12,6 +15,10 @@ export default function PurchasedCourses() {
   },[])
   const {lang} = useLanguage()
   return (
+    <>
+    {isLoading?
+    <Loader/>
+    :
     <div className="bg-white border border-gray-300 rounded p-8 ">
       
       <h2 className="text-2xl font-semibold mb-6">
@@ -53,5 +60,7 @@ export default function PurchasedCourses() {
       </div>
 
     </div>
+    }
+    </>
   );
 }

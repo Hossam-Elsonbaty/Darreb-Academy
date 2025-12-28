@@ -401,7 +401,7 @@ const About = () => {
         </div>
       </section>
       {/*================= End Cards Section ==================*/}
-      {/* <section className="relative bg-white">
+      <section className="relative bg-white">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-16">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 bg-[#eefbf3] rounded-2xl p-10">
             <img
@@ -472,17 +472,17 @@ const About = () => {
               </svg>
             </div>
             <div className="flex flex-col justify-center items-center">
-              <button className="btn1">
+              <NavLink to="/contact" className="btn1">
                 {i18n.language === "ar" ? (
                   <>أرسل معلوماتك</>
                 ) : (
                   <> Drop Information</>
                 )}
-              </button>
+              </NavLink>
             </div>
           </div>
         </div>
-      </section> */}
+      </section>
       {/*================= End Becoma A instructor Section ==================*/}
       <TeamSection />
       {/*================= End Team Section ==================*/}
