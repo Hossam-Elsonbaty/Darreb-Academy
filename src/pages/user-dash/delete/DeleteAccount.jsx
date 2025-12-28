@@ -6,12 +6,23 @@ import {
   DialogActions,
 } from "@mui/material";
 import { useLanguage } from "../../../hooks/useLanguage";
+import api from "../../../api/axios";
 
 export default function DeleteAccount() {
   const [open, setOpen] = useState(false);
-  const {lang} = useLanguage()
-  const handleDelete = () => {
-    console.log("Account Deleted");
+  const {lang} = useLanguage();
+  const token = localStorage.getItem("userData");
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  const handleDelete = async() => {
+    if(!token)return
+    try{
+      await api.delete(`/users/${userData._id}`)
+      localStorage.removeItem("token")
+      localStorage.removeItem("userData")
+      window.location.href = "/"
+    }catch(error){
+      console.log(error);
+    }
     setOpen(false);
   };
 
@@ -60,7 +71,7 @@ export default function DeleteAccount() {
                 {lang === "en" ? "Cancel" : "إلغاء"}
               </button>
               <button
-                onClick={() => {/* Handle account deletion logic here */}}
+                onClick={() => handleDelete()}
                 className="bg-red-600 text-white px-4 py-2 rounded"
               >
                 {lang === "en" ? "Confirm" : "تأكيد"}
