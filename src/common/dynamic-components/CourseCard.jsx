@@ -11,21 +11,56 @@ import { IoMdHeartEmpty } from "react-icons/io";
 import { IoMdHeart } from "react-icons/io";
 import { useCart } from "../../context/CartContext";
 import { useWishlist } from "../../context/WishlistContext";
+import { useContext } from "react";
+import ToasterContext from "../../context/ToasterContext";
 // import api from "../../api/axios";
 const profileImages = [profile1];
 
 const CourseCard = ({ c, status }) => {
   const { addToCart, cartItems, isCartLoading } = useCart();
   const isInCart = Array.isArray(cartItems?.items) && cartItems.items.some((item) => item.course?._id === c._id);
+  const userData = JSON.parse(localStorage.getItem('userData'))
+  const isPurchased = userData?.purchasedCourses.some((item) => item === c._id)
   const [isAdding, setIsAdding] = useState(false);
   const { lang } = useLanguage();
   const navigate = useNavigate();
   const { wishlist, toggleWishlist } = useWishlist();
-
+  const {setShowModal, setModalType, setModalMessage} = useContext(ToasterContext);
+  const token = localStorage.getItem('token');
   const isInWishlist = wishlist.some((item) => item.course._id === c._id);
   const handleAddToCart = async (e) => {
     e.stopPropagation();
-    if (isInCart) return;
+    console.log(isInCart);
+    if(!token){
+      setModalType("error");
+      setModalMessage(
+        lang === "en"
+          ? "Please sign in first"
+          : "من فضلك قم بتسجيل الدخول اولا"
+      );
+      setShowModal(true);
+      return;
+    }
+    if (isInCart){
+      setModalType("error");
+      setModalMessage(
+        lang === "en"
+          ? "Course already in cart"
+          : "لقد قمت بإضافة هذه الدوره إلى العربه من قبل"
+      );
+      setShowModal(true);
+      return;
+    };
+    if (isPurchased ){
+      setModalType("error");
+      setModalMessage(
+        lang === "en"
+        ? "Course already purchased"
+        : "لقد قمت بشراء هذه الدوره من قبل"
+      );
+      setShowModal(true);
+      return;
+    };
     setIsAdding(true);
     try {
       await addToCart(c);

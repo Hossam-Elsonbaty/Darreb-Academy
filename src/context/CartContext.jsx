@@ -31,18 +31,29 @@ export const CartProvider = ({ children }) => {
     try {
       const res = await api.delete(`/cart/${courseId}`);
       const updatedCart = cartItems.items.filter(item => item.course._id !== courseId);
-      setCartItems({ ...cartItems, items: updatedCart });
+      const newTotalPrice = updatedCart.reduce((total, item) => total + item.course.price, 0);
+      setCartItems({ ...cartItems, items: updatedCart, totalPrice: newTotalPrice });
     } catch (error) {
       console.log(error);
     }
   };
 
   const addToCart = async (course) => {
+
     const course_id =
-      course && typeof course === "object" && course._id ? course._id : course;
+    course && typeof course === "object" && course._id ? course._id : course;
     console.log(course == "" ? course : course._id);
     const token = localStorage.getItem("token");
-    if (!token) return;
+    if(!token){
+      setModalType("error");
+      setModalMessage(
+        lang === "en"
+          ? "Please sign in first"
+          : "من فضلك قم بتسجيل الدخول اولا"
+      );
+      setShowModal(true);
+      return;
+    }
     try {
       console.log("Adding course to cart:", course_id);
       const res = await api.post("/cart", { courseId: course_id });
@@ -58,8 +69,8 @@ export const CartProvider = ({ children }) => {
     } catch (error) {
       const status = error.response?.status;
       const data = error.response?.data;
-      console.error("Cart error data:", data);
-      console.error("Cart error status:", status);
+      console.log("Cart error data:", error);
+      console.log("Cart error status:", error);
       if (status === 404) {
         setModalType("error");
         setModalMessage(
@@ -106,6 +117,7 @@ export const CartProvider = ({ children }) => {
         setModalMessage,
         removeFromCart,
         getCart,
+        setCartItems,
       }}
     >
       {children}

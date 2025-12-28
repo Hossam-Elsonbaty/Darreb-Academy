@@ -10,10 +10,11 @@ import { useSelector } from "react-redux";
 import Loader from "../../components/Loader";
 import ConfirmDeletePopup from "../../components/ConfirmationPopup"; 
 const Cart = () => {
-    useEffect(()=>{
-      window.scrollTo(0,0)
-    },[])
-  
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
+  const { setShowModal, setModalType, setModalMessage,removeFromCart, getCart, cartItems,setCartItems } = useCart(); 
+  const {  toggleWishlist ,removeFromWishlist} = useWishlist();
   // const [cartItems, setCartItems] = useState([]);
   const isLoading = useSelector(state=>state.loader.isLoading);
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
@@ -40,14 +41,17 @@ const Cart = () => {
     try 
       {
         const response = await api.post('/payment/create-checkout-session', body);
+        console.log(response.data);
+        if (response.data.user) {
+          localStorage.setItem("userData", JSON.stringify(response.data.user));
+        }
+        setCartItems([])
         window.location.href = response.data.url;
       } 
     catch (error) {
       console.error("Error in payment checkout:", error.response ? error.response.data : error.message);
     }
   }
-  const { setShowModal, setModalType, setModalMessage,removeFromCart, getCart, cartItems } = useCart(); 
-  const {  toggleWishlist ,removeFromWishlist} = useWishlist();
 
   useEffect(() => {
     getCart();
