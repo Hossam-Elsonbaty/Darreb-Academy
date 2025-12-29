@@ -127,7 +127,7 @@ const Testimonials = () => {
                   <h4 className="text-lg font-semibold text-gray-800">
                     {review.fullName}
                   </h4>
-                  <p className="text-sm text-gray-500">{review.course.title}</p>
+                  <p className="text-sm text-gray-500">{review.course.title || "Introduction to javascript"}</p>
                 </div>
               </div>
             </SwiperSlide>
