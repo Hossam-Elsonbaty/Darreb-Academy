@@ -156,19 +156,39 @@ const CourseWatch = () => {
             {/* Tabs */}
             <div className="border-b border-[#ddd]">
               <div className="flex gap-4 px-6">
-                {lang=="en"?['overview', 'description',  'instructor']:['نظره عامة', 'الوصف',  'المحاضر'].map((tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={`px-4 py-3 text-sm font-medium capitalize transition-colors ${
-                      activeTab === tab
-                        ? 'text-green-600 border-b-2 border-green-600'
-                        : 'text-gray-600 hover:text-gray-900'
-                    }`}
-                  >
-                    {tab}
-                  </button>
-                ))}
+                {lang=="en"?
+                <>
+                  {['overview', 'description',  'instructor'].map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => setActiveTab(tab)}
+                      className={`px-4 py-3 text-sm font-medium capitalize transition-colors ${
+                        activeTab === tab
+                          ? 'text-green-600 border-b-2 border-green-600'
+                          : 'text-gray-600 hover:text-gray-900'
+                      }`}
+                    >
+                      {tab}
+                    </button>
+                  ))}
+                </>
+                :
+                <>
+                  {['نظره عامة', 'الوصف',  'المحاضر'].map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => setActiveTab(tab)}
+                      className={`px-4 py-3 text-sm font-medium capitalize transition-colors ${
+                        activeTab === tab
+                          ? 'text-green-600 border-b-2 border-green-600'
+                          : 'text-gray-600 hover:text-gray-900'
+                      }`}
+                    >
+                      {tab}
+                    </button>
+                  ))}
+                </>
+                }
               </div>
             </div>
 
