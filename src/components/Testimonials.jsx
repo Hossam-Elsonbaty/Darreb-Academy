@@ -106,7 +106,7 @@ const Testimonials = () => {
               <div className="bg-white border border-[#3f9c656b] rounded-xl p-6 text-center h-full flex flex-col justify-between transition-all duration-300 mx-2">
                 <div>
                   <img
-                    src={images[index % images.length]}
+                    src={review.user.profilePic}
                     alt="user-image"
                     className="w-20 h-20 rounded-full mx-auto object-cover mb-4 border-2 border-main/20"
                   />
@@ -125,7 +125,7 @@ const Testimonials = () => {
                 </div>
                 <div className="mt-4 pt-4 border-t border-gray-100">
                   <h4 className="text-lg font-semibold text-gray-800">
-                    {review.fullName}
+                    {review.user.fullName}
                   </h4>
                   <p className="text-sm text-gray-500">{review.course.title || "Introduction to javascript"}</p>
                 </div>
