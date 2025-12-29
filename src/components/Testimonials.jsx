@@ -101,7 +101,7 @@ const Testimonials = () => {
           modules={[Autoplay]}
           className="testimonials-swiper pb-12"
         >
-          {reviews&& reviews.map((review, index) => (
+          {reviews?.length>0 ?reviews.map((review, index) => (
             <SwiperSlide key={`${review._id}-${index}`}>
               <div className="bg-white border border-[#3f9c656b] rounded-xl p-6 text-center h-full flex flex-col justify-between transition-all duration-300 mx-2">
                 <div>
@@ -131,7 +131,12 @@ const Testimonials = () => {
                 </div>
               </div>
             </SwiperSlide>
-          ))}
+          ))
+          :
+          <div className="flex items-center justify-center">
+            <h1 className="font-bold text-2xl">لا يوجد أي تقييمات متاحه</h1>
+          </div>
+        }
         </Swiper>
       </div>
     </div>
