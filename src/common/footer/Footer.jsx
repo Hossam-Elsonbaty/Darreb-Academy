@@ -22,7 +22,8 @@ const Footer = () => {
             className="absolute left-24 top-10 w-16 md:w-20 z-0 animate-float-vertical"
           />
           <ul className="space-y-6">
-            <img src={logo} alt="logo" />
+            <span className="font-bold text-2xl">Darreb</span> <span className="font-bold text-2xl text-green-700">Academy</span>
+            {/* <img src={logo} alt="logo" /> */}
 
             <li className="font-medium text-2xl">
               {i18n.language === "ar" ? "شارع الكاريبي" : "Caribbean Ct"}
