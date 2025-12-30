@@ -678,7 +678,7 @@ const About = () => {
                   <h1 className="text-2xl font-medium">
                     Best Supporter Of{" "}
                     <span className="text-[#309255] relative">
-                      Edule
+                      Darreb Academy
                       <img
                         src={shape3}
                         alt=""
